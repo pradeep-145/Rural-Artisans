@@ -13,4 +13,4 @@ const artisanModel=mongoose.Schema({
     }
 })
 
-export default artisanModel
+export default mongoose.model('Artisan',artisanModel)

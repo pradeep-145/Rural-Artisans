@@ -15,4 +15,4 @@ const customerModel=mongoose.Schema({
     }
 })
 
-export default customerModel
+export default mongoose.model('Customer',customerModel)

@@ -1,5 +1,5 @@
-// import artisanModel from "../models/artisan.model"
-// import customerModel from "../models/customer.model"
+import artisanModel from "../models/artisan.model.js"
+import customerModel from "../models/customer.model.js"
 export const signUp = async () => {
     console.log('signup')
 }
