@@ -11,6 +11,7 @@ app.use(cors())
 
 app.use('/api/auth', authRouter)
 
+
 app.listen(port, () => {
     connectToDb()
     console.log(`server is running on http://localhost:${port}/`)

@@ -1,13 +1,12 @@
-import jwt from 'jsonwebtoken'
+import jwt from 'jsonwebtoken';
+import config from '../config/jwt.config.js';
 
-const generateToken=async(payload)=>{
-    const token=await jwt.sign(payload, process.env.JWT_SECRET);
-    return token;
-}
+const generateToken = (payload) => {
+    return jwt.sign(payload, config.secret, { expiresIn: config.expiresIn });
+};
 
-const verifyToken=async(token)=>{
-    const decoded=await jwt.verify(token, process.env.JWT_SECRET)
-    return decoded;
-}
+const verify = (token) => {
+    return jwt.verify(token, config.secret);
+};
 
-export default {generateToken, verifyToken};
+export { generateToken, verify };
