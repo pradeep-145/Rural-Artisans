@@ -19,7 +19,7 @@ const Navbar = () => {
                 <a href="#testimonials">Testimonials</a>
                 <a href="#contact">Contact</a>
                 {login==null && <a href="/login">Login/SignUp</a>}
-                {login && <a href="/profile"><CgProfile /></a>}  
+                {login && <a href="/customerDashboard"><CgProfile /></a>}  
                 {login==='customer' && <a href="/cart"><FaShoppingCart /></a>}   
                 {login==='customer' && <a href="/wishlist"><GoHeartFill /></a>}      
             </div>

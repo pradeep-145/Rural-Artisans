@@ -16,10 +16,10 @@ const ArtisanSignup = () => {
       <div>
         <h1>Artisan Signup</h1>
         <form>
-          <label>Name</label><br/>
+          <label>Brand Name</label><br/>
           <input
             type="text"
-            placeholder="Enter name"
+            placeholder="Enter brand name"
             value={name}
             onChange={(e) => setName(e.target.value)}
           /><br/>
