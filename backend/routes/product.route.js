@@ -8,7 +8,7 @@ const productRouter=express.Router();
 const storage=multer.memoryStorage();
 const upload=multer({storage:storage})
 productRouter.post('/save',upload.single("image"),artisanAuthMiddleware, saveProduct)
-productRouter.get('/users/get',customerAuthMiddle, getUserProducts)
+productRouter.get('/get', getUserProducts)
 productRouter.get('/artisan/get/:artisanId',artisanAuthMiddleware, getArtisanProducts)
 productRouter.get('/product/:productId',customerAuthMiddle, getProduct)
 productRouter.get('/admin/get',adminAuthMiddleware, getUnverifiedProducts)
