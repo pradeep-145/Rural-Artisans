@@ -1,14 +1,11 @@
-import express from "express";
-import RawMaterial from "../models/rawmaterial.model";
-const listingRouter = express.Router();
 
-
+import RawMaterial from "../models/rawmaterial.model.js";
 const isPriceReasonable = (sellerPrice, adminPrice) => {
     const tolerance = 0.3;
     return sellerPrice <= adminPrice * (1 + tolerance);
 };
 
-listingRouter.post("/add-material", async (req, res) => {
+export const addMaterial= async (req, res) => {
     try {
         const { name, price } = req.body;
 
@@ -34,9 +31,9 @@ listingRouter.post("/add-material", async (req, res) => {
         console.error(error);
         res.status(500).json({ error: "Internal server error" });
     }
-});
+}
 
-listingRouter.post("/evaluate-price", async (req, res) => {
+export const evaluatePrice=async (req, res) => {
     try {
         const { rawMaterials, packagingOverhead, labourCost, totalCost } = req.body;
 
@@ -81,6 +78,4 @@ listingRouter.post("/evaluate-price", async (req, res) => {
         console.error(error);
         res.status(500).json({ error: "Internal server error" });
     }
-});
-
-export default listingRouter;
+}

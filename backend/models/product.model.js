@@ -1,6 +1,10 @@
 import mongoose, { mongo } from "mongoose";
 
 export default mongoose.model("Product",mongoose.Schema({
+    artisanId:{
+        type:mongoose.Schema.Types.ObjectId,
+        ref:"Artisan",
+    },
     image:{
         type:String,
         required:true
@@ -20,6 +24,10 @@ export default mongoose.model("Product",mongoose.Schema({
     description:{
         type:String,
         required:true
+    },
+    isVerified:{
+        type:Boolean,
+        default:false
     },
     rating:[{
         type:Number

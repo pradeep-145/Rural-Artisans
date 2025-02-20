@@ -1,7 +1,6 @@
-import artisanModel from '../models/artisan.model.js';
 import { verify } from '../utils/jwt.utils.js';
 
-const artisanAuthMiddleware = async (req, res, next) => {
+const adminAuthMiddleware = async (req, res, next) => {
     try {
         const token = req.cookies.jwt;
         
@@ -10,16 +9,11 @@ const artisanAuthMiddleware = async (req, res, next) => {
         }
 
         const decoded = verify(token);
-        if (!decoded) {
+        if (!decoded || decoded.username !== process.env.username) {
             return res.status(401).json({ error: "Unauthorized" });
         }
 
-        const user = await artisanModel.findById(decoded.artisanId);
-        if (!user) {
-            return res.status(404).json({ error: "User Not Found" });
-        }
-
-        req.user = user;
+        req.user = { username: process.env.username };
         next();
     } catch (error) {
         console.error("Auth Middleware Error:", error);
@@ -29,4 +23,5 @@ const artisanAuthMiddleware = async (req, res, next) => {
     }
 };  
 
-export { artisanAuthMiddleware };
+export { adminAuthMiddleware };
+
