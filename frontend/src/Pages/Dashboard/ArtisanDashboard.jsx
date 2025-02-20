@@ -9,6 +9,7 @@ const ArtisanDashboard = () => {
     const [image, setImage] = useState('');
     const [addProduct, setAddProduct] = useState(false);
 
+
     return (
         <div>
             <div>
@@ -69,10 +70,21 @@ const ArtisanDashboard = () => {
                 </div>
                 <div>
                     <h3>My Orders</h3>
-
+                    
                 </div>
                 <div>
                     <h3>My Products</h3>
+                    <div>
+                        {products.map((product) => (
+                            <div key={product.id}>
+                                <h4>{product.name}</h4>
+                                <p>{product.price}</p>
+                                <p>{product.quantity}</p>
+                                <p>{product.description}</p>
+                                <img src={product.image} alt={product.name} />
+                            </div>
+                        ))}
+                        </div>
 
                 </div>
 
@@ -113,7 +125,7 @@ const ArtisanDashboard = () => {
                 }
                 `}
             </style>
-            
+
         </div>
     )
 }

@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { FiLogOut } from "react-icons/fi";
+import { Link } from 'react-router-dom';
 
 const AdminDashboard = () => {
     const [material, setMaterial] = useState('');
@@ -18,7 +20,12 @@ const AdminDashboard = () => {
 
     return (
         <div>
+            <div>
             <h1>Welcome Admin!</h1>
+            <Link to="/adminLogin">
+            <button type="submit">Logout<FiLogOut /></button>
+            </Link>
+            </div>
 
             <div>
                 <h1>Material Price Updation</h1>
