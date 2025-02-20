@@ -46,7 +46,7 @@ export const artisanSignIn = async (req, res) => {
                 sameSite: "strict",
                 secure: process.env.NODE_ENV === 'production' // Set secure flag in production
             });
-            res.status(200).json({ success: true, token: token, message: result });
+            res.status(200).json({ success: true, message: result, user:"artisan" });
 
         }
         else {
@@ -90,7 +90,7 @@ export const userSignIn = async (req, res) => {
                 sameSite: "strict",
                 secure: process.env.NODE_ENV === 'production' // Set secure flag in production
             });
-            res.status(200).json({ success: true, token: token, message: result });
+            res.status(200).json({ success: true, message: result, user:"customer" });
         } else {
             res.status(401).json({ success: false });
         }

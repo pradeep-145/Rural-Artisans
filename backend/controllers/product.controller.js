@@ -1,0 +1,55 @@
+import {v2 as cloudinary} from 'cloudinary';
+import productModel from '../models/product.model.js';
+cloudinary.config({
+    cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+    api_key: process.env.CLOUDINARY_API_KEY,
+    api_secret: process.env.CLOUDINARY_API_SECRET,
+  });
+const getImageLink=async (image)=>{
+    return new Promise((resolve,reject)=>{
+        cloudinary.uploader.upload_stream({folder:"uploads",resource_type:"auto"},(error,result)=>{
+            if(error){
+                reject(error)
+            }
+            resolve(result.url)
+        }).end(image.buffer)
+    })
+}
+
+export const saveProduct=async (req,res)=>{
+    const file=req.file;
+    if(!file){
+        return res.status(400).send("Please upload a file")
+    }
+    const link=await getImageLink(file);
+    try{
+        const product=await productModel.create({
+            image:link,
+            name:req.body.name,
+            price:req.body.price,
+            quantity:req.body.quantity,
+            description:req.body.description,
+            tag:req.body.tag
+        })
+        res.status(201).json(product)
+    }
+    catch(error){
+        console.log("error at saveProduct:",error)
+        res.status(500).send("Internal Server Error")
+    }
+    
+}
+
+
+export const getProducts=async(req,res)=>{
+    try{
+        const products=await productModel.find().populate("review")
+        res.status(200).json(products)
+    }
+    catch(error){
+        console.log("error at getProducts:",error)
+        res.status(500).send("Internal Server Error")
+    }
+
+}
+
