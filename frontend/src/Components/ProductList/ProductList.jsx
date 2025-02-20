@@ -1,9 +1,9 @@
 
 const ProductList = () => {
 
-    const items = [{ img: "https://www.shutterstock.com/image-photo/gender-neutral-baby-garment-organic-600nw-1987778996.jpg", name: "Baby Garment", price: 100 }]
+    const items = [{ img: "https://www.shutterstock.com/image-photo/gender-neutral-baby-garment-organic-600nw-1987778996.jpg", name: "Baby Garment", price: 100, id: 1 }]
     return (
-        <div>
+        <div id="products">
             <div>
                 <h1>Products listing</h1>
                 <div>
