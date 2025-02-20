@@ -1,7 +1,7 @@
 import artisanModel from '../models/artisan.model.js';
 import { verify } from '../utils/jwt.utils.js';
 
-const authMiddleware = async (req, res, next) => {
+const artisanAuthMiddleware = async (req, res, next) => {
     try {
         const token = req.cookies.jwt;
         
@@ -29,4 +29,4 @@ const authMiddleware = async (req, res, next) => {
     }
 };  
 
-export { authMiddleware };
+export { artisanAuthMiddleware };

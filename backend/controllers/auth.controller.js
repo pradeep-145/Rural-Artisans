@@ -41,10 +41,9 @@ export const artisanSignIn = async (req, res) => {
             }
             const token = generateToken(payload);
             res.cookie('jwt', token, {
-                maxAge: 15 * 24 * 60 * 60 * 1000,
+                maxAge:  24 * 60 * 60 * 1000,
                 httpOnly: true,
                 sameSite: "strict",
-                secure: process.env.NODE_ENV === 'production' // Set secure flag in production
             });
             res.status(200).json({ success: true, message: result, user:"artisan" });
 
@@ -76,7 +75,7 @@ export const userSignUp = async (req, res) => {
 
 export const userSignIn = async (req, res) => {
     const { email, password } = req.body
-    customerModel.findOne({ email: email }).then(async (result) => {
+    await customerModel.findOne({ email: email }).then(async (result) => {
         const isVerified = await bcrypt.compare(password, result.password);
         if (isVerified) {
             const payload = {
@@ -88,7 +87,7 @@ export const userSignIn = async (req, res) => {
                 maxAge: 15 * 24 * 60 * 60 * 1000,
                 httpOnly: true,
                 sameSite: "strict",
-                secure: process.env.NODE_ENV === 'production' // Set secure flag in production
+                
             });
             res.status(200).json({ success: true, message: result, user:"customer" });
         } else {
@@ -98,4 +97,35 @@ export const userSignIn = async (req, res) => {
         console.log(error);
         res.status(404).json({ message: "user not found" });
     });
+}
+
+export const logout = (req, res) => {
+    res.clearCookie('jwt');
+    res.status(200).json({ message: "logout successful" });
+}
+
+export const adminSignIn= async(req,res)=>{
+    const {username,password}=req.body
+    try {
+        
+        if(username===process.env.username && await bcrypt.compare(password,process.env.password)){
+            const payload={
+                username:process.env.username
+            }
+            const token=generateToken(payload)
+            res.cookie('jwt', token, {
+                maxAge: 12 * 60 * 60 * 1000,  
+                httpOnly: true,
+                sameSite: "strict",
+            });
+            res.status(200).json({message:"admin logged in successfully",user:"admin", success:true})
+        }
+        else{
+            res.status(401).json({message:"invalid credentials"})
+        }
+    } catch (error) {
+        console.log("error at adminSignIn:",error)
+        res.status(500).json({message:"internal server error"})    
+    }
+    
 }

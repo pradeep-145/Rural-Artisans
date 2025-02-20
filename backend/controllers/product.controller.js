@@ -41,9 +41,9 @@ export const saveProduct=async (req,res)=>{
 }
 
 
-export const getProducts=async(req,res)=>{
+export const getUserProducts=async(req,res)=>{
     try{
-        const products=await productModel.find().populate("review")
+        const products=await productModel.find({isVerified:true},{image:1,name:1,price:1,quantity:1,tag:1})
         res.status(200).json(products)
     }
     catch(error){
@@ -52,4 +52,38 @@ export const getProducts=async(req,res)=>{
     }
 
 }
+export const getArtisanProducts=async(req,res)=>{
+    const {artisanId}=req.params;
+    try{
+        const products=await productModel.find({artisanId:artisanId},{image:1,name:1,price:1,quantity:1,tag:1})
+        res.status(200).json(products)
+    }
+    catch(error){
+        console.log("error at getProducts:",error)
+        res.status(500).send("Internal Server Error")
+    }
+}
 
+export const getUnverifiedProducts=async(req,res)=>{
+    try{
+        const products=await productModel.find({isVerified:false},{artisanId:1,image:1,name:1,price:1,quantity:1,tag:1})
+        res.status(200).json(products)
+    }
+    catch(error){
+        console.log("error at getProducts:",error)
+        res.status(500).send("Internal Server Error")
+    }
+}
+
+export const getProduct=async(req,res)=>{
+    const {productId}=req.params;
+    try{
+        const product=await productModel.findById(productId)
+        res.status(200).json(product)
+    }
+    catch(error){
+        console.log("error at getProducts:",error)
+        res.status(500).send("Internal Server Error")
+    }
+
+}

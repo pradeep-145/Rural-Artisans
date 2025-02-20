@@ -1,7 +1,7 @@
 import customerModel from '../models/customer.model.js';
 import { verify } from '../utils/jwt.utils.js';
 
-const authMiddleware = async (req, res, next) => {
+const customerAuthMiddle = async (req, res, next) => {
     try {
         const token = req.cookies.jwt;
         
@@ -29,4 +29,4 @@ const authMiddleware = async (req, res, next) => {
     }
 };  
 
-export { authMiddleware };
+export { customerAuthMiddle };
