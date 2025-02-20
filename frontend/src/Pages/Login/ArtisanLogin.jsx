@@ -1,3 +1,5 @@
+import {Link} from 'react-router-dom'
+
 import React, { useState } from 'react'
 const ArtisanLogin = () => {
    const [otp, setOtp] = useState('');
@@ -8,7 +10,6 @@ const ArtisanLogin = () => {
       console.log('OTP sent to', phoneNumber);
       setShowOtpField(true);
     };
-
     
   return (
     <div>
@@ -34,8 +35,10 @@ const ArtisanLogin = () => {
           <div>
              <a href="/artisanSignup">Don't have an account?</a>
           </div>
-
+          <Link to="/artisanDashboard">
           <button type="submit">Login</button>
+          </Link>
+
         </form>
       </div>
     </div>

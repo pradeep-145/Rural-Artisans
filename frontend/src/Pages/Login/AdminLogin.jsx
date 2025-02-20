@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom"
 
 const AdminLogin = () => {
   return (
@@ -13,7 +14,9 @@ const AdminLogin = () => {
             <label>Password</label><br/>
             <input type="password" placeholder="Enter password" />
           </div>
+          <Link to="/adminDashboard">
           <button type="submit">Login</button>
+          </Link>
         </form>
       </div>
     </div>

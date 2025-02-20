@@ -1,3 +1,4 @@
+import {Link} from 'react-router-dom'
 
 const CustomerLogin = () => {
     return (
@@ -16,7 +17,9 @@ const CustomerLogin = () => {
                     <div>
                         <a href="/customerSignup">Don't have an account?</a>
                     </div>
+                    <Link to="/">
                     <button type="submit">Login</button>
+                    </Link>
                 </form>
             </div>
         </div>
