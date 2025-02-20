@@ -1,0 +1,253 @@
+.pageContainer {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    min-height: 100vh;
+}
+
+.loginSection {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
+    background: white;
+}
+
+.promoSection {
+    background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+    padding: 4rem;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.promoTitle {
+    font-size: 2.5rem;
+    font-weight: 500;
+    margin-bottom: 1.5rem;
+    line-height: 1.2;
+}
+
+.promoText {
+    font-size: 1.125rem;
+    opacity: 0.9;
+    margin-bottom: 2rem;
+    line-height: 1.6;
+}
+
+.loginCard {
+    width: 100%;
+    max-width: 400px;
+    padding: 2rem;
+}
+
+.title {
+    font-size: 1.75rem;
+    color: #1e293b;
+    margin-bottom: 2rem;
+    font-weight: 500;
+}
+
+.formGroup {
+    margin-bottom: 1.5rem;
+}
+
+.label {
+    display: block;
+    font-size: 0.875rem;
+    color: #64748b;
+    margin-bottom: 10px;
+}
+
+.input {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    border: 1.5px solid #e2e8f0;
+    border-radius: 4px;
+    font-size: 1rem;
+    transition: all 0.2s;
+}
+
+.input:focus {
+    outline: none;
+    border-color: #2563eb;
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+}
+
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.button {
+    width: 100%;
+    padding: 0.75rem;
+    background: #707ef8;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    margin-bottom: 10px;
+    transition: background 0.2s;
+}
+
+.button:hover {
+    background: #6366f1;
+}
+
+.disabledButton {
+    background: #94a3b8;
+    cursor: not-allowed;
+}
+
+.disabledButton:hover {
+    background: #94a3b8;
+    cursor: not-allowed;
+}
+
+.link {
+    color: black;
+    font-size: 0.875rem;
+    text-align: center;
+    margin-top: 1rem;
+}
+
+.linkText {
+    color: blue;
+    text-decoration: none;
+    margin-left: 5px;
+    transition: transform 0.4s ease;
+    display: inline-block;
+}
+
+.linkText:hover {
+    transform: scale(1.09);
+}
+
+@media (max-width: 768px) {
+    .pageContainer {
+        grid-template-columns: 1fr;
+    }
+
+    .promoSection {
+        display: none;
+    }
+
+    .loginCard {
+        padding: 1.5rem;
+    }
+}
+
+.splitContainer {
+    display: flex;
+    min-height: 100vh;
+    width: 100%;
+    background: #f3f3f3;
+}
+
+.businessSection,
+.customerSection {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 3rem;
+    text-align: center;
+}
+
+.businessSection {
+    background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+}
+
+.customerSection {
+    background: linear-gradient(135deg, #f1f5f9 0%, #ffffff 100%);
+}
+
+.contentWrapper {
+    max-width: 460px;
+    width: 100%;
+}
+
+.title {
+    font-size: 2.5rem;
+    font-weight: 400;
+    color: #39424e;
+    margin-bottom: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.subtitle {
+    font-size: 1rem;
+    color: #39424e;
+    margin-bottom: 2rem;
+    line-height: 1.5;
+}
+
+.actionButton {
+    display: inline-block;
+    width: 100%;
+    max-width: 300px;
+    padding: 0.75rem 2rem;
+    font-size: 1rem;
+    font-weight: 500;
+    text-decoration: none;
+    border-radius: 4px;
+    transition: all 0.2s ease;
+}
+
+.businessSection .actionButton {
+    background: #707ef8;
+    color: white;
+    border: none;
+}
+
+.customerSection .actionButton {
+    background: transparent;
+    color: #39424e;
+    border: 1px solid #39424e;
+}
+
+.businessSection .actionButton:hover {
+    background: #6366f1;
+}
+
+.customerSection .actionButton:hover {
+    background: #f8f9fa;
+}
+
+.splitContainer::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    height: 100%;
+    width: 1px;
+    background: #e0e0e0;
+    z-index: 1;
+}
+
+@media (max-width: 768px) {
+    .splitContainer {
+        flex-direction: column;
+    }
+
+    .splitContainer::before {
+        display: none;
+    }
+
+    .businessSection,
+    .customerSection {
+        padding: 2rem 1rem;
+    }
+
+    .title {
+        font-size: 2rem;
+    }
+}

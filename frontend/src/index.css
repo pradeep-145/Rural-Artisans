@@ -2,12 +2,12 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  font-family: 'Inter', sans-serif;
 }
 
 :root {
-  --body-font: 'Inter', sans-serif;
   --heading-font: 'Poppins', sans-serif;
   --primary-color: #2D9CDB;
   --secondary-color: #56CCF2;
-  --tertiary-color: #E0E0E0;    
+  --tertiary-color: #E0E0E0;
 }

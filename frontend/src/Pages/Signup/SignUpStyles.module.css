@@ -1,0 +1,154 @@
+.pageContainer {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    min-height: 100vh;
+}
+
+.animatedSection {
+    background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+    padding: 4rem;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.welcomeTitle {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    color: #94a3b8;
+}
+
+.communityTitle {
+    font-size: 3.5rem;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+    line-height: 1.2;
+}
+
+.communityText {
+    font-size: 1.125rem;
+    color: #94a3b8;
+}
+
+.signupSection {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
+    background: white;
+}
+
+.signupCard {
+    width: 100%;
+    max-width: 400px;
+    padding: 2rem;
+}
+
+.joinTitle {
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+    color: #1e293b;
+}
+
+.createAccount {
+    font-size: 2rem;
+    font-weight: 600;
+    color: #0f172a;
+    margin-bottom: 1rem;
+}
+
+.subtitle {
+    color: #64748b;
+    margin-bottom: 2rem;
+}
+
+.formGroup {
+    margin-bottom: 1.25rem;
+}
+
+.input {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    border: 1.5px solid #e2e8f0;
+    border-radius: 4px;
+    font-size: 1rem;
+    transition: all 0.2s;
+}
+
+.input:focus {
+    outline: none;
+    border-color: #818cf8;
+    box-shadow: 0 0 0 3px rgba(129, 140, 248, 0.1);
+}
+
+.input::placeholder {
+    color: #94a3b8;
+}
+
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.signupButton {
+    width: 100%;
+    padding: 0.75rem;
+    background: #707ef8;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    margin-bottom: 10px;
+    transition: background 0.2s;
+}
+
+.signupButton:hover {
+    background: #6366f1;
+}
+
+.disabledButton {
+    background: #94a3b8;
+    cursor: not-allowed;
+}
+
+.disabledButton:hover {
+    background: #94a3b8;
+    cursor: not-allowed;
+}
+
+.signupLink {
+    text-align: center;
+    font-size: 0.875rem;
+    margin-top: 10px;
+    color: black;
+}
+
+.signupLinkText {
+    color: blue;
+    text-decoration: none;
+    margin-left: 5px;
+    transition: transform 0.4s ease;
+    display: inline-block;
+}
+
+.signupLinkText:hover {
+    transform: scale(1.09);
+}
+
+@media (max-width: 768px) {
+    .pageContainer {
+        grid-template-columns: 1fr;
+    }
+
+    .animatedSection {
+        display: none;
+    }
+
+    .signupCard {
+        padding: 1.5rem;
+    }
+}

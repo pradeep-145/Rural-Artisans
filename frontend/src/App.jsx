@@ -23,9 +23,9 @@ function App() {
         <Route path="/customerLogin" element={<CustomerLogin />} />
         <Route path="/artisanSignup" element={<ArtisanSignup />} />
         <Route path="/customerSignup" element={<CustomerSignup />} />
-        <Route path ="/" element = {<LandingPage/>}/>
-        <Route path="/login" element={<LoginSplit />} />  
-        <Route path = "/adminDashboard" element = {<AdminDashboard/>}/>
+        <Route path="/" element={<LandingPage />} />
+        <Route path="/login" element={<LoginSplit />} />
+        <Route path="/adminDashboard" element={<AdminDashboard />} />
         <Route path="/artisanDashboard" element={<ArtisanDashboard />} />
       </Routes>
     </BrowserRouter>
