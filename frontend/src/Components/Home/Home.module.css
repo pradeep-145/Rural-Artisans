@@ -1,10 +1,12 @@
+/* Ensure parent container is positioned correctly */
 .carousel-container {
   width: 100%;
-  max-width: 1200px; /* Keeps it large but within a reasonable limit */
+  max-width: 1200px; 
   margin: auto;
   padding: 20px 0;
 }
 
+/* Ensure images do not push dots down */
 .slick-slide img {
   width: 100%;
   height: 500px;  /* Ensures all images have the same height */
@@ -13,19 +15,50 @@
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
 }
 
+/* Fix dot positioning over the images */
+.slick-dots {
+  position: absolute !important; /* Forces positioning */
+  bottom: 20px; /* Adjust this value to move dots up or down */
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex !important;
+  justify-content: center;
+  gap: 8px;
+  z-index: 10; /* Ensures dots are always above */
+  margin: 0; /* Remove default margin */
+  padding: 0; /* Remove default padding */
+  list-style: none; /* Remove default list styling */
+}
 
 /* Dots Styling */
+.slick-dots li {
+  background-color: #56CCF2; /* Semi-transparent black background */
+  border-radius: 50%; /* Make dots circular */
+  padding: 5px; /* Add padding to increase the size */
+  transition: background-color 0.3s;
+}
+
+/* Style dots */
 .slick-dots li button:before {
-  color: white !important;
-  font-size: 12px !important;
+  font-size: 14px; /* Ensure the font size is consistent */
+  color: #56CCF2 !important;
+  opacity: 0.9;
+  transition: 0.3s;
+}
+
+/* Active dot styling */
+.slick-dots li.slick-active {
+  background-color: gold; /* Change background for active dot */
 }
 
 .slick-dots li.slick-active button:before {
   color: gold !important;
+  opacity: 1;
 }
 
-/* Remove default padding/margin */
+/* Ensure the dot container stays correctly positioned */
 .slick-list {
   margin: 0;
   padding: 0;
+  transition: all 0.5s;
 }
