@@ -1,7 +1,17 @@
+import { useNavigate } from "react-router-dom";
 
 const ProductList = () => {
+    const navigate = useNavigate();
+    const items = [{ img: "https://www.shutterstock.com/image-photo/gender-neutral-baby-garment-organic-600nw-1987778996.jpg", 
+    name: "Baby Garment", 
+    price: 100,
+     id: 1
+     }]
 
-    const items = [{ img: "https://www.shutterstock.com/image-photo/gender-neutral-baby-garment-organic-600nw-1987778996.jpg", name: "Baby Garment", price: 100, id: 1 }]
+     const handleCardClick = (item) =>{
+        navigate(`/product/${item.id}`, {state:{product:item}});
+     }
+
     return (
         <div id="products">
             <div>
@@ -9,7 +19,7 @@ const ProductList = () => {
                 <div>
                     {items.map((item, index) => (
                         
-                        <div key={index}>
+                        <div key={item.id} onClick={()=>handleCardClick(item)}>
                             <img src={item.img} alt={item.name} />
                             <h3>{item.name}</h3>
                             <p>{item.price}</p>
