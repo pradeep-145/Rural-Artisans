@@ -11,10 +11,10 @@ const LandingPage = () => {
         <>
             <Navbar />
             <ProductList />
-            <About/>
+            {/* <About/>
             <Testimonials/>
             <Contact/>
-            <Footer/>
+            <Footer/> */}
             
         </>
     )
