@@ -1,7 +1,29 @@
 import styles from './SignUpStyles.module.css'
-import { Link } from 'react-router-dom'
-
+import { Link, useNavigate } from 'react-router-dom'
+import axios from 'axios'
+import { useEffect,useState } from 'react'
 const CustomerSignup = () => {
+    const [formData, setFormData] = useState({
+        name: '',
+        email: '',
+        password: ''
+    })
+    const navigate=useNavigate()
+
+    const handleSubmit = async(e) => {
+        e.preventDefault()
+        try {
+            await axios.post('/api/auth/user/sign-up',{...formData})
+            console.log('created')
+            navigate('/customerLogin')
+            
+        } catch (error) {
+            console.log(error)
+        }
+
+    }
+
+
     return (
         <div className={styles.pageContainer}>
             <div className={styles.animatedSection}>
@@ -19,16 +41,26 @@ const CustomerSignup = () => {
 
                     <form>
                         <div className={styles.formGroup}>
-                            <input type="text" className={styles.input} placeholder="Full Name" />
+                            <input type="text" className={styles.input} placeholder="Full Name" onChange={(e)=>{
+                                setFormData({...formData,name:e.target.value})
+                            }} />
                         </div>
                         <div className={styles.formGroup}>
-                            <input type="email" className={styles.input} placeholder="Email" />
+                            <input type="email" className={styles.input} placeholder="Email"
+                                onChange={(e)=>{
+                                    setFormData({...formData,email:e.target.value})
+                                }}    
+                                />
                         </div>
                         <div className={styles.formGroup}>
-                            <input type="password" className={styles.input} placeholder="Password" />
+                            <input type="password" className={styles.input} placeholder="Password"  
+                                onChange={(e)=>{
+                                    setFormData({...formData,password:e.target.value})
+                                }}
+                            />
                         </div>
 
-                        <button type="submit" className={styles.signupButton}>
+                        <button type="submit" onClick={handleSubmit} className={styles.signupButton}>
                             Sign up
                         </button>
 
