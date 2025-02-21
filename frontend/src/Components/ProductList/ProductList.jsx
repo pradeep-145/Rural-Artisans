@@ -29,7 +29,7 @@ const ProductList = () => {
                 </div>
             </div>
         </div>
-    </div>
+    
   );
 };
 
