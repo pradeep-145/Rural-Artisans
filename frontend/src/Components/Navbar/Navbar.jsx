@@ -11,7 +11,7 @@ const Navbar = () => {
   const [searchTerm, setSearchTerm] = useState("");
 
   useEffect(() => {
-    setLogin(localStorage.getItem("user"));
+    setLogin(localStorage.getItem("type"));
   }, []);
 
   const toggleCart = () => {
@@ -20,7 +20,7 @@ const Navbar = () => {
 
   const handleAuth = () => {
     if (login) {
-      localStorage.removeItem("user");
+      localStorage.removeItem("type");
       setLogin(null);
     } else {
       window.location.href = "/login";
