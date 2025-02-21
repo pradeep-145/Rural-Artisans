@@ -35,18 +35,18 @@ const Navbar = () => {
         </div>
 
         <div className={styles.usernav__contents}>
-          {login === "customer" ? (
+          {login === "artisan" ? (
+            <>
+              <div className={styles.usernav__items}>HOME</div>
+              <div className={styles.usernav__items}>VIEW ORDERS</div>
+            </>
+          ) : (
             <>
               <div className={styles.usernav__items}>HOME</div>
               <div className={styles.usernav__items}>PRODUCT</div>
               <div className={styles.usernav__items}>ABOUT</div>
               <div className={styles.usernav__items}>TESTIMONIALS</div>
               <div className={styles.usernav__items}>CONTACT</div>
-            </>
-          ) : (
-            <>
-              <div className={styles.usernav__items}>HOME</div>
-              <div className={styles.usernav__items}>VIEW ORDERS</div>
             </>
           )}
         </div>
