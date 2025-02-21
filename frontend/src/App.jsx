@@ -8,6 +8,7 @@ import LoginSplit from './Pages/Login/LoginSplit';
 import LandingPage from './Pages/LandingPage';
 import ArtisanDashboard from './Pages/Dashboard/ArtisanDashboard';
 import AdminDashboard from './Pages/Dashboard/AdminDashboard';
+import Product from './Pages/Product/Product';
 import { useEffect } from 'react';
 
 function App() {
@@ -27,6 +28,7 @@ function App() {
         <Route path="/login" element={<LoginSplit />} />
         <Route path="/adminDashboard" element={<AdminDashboard />} />
         <Route path="/artisanDashboard" element={<ArtisanDashboard />} />
+        <Route path="/product/:id" element={<Product/>} />
       </Routes>
     </BrowserRouter>
   )
