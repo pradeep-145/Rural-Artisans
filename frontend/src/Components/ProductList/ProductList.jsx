@@ -15,23 +15,21 @@ const ProductList = () => {
     navigate(`/product/${item.id}`, { state: { product: item } });
   };
 
-    return (
-        <div id="products">
-            <div>
-                <h1>Products listing</h1>
-                <div>
-                    {items.map((item) => (
-                        
-                        <div key={item.id} onClick={()=>handleCardClick(item)}>
-                            <img src={item.img} alt={item.name} />
-                            <h3>{item.name}</h3>
-                            <p>{item.price}</p>
-                            <button>Add to Cart</button>
-                        </div>
-                    ))}
-                </div>
+  return (
+    <div id="products">
+      <div>
+        <h1>Products listing</h1>
+        <div>
+          {items.map((item) => (
+            <div key={item.id} onClick={() => handleCardClick(item)}>
+              <img src={item.img} alt={item.name} />
+              <h3>{item.name}</h3>
+              <p>{item.price}</p>
+              <button>Add to Cart</button>
             </div>
+          ))}
         </div>
+      </div>
     </div>
   );
 };

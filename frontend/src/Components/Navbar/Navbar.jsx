@@ -53,8 +53,8 @@ const Navbar = () => {
         </div>
 
         <div className={styles.auth__cart_container}>
-          {!login ? (
-            <FaRegUser className={styles.__icon} />
+          {login ? (
+            <FaRegUser className={styles.__icon} onClick={handleAuth} />
           ) : (
             <button className={styles.auth__button} onClick={handleAuth}>
               Login / Register
