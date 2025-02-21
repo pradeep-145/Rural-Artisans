@@ -76,28 +76,36 @@ export const userSignUp = async (req, res) => {
 
 export const userSignIn = async (req, res) => {
     const { email, password } = req.body
-    await customerModel.findOne({ email: email }).then(async (result) => {
-        const isVerified = await bcrypt.compare(password, result.password);
-        if (isVerified) {
-            const payload = {
-                userId: result._id,
-                email: email,
-            };
-            const token = generateToken(payload);
-            res.cookie('jwt', token, {
-                maxAge: 15 * 24 * 60 * 60 * 1000,
-                httpOnly: true,
-                sameSite: "strict",
-                
-            });
-            res.status(200).json({ success: true, message: result, user:"customer" });
-        } else {
-            res.status(401).json({ success: false });
-        }
-    }).catch((error) => {
+    try {
+        
+            const result=await customerModel.findOne({ email: email })
+            if(result){
+            const isVerified = await bcrypt.compare(password, result.password);
+            if (isVerified) {
+                const payload = {
+                    userId: result._id,
+                    email: email,
+                };
+                const token = generateToken(payload);
+                res.cookie('jwt', token, {
+                    maxAge: 15 * 24 * 60 * 60 * 1000,
+                    httpOnly: true,
+                    sameSite: "strict",
+                    
+                });
+                res.status(200).json({ success: true, message: result, user:"customer" });
+            } else {
+                res.status(401).json({ success: false });
+            }}
+            else
+            {
+                throw new Error("user not found")
+            }
+    } catch (error) {
         console.log(error);
         res.status(404).json({ message: "user not found" });
-    });
+        
+    }
 }
 
 export const logout = (req, res) => {
