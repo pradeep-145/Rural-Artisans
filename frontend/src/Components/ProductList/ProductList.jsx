@@ -17,6 +17,7 @@ const ProductList = () => {
             <div>
                 <h1>Products listing</h1>
                 <div>
+                    
                     {items.map((item, index) => (
                         <div key={index}>
                             <img src={item.img} alt={item.name} />
