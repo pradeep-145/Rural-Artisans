@@ -5,7 +5,7 @@ const isPriceReasonable = (sellerPrice, adminPrice) => {
     return sellerPrice <= adminPrice * (1 + tolerance);
 };
 
-export const addMaterial= async (req, res) => {
+export const addMaterial = async (req, res) => {
     try {
         const { name, price } = req.body;
 
@@ -33,7 +33,17 @@ export const addMaterial= async (req, res) => {
     }
 }
 
-export const evaluatePrice=async (req, res) => {
+export const getMaterials = async (req, res) => {
+    try {
+        const materials = await RawMaterial.find();
+        res.status(200).json(materials);
+    } catch (error) {
+        res.status(500).json({ error: "Internal server error" });
+    }
+};
+
+
+export const evaluatePrice = async (req, res) => {
     try {
         const { rawMaterials, packagingOverhead, labourCost, totalCost } = req.body;
 
