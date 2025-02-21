@@ -1,0 +1,31 @@
+.carousel-container {
+  width: 100%;
+  max-width: 1200px; /* Keeps it large but within a reasonable limit */
+  margin: auto;
+  padding: 20px 0;
+}
+
+.slick-slide img {
+  width: 100%;
+  height: 500px;  /* Ensures all images have the same height */
+  object-fit: cover; /* Crops the image while maintaining aspect ratio */
+  border-radius: 10px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+
+/* Dots Styling */
+.slick-dots li button:before {
+  color: white !important;
+  font-size: 12px !important;
+}
+
+.slick-dots li.slick-active button:before {
+  color: gold !important;
+}
+
+/* Remove default padding/margin */
+.slick-list {
+  margin: 0;
+  padding: 0;
+}
