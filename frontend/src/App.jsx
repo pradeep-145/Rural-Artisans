@@ -12,9 +12,6 @@ import Product from './Pages/Product/Product';
 import { useEffect } from 'react';
 
 function App() {
-  useEffect(() => {
-    localStorage.setItem("user", "customer")
-  }, [])
 
   return (
     <BrowserRouter>

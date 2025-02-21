@@ -1,19 +1,46 @@
+import axios from 'axios'
+import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import styles from './LoginStyles.module.css'
-
 const AdminLogin = () => {
+  const [formData, setFormData] = useState({
+    username: '',
+    password: '',
+  })
+  const navigate=useNavigate()
+  const handleSubmit=async(e)=>{
+    e.preventDefault();
+    try{
+      const response = await axios.post('/api/admin/login',formData)
+      if(response){
+        console.log(response.data)
+        navigate('/adminDashboard')
+      }
+
+    }catch(error){
+      console.log(error)
+    }
+
+
+  }
   return (
     <div className={styles.pageContainer}>
       <div className={styles.loginSection}>
         <div className={styles.loginCard}>
           <h1 className={styles.title}>Admin Login</h1>
-          <form>
+          <form onSubmit={handleSubmit}>
             <div className={styles.formGroup}>
-              <label className={styles.label}>Email</label>
-              <input type="email"className={styles.input} placeholder="Enter email" />
+              <label className={styles.label}>Username</label>
+              <input type="text"className={styles.input} placeholder="Enter username"  onChange={(e)=>{
+                setFormData({...formData, username: e.target.value})
+              }}/>
             </div>
             <div className={styles.formGroup}>
               <label className={styles.label}>Password</label>
               <input type="password" className={styles.input} placeholder="Enter password"
+              onChange={(e)=>{
+                setFormData({...formData, password: e.target.value})
+              }}
               />
             </div>
             <button type="submit" className={styles.button}>
