@@ -52,19 +52,20 @@ const Navbar = () => {
           />
         </div>
 
-        <div className={styles.auth__cart_container}>
-          {login ? (
+        {!login ? (
+          <button className={styles.auth__button} onClick={handleAuth}>
+            Login / Register
+          </button>
+        ) : (
+          <div className={styles.auth__cart_container}>
             <FaRegUser className={styles.__icon} onClick={handleAuth} />
-          ) : (
-            <button className={styles.auth__button} onClick={handleAuth}>
-              Login / Register
-            </button>
-          )}
-          <div className={styles.__icon} onClick={toggleCart}>
-            <GrCart />
+
+            <div className={styles.__icon} onClick={toggleCart}>
+              <GrCart />
+            </div>
+            <FaRegHeart className={styles.__icon} />
           </div>
-          <FaRegHeart className={styles.__icon} />
-        </div>
+        )}
       </div>
     </nav>
   );
