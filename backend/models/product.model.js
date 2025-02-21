@@ -1,6 +1,6 @@
 import mongoose, { mongo } from "mongoose";
 
-export default mongoose.model("Product",mongoose.Schema({
+export default mongoose.model("Product",new mongoose.Schema({
     artisanId:{
         type:mongoose.Schema.Types.ObjectId,
         ref:"Artisan",
@@ -29,9 +29,7 @@ export default mongoose.model("Product",mongoose.Schema({
         type:Boolean,
         default:false
     },
-    rating:[{
-        type:Number
-    }],
+   
     tag :[{
         type:String,
         required:true

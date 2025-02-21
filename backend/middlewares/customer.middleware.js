@@ -15,6 +15,7 @@ const customerAuthMiddle = async (req, res, next) => {
         }
 
         const user = await customerModel.findById(decoded.userId).select("-password");
+        
         if (!user) {
             return res.status(404).json({ error: "User Not Found" });
         }
