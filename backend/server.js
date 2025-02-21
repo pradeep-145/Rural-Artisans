@@ -6,6 +6,7 @@ import authRouter from './routes/auth.route.js';
 import cookieParser from 'cookie-parser';
 import productRouter from './routes/product.route.js';
 import paymentRouter from './routes/payment.route.js';
+import listingRouter from './routes/fairprice.route.js';
 dotenv.config()
 const port = process.env.PORT || 3000;
 const app = express();
@@ -16,7 +17,8 @@ app.use(cookieParser())
 
 app.use('/api/auth', authRouter)
 app.use('/api/products', productRouter)
-app.use('/api/payments',paymentRouter)
+app.use('/api/payments', paymentRouter)
+app.use('/api/admin', listingRouter)
 
 
 app.listen(port, () => {

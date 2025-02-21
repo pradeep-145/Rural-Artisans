@@ -11,7 +11,7 @@ const AdminLogin = () => {
   const handleSubmit=async(e)=>{
     e.preventDefault();
     try{
-      const response = await axios.post('/api/admin/login',formData)
+      const response = await axios.post('/api/auth/admin/sign-in',{...formData})
       if(response){
         console.log(response.data)
         navigate('/adminDashboard')

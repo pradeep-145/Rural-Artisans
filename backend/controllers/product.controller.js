@@ -1,6 +1,7 @@
 import { v2 as cloudinary } from 'cloudinary';
 import customerReviewModel from '../models/customerReview.model.js';
 import productModel from '../models/product.model.js';
+import cartModel from '../models/cart.model.js';
 cloudinary.config({
     cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
     api_key: process.env.CLOUDINARY_API_KEY,
@@ -118,4 +119,35 @@ export const reviewProduct = async (req, res) => {
         console.log("error at reviewProduct:", error)
         res.status(500).send("Internal Server Error")
     }
+}
+export const addToCart=async(req,res)=>{
+    const {productId, customerId, quantity}=req.body;
+    try {
+        await cartModel.create({
+            productId,
+            customerId,
+            quantity
+        })
+        res.status(200).json({message:"Product added to cart successfully"})
+    } catch (error) {
+        console.log("error at addToCart:", error)
+        res.status(500).send("Internal Server Error")
+    }
+}
+
+export const getCart=async(req,res)=>{
+    const {customerId}=req.params;
+    try {
+        const cart=await cartModel.find({customerId:customerId}).populate({
+            path: 'productId',
+            select: 'name price image'
+        })
+        res.status(200).json(cart)
+    }
+    catch (error) {
+        console.log("error at getCart:", error)
+        res.status(500).send("Internal Server Error")
+    }
+    
+
 }
