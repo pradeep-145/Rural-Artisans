@@ -1,27 +1,61 @@
 import styles from './LoginStyles.module.css'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { useState, useEffect } from 'react'
+import axios from 'axios'
 
 const ArtisanLogin = () => {
   const [otp, setOtp] = useState('');
   const [showOtpField, setShowOtpField] = useState(false);
-  const [phoneNumber, setPhoneNumber] = useState('');
+  const [mobileNo, setmobileNo] = useState('');
   const [isButtonDisabled, setIsButtonDisabled] = useState(false);
   const [countdown, setCountdown] = useState(0);
+  const [sentOtp, setSentOtp] = useState(null);
+  const [login, setlogin] = useState(true);
+  const navigate =useNavigate()
 
-  const sendOtp = (e) => {
+  useEffect(() => {
+    if (otp == sentOtp) {
+      setlogin(false);
+    }
+  }, [otp, sentOtp]);
+
+  const sendOtp = async (e) => {
     e.preventDefault();
-    console.log('OTP sent to', phoneNumber);
+    const generatedOtp = Math.floor(100000 + Math.random() * 900000);
+    setSentOtp(generatedOtp);
+    console.log(generatedOtp)
+ 
 
-    setShowOtpField(true);
-    setIsButtonDisabled(true);
-    setCountdown(60);
+    
+    // await axios.get(`https://www.fast2sms.com/dev/bulkV2?authorization=YOUR_API_KEY&route=otp&variables_values=${generatedOtp}&flash=0&numbers=${mobileNo}`)
+    //   .then(() => {
+        setShowOtpField(true);
+        setIsButtonDisabled(true);
+        setCountdown(60);
+    //   })
+    //   .catch((error) => {
+    //     console.log(error);
+    //   });
 
     setTimeout(() => {
       console.log('OTP Sent Successfully');
     }, 1000);
   };
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const resposne=await axios.post('/api/auth/artisan/sign-in', { mobileNo });
+      if(resposne)
+      {
+        localStorage.setItem('authUser',JSON.stringify(resposne.data.message))
+        localStorage.setItem('type',resposne.data.user)
+        navigate('/artisanDashboard')
 
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
   useEffect(() => {
     let timer;
     if (isButtonDisabled && countdown > 0) {
@@ -43,8 +77,8 @@ const ArtisanLogin = () => {
           <form>
             <div className={styles.formGroup}>
               <label className={styles.label}>Phone Number</label>
-              <input type="number" className={styles.input} placeholder="Enter Phone Number" value={phoneNumber} min={0}
-                onChange={(e) => setPhoneNumber(e.target.value)}
+              <input type="number" className={styles.input} placeholder="Enter Phone Number" value={mobileNo} min={0}
+                onChange={(e) => setmobileNo(e.target.value)}
               />
             </div>
             <button type="button" className={`${styles.button} ${isButtonDisabled ? styles.disabledButton : ''}`}
@@ -60,9 +94,9 @@ const ArtisanLogin = () => {
                 />
               </div>
             )}
-            <button type="submit" className={styles.button}>
-              Login
-            </button>
+            <button type="submit" disabled={login} onClick={handleSubmit} className={`${styles.button} ${login ? styles.disabledButton : ''}`}>
+                          login
+                        </button>
             <p className={styles.link}>
               Don't have an account?
               <Link to="/artisanSignup" className={styles.linkText}>Sign up</Link>

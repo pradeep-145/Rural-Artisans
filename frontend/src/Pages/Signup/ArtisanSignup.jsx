@@ -1,34 +1,56 @@
-import styles from './SignUpStyles.module.css'
-import { Link } from 'react-router-dom'
-import { useState, useEffect } from 'react';
 import axios from 'axios';
+import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
+import styles from './SignUpStyles.module.css';
 
 const ArtisanSignup = () => {
   const [brand, setBrand] = useState('');
-  const [monileNo, setMobileNo] = useState('');
+  const [mobileNo, setMobileNo] = useState('');
   const [otp, setOtp] = useState('');
   const [showOtpField, setShowOtpField] = useState(false);
   const [isButtonDisabled, setIsButtonDisabled] = useState(false);
   const [countdown, setCountdown] = useState(0);
-  
+  const [sentOtp, setSentOtp] = useState(null);
+  const [signUp, setSignUp] = useState(true);
 
-  const sendOtp = (e) => {
+  useEffect(() => {
+    if (otp == sentOtp) {
+      setSignUp(false);
+    }
+  }, [otp, sentOtp]);
+
+  const sendOtp = async (e) => {
     e.preventDefault();
-    console.log('OTP sent to', phoneNumber);
+    const generatedOtp = Math.floor(100000 + Math.random() * 900000);
+    setSentOtp(generatedOtp);
+    console.log(generatedOtp);
 
-    setShowOtpField(true);
-    setIsButtonDisabled(true);
-    setCountdown(60);
+    
+    // await axios.get(`https://www.fast2sms.com/dev/bulkV2?authorization=YOUR_API_KEY&route=otp&variables_values=${generatedOtp}&flash=0&numbers=${mobileNo}`)
+    //   .then(() => {
+        setShowOtpField(true);
+        setIsButtonDisabled(true);
+        setCountdown(60);
+    //   })
+    //   .catch((error) => {
+    //     console.log(error);
+    //   });
 
     setTimeout(() => {
       console.log('OTP Sent Successfully');
     }, 1000);
   };
-  const handleSubmit = async(e) => {
-    e.preventDefault();
-    await axios.post('/api/artisan/signup', { brand, monileNo });
 
-  }
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      await axios.post('/api/auth/artisan/sign-up', { brand, mobileNo });
+      console.log("created");
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   useEffect(() => {
     let timer;
     if (isButtonDisabled && countdown > 0) {
@@ -57,14 +79,14 @@ const ArtisanSignup = () => {
           <h3 className={styles.createAccount}>Create an account</h3>
           <p className={styles.subtitle}>Showcase your craftsmanship to a wider audience</p>
 
-          <form onSubmit={handleSubmit}>
+          <form >
             <div className={styles.formGroup}>
               <input type="text" className={styles.input} placeholder="Brand Name"
                 value={brand} onChange={(e) => setBrand(e.target.value)} />
             </div>
             <div className={styles.formGroup}>
               <input type="number" className={styles.input} placeholder="Phone Number" min={0}
-                value={monileNo} onChange={(e) => setMobileNo(e.target.value)} />
+                value={mobileNo} onChange={(e) => setMobileNo(e.target.value)} />
             </div>
             <button type="button" className={`${styles.signupButton} ${isButtonDisabled ? styles.disabledButton : ''}`}
               onClick={sendOtp} disabled={isButtonDisabled} >
@@ -79,7 +101,7 @@ const ArtisanSignup = () => {
               </div>
             )}
 
-            <button type="submit" className={styles.signupButton}>
+            <button type="submit" disabled={signUp} onClick={handleSubmit} className={`${styles.signupButton} ${signUp ? styles.disabledButton : ''}`}>
               Signup
             </button>
 
