@@ -49,7 +49,7 @@ const ProductList = () => {
     ];
 
     const handleCardClick = (item) => {
-        navigate(`/product/${item.id}`, { state: { product: item } });
+        navigate(`product/${item.id}`, { state: { product: item } });
     };
 
     const handleAddToCart = (event, item) => {
