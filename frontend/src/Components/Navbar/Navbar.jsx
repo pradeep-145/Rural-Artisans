@@ -1,44 +1,36 @@
-import React, { useEffect, useState } from 'react';
-import { FaShoppingCart } from "react-icons/fa";
-import { CgProfile } from "react-icons/cg";
-import { GoHeartFill } from "react-icons/go";
-import { Link } from "react-scroll";
-import logo from '/logo.png';
-import { IoIosSearch } from "react-icons/io";
-
+import React, { useEffect, useState } from "react";
+import { BsCart3 } from "react-icons/bs";
+import { GiThreeLeaves } from "react-icons/gi";
+import styles from "./Navbar.module.css";
 const Navbar = () => {
-    const [login, setLogin] = useState(null);
+  const [login, setLogin] = useState(null);
+  const [isCartOpen, setIsCartOpen] = useState(false);
+  useEffect(() => {
+    setLogin(localStorage.getItem("user"));
+  }, []);
 
-    useEffect(() => {
-        setLogin(localStorage.getItem('user'));
-    }, []);
+  const toggleCart = () => {
+    setIsCartOpen((prev) => !prev);
+  };
 
-    return (
-        <div>
-            <div>
-                <a href="/"><img src={logo} width={50} height={50}/></a>
-                <Link to="home" smooth={true} duration={500}>Home</Link>
-                <Link to="products" smooth={true} duration={500}>Products</Link>
-                <Link to="about" smooth={true} duration={500}>About</Link>
-                <Link to="testimonials" smooth={true} duration={500}>Testimonials</Link>
-                <Link to="contact" smooth={true} duration={500}>Contact</Link>
-                
-                <div>
-                <input type="text" placeholder="Search" />
-                <button><IoIosSearch /></button>
-                
-                {!login && <a href="/login">Login/SignUp</a>}
-
-                {login && <a href="/customerDashboard"><CgProfile /></a>}
-
-                {login === 'customer' && <a href="/cart"><FaShoppingCart /></a>}
-
-                {login === 'customer' && <a href="/wishlist"><GoHeartFill /></a>}
-                </div>
-                
-            </div>
+  return (
+    <div className={styles.user__navbar}>
+      <div className={styles.user__navbar_inner}>
+        <div className={styles.logo}>
+          <GiThreeLeaves />
         </div>
-    );
+        <div className={styles.usernav__contents}>
+          <div className={styles.usernav__items}>HOME</div>
+          <div className={styles.usernav__items}>PRODUCT</div>
+          <div className={styles.usernav__items}>ABOUT</div>
+          <div className={styles.usernav__items}>CONTACT</div>
+        </div>
+      </div>
+      <div className={styles.user__cart} onClick={toggleCart}>
+        <BsCart3 />
+      </div>
+    </div>
+  );
 };
 
 export default Navbar;

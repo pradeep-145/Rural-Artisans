@@ -17,9 +17,9 @@ const ProductList = () => {
             <div>
                 <h1>Products listing</h1>
                 <div>
-                    
-                    {items.map((item, index) => (
-                        <div key={index}>
+                    {items.map((item) => (
+                        
+                        <div key={item.id} onClick={()=>handleCardClick(item)}>
                             <img src={item.img} alt={item.name} />
                             <h3>{item.name}</h3>
                             <p>{item.price}</p>
@@ -29,7 +29,9 @@ const ProductList = () => {
                 </div>
             </div>
         </div>
-    )
-}
+    
+  );
+};
 
-export default ProductList
+export default ProductList;
+

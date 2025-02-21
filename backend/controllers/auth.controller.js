@@ -6,6 +6,7 @@ export const artisanSignUp = async (req, res) => {
     const mobileNo = req.body.mobileNo || null
     const email = req.body.email || null
     const brand = req.body.brand
+    console.log(req.body)
     try {
         if (email) {
             await artisanModel.create({ email, brand })
@@ -108,7 +109,7 @@ export const adminSignIn= async(req,res)=>{
     const {username,password}=req.body
     try {
         
-        if(username===process.env.username && await bcrypt.compare(password,process.env.password)){
+        if(username===process.env.ADMIN_USERNAME && await bcrypt.compare(password,process.env.ADMIN_PASSWORD)){
             const payload={
                 username:process.env.username
             }
