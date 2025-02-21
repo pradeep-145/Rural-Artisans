@@ -5,7 +5,7 @@
 }
 
 .animatedSection {
-    background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+    background: linear-gradient(135deg, #4dac96 0%, #16213b 100%);
     padding: 4rem;
     color: white;
     display: flex;
@@ -16,7 +16,7 @@
 .welcomeTitle {
     font-size: 1.5rem;
     margin-bottom: 1rem;
-    color: #94a3b8;
+    color: white;
 }
 
 .communityTitle {
@@ -28,7 +28,7 @@
 
 .communityText {
     font-size: 1.125rem;
-    color: #94a3b8;
+    color: white;
 }
 
 .signupSection {
@@ -70,16 +70,16 @@
 .input {
     width: 100%;
     padding: 0.75rem 1rem;
-    border: 1.5px solid #e2e8f0;
-    border-radius: 4px;
+    border: 1.9px solid #e2e8f0;
+    border-radius: 10px;
     font-size: 1rem;
     transition: all 0.2s;
 }
 
 .input:focus {
     outline: none;
-    border-color: #818cf8;
-    box-shadow: 0 0 0 3px rgba(129, 140, 248, 0.1);
+    border-color: #4dac96;
+    box-shadow: 0 0 0 5px rgba(129, 140, 248, 0.1);
 }
 
 .input::placeholder {
@@ -95,7 +95,7 @@ input[type="number"]::-webkit-inner-spin-button {
 .signupButton {
     width: 100%;
     padding: 0.75rem;
-    background: #707ef8;
+    background: #4dac96;
     color: white;
     border: none;
     border-radius: 4px;
@@ -107,7 +107,7 @@ input[type="number"]::-webkit-inner-spin-button {
 }
 
 .signupButton:hover {
-    background: #6366f1;
+    background: #428373;
 }
 
 .disabledButton {
@@ -128,9 +128,10 @@ input[type="number"]::-webkit-inner-spin-button {
 }
 
 .signupLinkText {
-    color: blue;
+    color: #4dac96;
     text-decoration: none;
     margin-left: 5px;
+    font-weight: bold;
     transition: transform 0.4s ease;
     display: inline-block;
 }

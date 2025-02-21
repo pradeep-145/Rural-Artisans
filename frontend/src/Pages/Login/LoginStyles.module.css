@@ -13,7 +13,7 @@
 }
 
 .promoSection {
-    background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+    background: linear-gradient(135deg, #4dac96 0%, #16213b 100%);
     padding: 4rem;
     color: white;
     display: flex;
@@ -62,15 +62,15 @@
 .input {
     width: 100%;
     padding: 0.75rem 1rem;
-    border: 1.5px solid #e2e8f0;
-    border-radius: 4px;
+    border: 1.9px solid #e2e8f0;
+    border-radius: 10px;
     font-size: 1rem;
     transition: all 0.2s;
 }
 
 .input:focus {
     outline: none;
-    border-color: #2563eb;
+    border-color: #4dac96;
     box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
 }
 
@@ -83,7 +83,7 @@ input[type="number"]::-webkit-inner-spin-button {
 .button {
     width: 100%;
     padding: 0.75rem;
-    background: #707ef8;
+    background: #4dac96;
     color: white;
     border: none;
     border-radius: 4px;
@@ -95,7 +95,7 @@ input[type="number"]::-webkit-inner-spin-button {
 }
 
 .button:hover {
-    background: #6366f1;
+    background: #428373;
 }
 
 .disabledButton {
@@ -116,9 +116,10 @@ input[type="number"]::-webkit-inner-spin-button {
 }
 
 .linkText {
-    color: blue;
+    color: #428373;
     text-decoration: none;
     margin-left: 5px;
+    font-weight: bold;
     transition: transform 0.4s ease;
     display: inline-block;
 }
@@ -160,11 +161,11 @@ input[type="number"]::-webkit-inner-spin-button {
 }
 
 .businessSection {
-    background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+    background: linear-gradient(105deg, #ffffff 0%, #74c4b0 100%);
 }
 
 .customerSection {
-    background: linear-gradient(135deg, #f1f5f9 0%, #ffffff 100%);
+    background: linear-gradient(105deg, #74c4b0 0%, #ffffff 100%);
 }
 
 .contentWrapper {
@@ -203,7 +204,7 @@ input[type="number"]::-webkit-inner-spin-button {
 }
 
 .businessSection .actionButton {
-    background: #707ef8;
+    background: #4dac96;
     color: white;
     border: none;
 }
@@ -215,7 +216,7 @@ input[type="number"]::-webkit-inner-spin-button {
 }
 
 .businessSection .actionButton:hover {
-    background: #6366f1;
+    background: #428373;
 }
 
 .customerSection .actionButton:hover {
