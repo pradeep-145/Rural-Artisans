@@ -4,6 +4,7 @@ import { GiThreeLeaves } from "react-icons/gi";
 import { GrCart } from "react-icons/gr";
 import { FaRegUser, FaSearch, FaRegHeart } from "react-icons/fa";
 import styles from "./Navbar.module.css";
+import { FiLogOut } from "react-icons/fi";
 
 const Navbar = () => {
   const [login, setLogin] = useState(null);
@@ -67,15 +68,19 @@ const Navbar = () => {
           </button>
         ) : login == "customer" ? (
           <div className={styles.auth__cart_container}>
-            <FaRegUser className={styles.__icon} onClick={handleAuth} />
+            <FaRegUser className={styles.__icon}  />
 
             <div className={styles.__icon} onClick={toggleCart}>
               <GrCart />
             </div>
             <FaRegHeart className={styles.__icon} />
+            <FiLogOut className={styles.__icon} onClick={handleAuth} />
           </div>
         ) : (
-          <FaRegUser className={styles.__icon} onClick={handleAuth} />
+          <>
+          <FaRegUser className={styles.__icon}  />
+          <FiLogOut className={styles.__icon} onClick={handleAuth} />
+          </>
         )}
       </div>
     </nav>
