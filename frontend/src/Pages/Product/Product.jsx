@@ -1,3 +1,4 @@
+import styles from './Product.module.css';
 import { useLocation } from 'react-router-dom';
 import { FaArrowLeft } from "react-icons/fa";
 import { GoPlus } from "react-icons/go";
@@ -26,7 +27,6 @@ const Product = () => {
 
     return (
         <div>
-
             <div>
                 <div>
                     <Link to="/">
