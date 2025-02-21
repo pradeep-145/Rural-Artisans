@@ -29,7 +29,6 @@ export default mongoose.model("Product",new mongoose.Schema({
         type:Boolean,
         default:false
     },
-   
     tag :[{
         type:String,
         required:true

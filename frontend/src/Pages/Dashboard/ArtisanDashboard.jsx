@@ -1,3 +1,4 @@
+import axios from 'axios';
 import React, { useState } from 'react'
 
 const ArtisanDashboard = () => {
@@ -8,7 +9,22 @@ const ArtisanDashboard = () => {
     const [description, setDescription] = useState('');
     const [image, setImage] = useState('');
     const [addProduct, setAddProduct] = useState(false);
-
+    const authUser=JSON.parse(localStorage.getItem('authUser'))
+    const handleSubmit = async () => {
+        const formData = new FormData();
+        formData.append('artisanId',authUser._id );
+        formData.append('name', name);
+        formData.append('price', price);
+        formData.append('quantity', quantity);
+        formData.append('description', description);
+        formData.append('image', image);
+        try {
+            const response = await axios.post('/api/products', formData);
+            console.log(response.data);
+        } catch (error) {
+            console.log(error);
+        }
+    }
 
     return (
         <div>
@@ -57,11 +73,12 @@ const ArtisanDashboard = () => {
                                     <label>Image</label><br />
                                     <input
                                         type="file"
+                                        accept="image/png, image/jpeg, image/jpg"
                                         size={50}
                                         onChange={(e) => setImage(e.target.files[0])}
                                     />
                                     <br />
-                                    <button type="button">Add Product</button>
+                                    <button type="button" onClick={handleSubmit}>Add Product</button>
                                 </form>
                             </div>
                         </div>
