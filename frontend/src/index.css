@@ -4,7 +4,9 @@
   box-sizing: border-box;
   font-family: 'Inter', sans-serif;
 }
-
+body{
+  scroll-behavior: smooth;
+}
 :root {
   --heading-font: 'Poppins', sans-serif;
   --primary-color: #2D9CDB;
