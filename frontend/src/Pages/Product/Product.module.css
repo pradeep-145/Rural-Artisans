@@ -1,0 +1,247 @@
+.productContainer {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+}
+
+.backButton {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: none;
+    border: none;
+    padding: 0.5rem;
+    cursor: pointer;
+    color: #4b5563;
+    font-size: 1rem;
+    transition: color 0.2s ease;
+    margin-bottom: 1rem;
+}
+
+.backButton:hover {
+    color: #047857;
+}
+
+.productContent {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    margin-top: 2rem;
+}
+
+.productImage {
+    background-color: #f9fafb;
+    border-radius: 0.5rem;
+    overflow: hidden;
+    position: relative;
+}
+
+.productImage img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+}
+
+.productDetails {
+    padding: 1rem 0;
+}
+
+.productHeaderDetails {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: .5rem;
+}
+
+.productTitle {
+    font-size: 2.25rem;
+    color: #0f172a;
+    margin-bottom: 1rem;
+}
+
+.heartButton {
+    background: none;
+    border: none;
+    border-radius: 50%;
+    margin-top: 10px;
+    font-size: 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.priceContainer {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.currentPrice {
+    font-size: 1.875rem;
+    font-weight: 600;
+    color: #111827;
+}
+
+.productDescription {
+    color: #4b5563;
+    line-height: 1.6;
+    margin-bottom: 2rem;
+}
+
+.actionContainer {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.quantityControls {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    border: 1px solid #e5e7eb;
+    padding: 0.5rem;
+    border-radius: 0.375rem;
+}
+
+.quantityButton {
+    background: none;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.25rem;
+}
+
+.quantityButton:hover {
+    color: #047857;
+}
+
+.quantityDisplay {
+    font-size: 1.2rem;
+    min-width: 3rem;
+    text-align: center;
+}
+
+.addToCartButton {
+    background-color: #047857;
+    color: white;
+    border: none;
+    border-radius: 0.375rem;
+    padding: 0.75rem 1.5rem;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    flex: 1;
+}
+
+.addToCartButton:hover {
+    background-color: #065f46;
+}
+
+.ratingContainer {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin: 1rem 0;
+}
+
+.starRating {
+    display: flex;
+    gap: 0.25rem;
+    color: #fbbf24;
+    font-size: 1.25rem;
+}
+
+.ratingCount {
+    color: #6b7280;
+    font-size: 0.875rem;
+    margin-top: 4px;
+}
+
+.reviewsSection {
+    margin-top: 4rem;
+    border-top: 1px solid #e5e7eb;
+    padding-top: 2rem;
+}
+
+.reviewsHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+}
+
+.reviewsTitle {
+    font-size: 1.5rem;
+    color: #111827;
+    font-weight: 600;
+}
+
+.writeReviewButton {
+    background-color: #f3f4f6;
+    border: 1px solid #e5e7eb;
+    border-radius: 0.375rem;
+    padding: 0.75rem 1.5rem;
+    font-size: 0.875rem;
+    color: #374151;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.writeReviewButton:hover {
+    background-color: #e5e7eb;
+}
+
+.reviewCard {
+    border-bottom: 1px solid #e5e7eb;
+    padding: 1.5rem 0;
+}
+
+.reviewHeader {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+}
+
+.reviewerName {
+    font-weight: 500;
+    color: #111827;
+}
+
+.reviewDate {
+    color: #6b7280;
+    font-size: 0.875rem;
+}
+
+.reviewContent {
+    color: #4b5563;
+    line-height: 1.6;
+}
+
+@media (max-width: 768px) {
+    .backButton {
+        margin-bottom: 0.5rem;
+    }
+
+    .productContent {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+
+    .actionContainer {
+        flex-direction: column;
+    }
+
+    .quantityControls {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .addToCartButton {
+        width: 100%;
+    }
+}
