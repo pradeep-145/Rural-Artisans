@@ -1,14 +1,16 @@
 import styles from './SignUpStyles.module.css'
 import { Link } from 'react-router-dom'
 import { useState, useEffect } from 'react';
+import axios from 'axios';
 
 const ArtisanSignup = () => {
-  const [name, setName] = useState('');
-  const [phoneNumber, setPhoneNumber] = useState('');
+  const [brand, setBrand] = useState('');
+  const [monileNo, setMobileNo] = useState('');
   const [otp, setOtp] = useState('');
   const [showOtpField, setShowOtpField] = useState(false);
   const [isButtonDisabled, setIsButtonDisabled] = useState(false);
   const [countdown, setCountdown] = useState(0);
+  
 
   const sendOtp = (e) => {
     e.preventDefault();
@@ -22,7 +24,11 @@ const ArtisanSignup = () => {
       console.log('OTP Sent Successfully');
     }, 1000);
   };
+  const handleSubmit = async(e) => {
+    e.preventDefault();
+    await axios.post('/api/artisan/signup', { brand, monileNo });
 
+  }
   useEffect(() => {
     let timer;
     if (isButtonDisabled && countdown > 0) {
@@ -51,14 +57,14 @@ const ArtisanSignup = () => {
           <h3 className={styles.createAccount}>Create an account</h3>
           <p className={styles.subtitle}>Showcase your craftsmanship to a wider audience</p>
 
-          <form>
+          <form onSubmit={handleSubmit}>
             <div className={styles.formGroup}>
-              <input type="text" className={styles.input} placeholder="Full Name"
-                value={name} onChange={(e) => setName(e.target.value)} />
+              <input type="text" className={styles.input} placeholder="Brand Name"
+                value={brand} onChange={(e) => setBrand(e.target.value)} />
             </div>
             <div className={styles.formGroup}>
               <input type="number" className={styles.input} placeholder="Phone Number" min={0}
-                value={phoneNumber} onChange={(e) => setPhoneNumber(e.target.value)} />
+                value={monileNo} onChange={(e) => setMobileNo(e.target.value)} />
             </div>
             <button type="button" className={`${styles.signupButton} ${isButtonDisabled ? styles.disabledButton : ''}`}
               onClick={sendOtp} disabled={isButtonDisabled} >

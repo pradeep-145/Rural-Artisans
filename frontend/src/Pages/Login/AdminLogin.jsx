@@ -1,8 +1,7 @@
-import { set } from 'mongoose'
-import styles from './LoginStyles.module.css'
 import axios from 'axios'
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import styles from './LoginStyles.module.css'
 const AdminLogin = () => {
   const [formData, setFormData] = useState({
     username: '',
@@ -14,7 +13,7 @@ const AdminLogin = () => {
     try{
       const response = await axios.post('/api/admin/login',formData)
       if(response){
-
+        console.log(response.data)
         navigate('/adminDashboard')
       }
 
