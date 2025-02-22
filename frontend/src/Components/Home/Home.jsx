@@ -29,19 +29,49 @@ const Home = () => {
           <img src={pottery} alt="pottery" />
         </div>
         <div>
-          <img src={bamboo} alt="bamboo" />
+          <img
+            src={bamboo}
+            alt="bamboo"
+            style={{
+              filter: "brightness(50%)",
+            }}
+          />
         </div>
         <div>
-          <img src={ceramics} alt="ceramics" />
+          <img
+            src={ceramics}
+            alt="ceramics"
+            style={{
+              filter: "brightness(50%)",
+            }}
+          />
         </div>
         <div>
-          <img src={flower} alt="flower" />
+          <img
+            src={flower}
+            alt="flower"
+            style={{
+              filter: "brightness(50%)",
+            }}
+          />
         </div>
         <div>
-          <img src={handicrafts} alt="handicrafts" />
+          <img
+            src={handicrafts}
+            alt="handicrafts"
+            style={{
+              filter: "brightness(50%)",
+            }}
+          />
         </div>
         <div>
-          <img src={mugs} alt="mugs" />
+          <img
+            src={mugs}
+            alt="mugs"
+            style={{
+              filter: "brightness(50%)",
+            }}
+          />
         </div>
         <div>
           <img src={knitting} alt="knitting" />
