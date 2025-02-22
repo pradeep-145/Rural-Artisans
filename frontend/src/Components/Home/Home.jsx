@@ -20,6 +20,7 @@ const Home = () => {
     autoplay: true,
     autoplaySpeed: 3000,
     arrows: true,
+    pauseOnHover: false,
   };
 
   return (
