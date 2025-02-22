@@ -3,6 +3,24 @@
     background-color: #f9fafb;
 }
 
+.backButton {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: none;
+    border: none;
+    padding: 0.5rem;
+    cursor: pointer;
+    color: #4b5563;
+    font-size: 1rem;
+    transition: color 0.2s ease;
+    margin-bottom: 1rem;
+}
+
+.backButton:hover {
+    color: #047857;
+}
+
 .productsWrapper {
     max-width: 1340px;
     margin: 0 auto;

@@ -1,64 +1,105 @@
-/* Ensure parent container is positioned correctly */
-.carousel-container {
+.carouselContainer {
   width: 100%;
-  max-width: 1200px; 
-  margin: auto;
-  padding: 20px 0;
+  max-width: 1600px;
+  margin: 20px auto;
+  padding: 0 20px;
+  position: relative;
 }
 
-/* Ensure images do not push dots down */
-.slick-slide img {
+.carouselContainer :global(.slick-slide) {
+  position: relative;
+  height: 600px;
+}
+
+.carouselContainer :global(.slick-slide img) {
   width: 100%;
-  height: 500px;  /* Ensures all images have the same height */
-  object-fit: cover; /* Crops the image while maintaining aspect ratio */
-  border-radius: 10px;
-  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+  height: 100%;
+  object-fit: cover;
+  border-radius: 8px;
 }
 
-/* Fix dot positioning over the images */
-.slick-dots {
-  position: absolute !important; /* Forces positioning */
-  bottom: 20px; /* Adjust this value to move dots up or down */
-  left: 50%;
-  transform: translateX(-50%);
-  display: flex !important;
-  justify-content: center;
-  gap: 8px;
-  z-index: 10; /* Ensures dots are always above */
-  margin: 0; /* Remove default margin */
-  padding: 0; /* Remove default padding */
-  list-style: none; /* Remove default list styling */
+.carouselContainer :global(.slick-prev),
+.carouselContainer :global(.slick-next) {
+  width: 40px;
+  height: 40px;
+  background: rgba(255, 255, 255, 0.9) !important;
+  border-radius: 50%;
+  z-index: 1;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
 }
 
-/* Dots Styling */
-.slick-dots li {
-  background-color: #56CCF2; /* Semi-transparent black background */
-  border-radius: 50%; /* Make dots circular */
-  padding: 5px; /* Add padding to increase the size */
-  transition: background-color 0.3s;
+.carouselContainer :global(.slick-prev) {
+  left: 15px;
 }
 
-/* Style dots */
-.slick-dots li button:before {
-  font-size: 14px; /* Ensure the font size is consistent */
-  color: #56CCF2 !important;
-  opacity: 0.9;
-  transition: 0.3s;
+.carouselContainer :global(.slick-next) {
+  right: 15px;
 }
 
-/* Active dot styling */
-.slick-dots li.slick-active {
-  background-color: gold; /* Change background for active dot */
+.carouselContainer :global(.slick-prev:hover),
+.carouselContainer :global(.slick-next:hover) {
+  background: rgba(255, 255, 255, 1) !important;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.3);
 }
 
-.slick-dots li.slick-active button:before {
-  color: gold !important;
+.carouselContainer :global(.slick-prev:before),
+.carouselContainer :global(.slick-next:before) {
+  color: #333;
+  font-size: 36px;
+  opacity: 0.8;
+}
+
+.carouselContainer :global(.slick-dots) {
+  bottom: -30px;
+}
+
+.carouselContainer :global(.slick-dots li button:before) {
+  font-size: 9px;
+  color: #666;
+  opacity: 0.5;
+}
+
+.carouselContainer :global(.slick-dots li.slick-active button:before) {
+  opacity: 1;
+  color: #333;
+}
+
+.carouselContainer :global(.slick-slide) {
+  opacity: 0.5;
+  transition: opacity 0.3s ease;
+}
+
+.carouselContainer :global(.slick-slide.slick-active) {
   opacity: 1;
 }
 
-/* Ensure the dot container stays correctly positioned */
-.slick-list {
-  margin: 0;
-  padding: 0;
-  transition: all 0.5s;
+@media (max-width: 768px) {
+  .carouselContainer {
+    padding: 0 10px;
+  }
+
+  .carouselContainer :global(.slick-slide) {
+    height: 300px;
+  }
+
+  .carouselContainer :global(.slick-prev),
+  .carouselContainer :global(.slick-next) {
+    width: 40px;
+    height: 40px;
+  }
+
+  .carouselContainer :global(.slick-prev) {
+    left: 10px;
+  }
+
+  .carouselContainer :global(.slick-next) {
+    right: 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  .carouselContainer :global(.slick-slide) {
+    height: 200px;
+  }
 }

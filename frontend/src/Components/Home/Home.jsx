@@ -1,4 +1,3 @@
-import React from "react";
 import Slider from "react-slick";
 import bamboo from "../../assets/bamboo.jpg";
 import ceramics from "../../assets/ceramics.jpg";
@@ -6,9 +5,9 @@ import flower from "../../assets/flower.jpg";
 import handicrafts from "../../assets/handicrafts.jpg";
 import mugs from "../../assets/mugs.jpg";
 import pottery from "../../assets/pottery.jpg";
-import knitting from "../../assets/knitting.jpg"
-import "./Home.module.css"
-import "slick-carousel/slick/slick.css"; 
+import knitting from "../../assets/knitting.jpg";
+import styles from "./Home.module.css";
+import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
 const Home = () => {
@@ -24,9 +23,9 @@ const Home = () => {
   };
 
   return (
-    <div className="carousel-container">
+    <div className={styles.carouselContainer}>
       <Slider {...settings}>
-      <div>
+        <div>
           <img src={pottery} alt="pottery" />
         </div>
         <div>
@@ -44,12 +43,9 @@ const Home = () => {
         <div>
           <img src={mugs} alt="mugs" />
         </div>
-       
-        
         <div>
-            <img src={knitting} alt="knitting" />
+          <img src={knitting} alt="knitting" />
         </div>
-
       </Slider>
     </div>
   );

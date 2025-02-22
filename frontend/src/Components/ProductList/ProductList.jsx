@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import styles from "./ProductList.module.css";
-import { FaRegHeart } from "react-icons/fa";
+import { FaRegHeart, FaArrowLeft } from "react-icons/fa";
 import { FaCartShopping, FaStar } from "react-icons/fa6";
 
 const ProductList = () => {
@@ -48,6 +48,10 @@ const ProductList = () => {
     },
   ];
 
+  const handleBack = () => {
+    navigate(-1);
+  };
+
   const handleCardClick = (item) => {
     navigate(`/product/${item.id}`, { state: { product: item } });
   };
@@ -65,6 +69,10 @@ const ProductList = () => {
   return (
     <div className={styles.productsContainer}>
       <div className={styles.productsWrapper}>
+        <button onClick={handleBack} className={styles.backButton}>
+          <FaArrowLeft />
+          <span>Back</span>
+        </button>
         <h1 className={styles.productsTitle}>Products</h1>
         <div className={styles.productsGrid}>
           {items.map((item) => (
