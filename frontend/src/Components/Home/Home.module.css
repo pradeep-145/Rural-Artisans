@@ -45,9 +45,9 @@
 
 .carouselContainer :global(.slick-prev:before),
 .carouselContainer :global(.slick-next:before) {
-  color: #333;
   font-size: 36px;
   opacity: 0.8;
+  color: #4dac96;
 }
 
 .carouselContainer :global(.slick-dots) {
@@ -62,7 +62,7 @@
 
 .carouselContainer :global(.slick-dots li.slick-active button:before) {
   opacity: 1;
-  color: #333;
+  color: #4dac96;
 }
 
 .carouselContainer :global(.slick-slide) {
