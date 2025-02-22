@@ -11,8 +11,25 @@ import AdminDashboard from './Pages/Dashboard/AdminDashboard';
 import Product from './Pages/Product/Product';
 import { useEffect } from 'react';
 import ProductList from './Components/ProductList/ProductList';
+import { useProducts } from './context/ProductContext';
+import axios from 'axios';
 
 function App() {
+  const {setProducts}=useProducts()
+  useEffect(()=>{
+    const fetchProducts=async()=>{
+      try{
+        const response=await axios.get('/api/products/get')
+        const data=await response.data
+        console.log(data)
+        setProducts(data)
+      }
+      catch(error){
+        console.log(error)
+      }
+    }
+    fetchProducts()
+  },[setProducts])
   
 
   return (

@@ -27,6 +27,7 @@ const Product = () => {
 
     const rating = 4.5;
     const totalReviews = 128;
+    console.log(product.review[0].customerId)
 
     const renderStars = (rating) => {
         const stars = [];
@@ -58,7 +59,7 @@ const Product = () => {
             </button>
             <div className={styles.productContent}>
                 <div className={styles.productImage}>
-                    <img src={product.img} alt={product.name} />
+                    <img src={product.image} alt={product.name} />
                 </div>
 
                 <div className={styles.productDetails}>
@@ -81,11 +82,7 @@ const Product = () => {
                     </div>
 
                     <p className={styles.productDescription}>
-                        Discover the beauty of ceramics with our handcrafted. This exquisite
-                        piece combines artistry and function, making it a versatile addition to
-                        any space. Discover the beauty of ceramics with our handcrafted. This exquisite
-                        piece combines artistry and function, making it a versatile addition to
-                        any space.
+                        {product.description}
                     </p>
 
                     <div className={styles.actionContainer}>
@@ -111,34 +108,25 @@ const Product = () => {
                     <h2 className={styles.reviewsTitle}>Customer Reviews</h2>
                     <button className={styles.writeReviewButton} onClick={writeReview()}>Write a Review</button>
                 </div>
+            {
+                product.review.length>0?product.review.map((review)=>(
 
                 <div className={styles.reviewCard}>
                     <div className={styles.reviewHeader}>
-                        <div className={styles.reviewerName}>John Doe</div>
+                        <div className={styles.reviewerName}>{review.customerName}</div>
                         <div className={styles.reviewDate}>2 days ago</div>
                     </div>
                     <div className={styles.starRating}>
-                        {renderStars(5)}
+                        {renderStars(review.rating)}
                     </div>
                     <p className={styles.reviewContent}>
-                        Excellent quality and beautiful design. The ceramic planter exceeded my expectations.
-                        Perfect size for my indoor plants and adds a touch of elegance to my room.
+                        {review.comment}
                     </p>
                 </div>
+                )):<h3>No reviews yet</h3>
+}
 
-                <div className={styles.reviewCard}>
-                    <div className={styles.reviewHeader}>
-                        <div className={styles.reviewerName}>Jane Smith</div>
-                        <div className={styles.reviewDate}>1 week ago</div>
-                    </div>
-                    <div className={styles.starRating}>
-                        {renderStars(4)}
-                    </div>
-                    <p className={styles.reviewContent}>
-                        Very satisfied with this purchase. The planter is well-made and looks exactly
-                        as pictured. Would definitely recommend to others.
-                    </p>
-                </div>
+                
             </div>
         </div>
     );

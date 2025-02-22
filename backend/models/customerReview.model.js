@@ -5,9 +5,8 @@ const CustomerReviewSchema = new mongoose.Schema({
         ref: "Product", 
         required: true
     },
-    customerId: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Customer",
+    customerName: {
+        type: String,
         required: true
     },
     comment: {

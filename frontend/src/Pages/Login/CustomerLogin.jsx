@@ -2,11 +2,13 @@ import styles from './LoginStyles.module.css'
 import { Link, useNavigate } from 'react-router-dom'
 import { useState } from 'react'
 import axios from 'axios'
+import { useAuthContext } from '../../context/AuthContext'
 const CustomerLogin = () => {
     const [formData, setFormData] = useState({
         email: '',
         password: ''
     })
+    const {setAuthUser}=useAuthContext()
     const navigate=useNavigate()
     const handleLogin = async(e) => {
         e.preventDefault()
@@ -17,7 +19,11 @@ const CustomerLogin = () => {
             {
                 localStorage.setItem('authUser',JSON.stringify(response.data.message))
                 localStorage.setItem('type',response.data.user)
-                navigate('/customerDashboard')
+                setAuthUser({
+                    user:response.data.message,
+                    type:response.data.user
+                })
+                navigate('/')
             }
         } catch (error) {
             console.log(error)

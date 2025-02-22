@@ -47,10 +47,8 @@ export const saveProduct = async (req, res) => {
 
 export const getUserProducts = async (req, res) => {
     try {
-        const products = await productModel.find({ isVerified: true }, { image: 1, name: 1, price: 1, quantity: 1, tag: 1 }).populate({
-            path: 'review',
-            select: 'rating'
-        })
+        const products = await productModel.find({ isVerified: false }).populate('review')
+        
         res.status(200).json(products)
     }
     catch (error) {

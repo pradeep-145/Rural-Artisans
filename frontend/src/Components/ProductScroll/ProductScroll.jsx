@@ -3,73 +3,16 @@ import { FaChevronLeft, FaChevronRight, FaHeart } from 'react-icons/fa';
 import { FaCartShopping, FaStar } from 'react-icons/fa6';
 import { useNavigate } from 'react-router-dom';
 import styles from './ProductScroll.module.css';
-
+import { useProducts } from '../../context/ProductContext';
 const ProductScroll = () => {
     const navigate = useNavigate();
     const [currentIndex, setCurrentIndex] = useState(0);
 
-    const products = [
-        {
-            id: 1,
-            name: "Apple iPad",
-            image: "https://www.shutterstock.com/image-photo/gender-neutral-baby-garment-organic-600nw-1987778996.jpg",
-            rating: 4,
-            price: 369.00,
-            quantity: 5
-        },
-        {
-            id: 2,
-            name: "Sony Headphone",
-            image: "https://www.shutterstock.com/image-photo/gender-neutral-baby-garment-organic-600nw-1987778996.jpg",
-            rating: 4,
-            price: 23.99,
-            quantity: 0
-        },
-        {
-            id: 3,
-            name: "Macbook Air",
-            image: "https://www.shutterstock.com/image-photo/gender-neutral-baby-garment-organic-600nw-1987778996.jpg",
-            rating: 4.5,
-            price: 649.00,
-            quantity: 3
-        },
-        {
-            id: 4,
-            name: "Nikon DSLR",
-            image: "https://www.shutterstock.com/image-photo/gender-neutral-baby-garment-organic-600nw-1987778996.jpg",
-            rating: 3,
-            price: 250.00,
-            quantity: 2
-        }, {
-            id: 4,
-            name: "Nikon DSLR",
-            image: "https://www.shutterstock.com/image-photo/gender-neutral-baby-garment-organic-600nw-1987778996.jpg",
-            rating: 3,
-            price: 250.00,
-            quantity: 2
-        }, {
-            id: 4,
-            name: "Nikon DSLR",
-            image: "https://www.shutterstock.com/image-photo/gender-neutral-baby-garment-organic-600nw-1987778996.jpg",
-            rating: 3,
-            price: 250.00,
-            quantity: 2
-        }, {
-            id: 4,
-            name: "Nikon DSLR",
-            image: "https://www.shutterstock.com/image-photo/gender-neutral-baby-garment-organic-600nw-1987778996.jpg",
-            rating: 3,
-            price: 250.00,
-            quantity: 2
-        }, {
-            id: 4,
-            name: "Nikon DSLR",
-            image: "https://www.shutterstock.com/image-photo/gender-neutral-baby-garment-organic-600nw-1987778996.jpg",
-            rating: 3,
-            price: 250.00,
-            quantity: 2
-        }
-    ];
+    const { products } = useProducts();
+
+  if (!products || products.length === 0) {
+    return <div>No products available</div>;
+  }
 
     const handlePrevious = () => {
         setCurrentIndex(prev =>
@@ -156,3 +99,66 @@ const ProductScroll = () => {
 };
 
 export default ProductScroll;
+
+// [
+//     {
+//         id: 1,
+//         name: "Apple iPad",
+//         image: "https://www.shutterstock.com/image-photo/gender-neutral-baby-garment-organic-600nw-1987778996.jpg",
+//         rating: 4,
+//         price: 369.00,
+//         quantity: 5
+//     },
+//     {
+//         id: 2,
+//         name: "Sony Headphone",
+//         image: "https://www.shutterstock.com/image-photo/gender-neutral-baby-garment-organic-600nw-1987778996.jpg",
+//         rating: 4,
+//         price: 23.99,
+//         quantity: 0
+//     },
+//     {
+//         id: 3,
+//         name: "Macbook Air",
+//         image: "https://www.shutterstock.com/image-photo/gender-neutral-baby-garment-organic-600nw-1987778996.jpg",
+//         rating: 4.5,
+//         price: 649.00,
+//         quantity: 3
+//     },
+//     {
+//         id: 4,
+//         name: "Nikon DSLR",
+//         image: "https://www.shutterstock.com/image-photo/gender-neutral-baby-garment-organic-600nw-1987778996.jpg",
+//         rating: 3,
+//         price: 250.00,
+//         quantity: 2
+//     }, {
+//         id: 4,
+//         name: "Nikon DSLR",
+//         image: "https://www.shutterstock.com/image-photo/gender-neutral-baby-garment-organic-600nw-1987778996.jpg",
+//         rating: 3,
+//         price: 250.00,
+//         quantity: 2
+//     }, {
+//         id: 4,
+//         name: "Nikon DSLR",
+//         image: "https://www.shutterstock.com/image-photo/gender-neutral-baby-garment-organic-600nw-1987778996.jpg",
+//         rating: 3,
+//         price: 250.00,
+//         quantity: 2
+//     }, {
+//         id: 4,
+//         name: "Nikon DSLR",
+//         image: "https://www.shutterstock.com/image-photo/gender-neutral-baby-garment-organic-600nw-1987778996.jpg",
+//         rating: 3,
+//         price: 250.00,
+//         quantity: 2
+//     }, {
+//         id: 4,
+//         name: "Nikon DSLR",
+//         image: "https://www.shutterstock.com/image-photo/gender-neutral-baby-garment-organic-600nw-1987778996.jpg",
+//         rating: 3,
+//         price: 250.00,
+//         quantity: 2
+//     }
+// ];

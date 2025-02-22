@@ -5,6 +5,7 @@ import { GrCart } from "react-icons/gr";
 import { FaRegUser, FaSearch, FaRegHeart } from "react-icons/fa";
 import styles from "./Navbar.module.css";
 import { FiLogOut } from "react-icons/fi";
+import axios from "axios";
 
 const Navbar = () => {
   const [login, setLogin] = useState(null);
@@ -19,9 +20,13 @@ const Navbar = () => {
     setIsCartOpen((prev) => !prev);
   };
 
-  const handleAuth = () => {
+  const handleAuth = async() => {
     if (login) {
+      await axios.post('/api/auth/logout').then(()=>{
+        console.log("done")
+      })
       localStorage.removeItem("type");
+      localStorage.removeItem("authUser");
       setLogin(null);
     } else {
       window.location.href = "/login";

@@ -109,9 +109,13 @@ export const userSignIn = async (req, res) => {
 }
 
 export const logout = (req, res) => {
-    res.clearCookie('jwt');
-    res.status(200).json({ message: "logout successful" });
-}
+    try {
+        res.cookie('jwt', '', { maxAge: 0 });
+        res.status(200).json({ message: "logged out successfully" });
+    } catch (error) {
+        console.log(error);
+    }
+};
 
 export const adminSignIn= async(req,res)=>{
     const {username,password}=req.body
