@@ -10,6 +10,7 @@ import ArtisanDashboard from './Pages/Dashboard/ArtisanDashboard';
 import AdminDashboard from './Pages/Dashboard/AdminDashboard';
 import Product from './Pages/Product/Product';
 import { useEffect } from 'react';
+import ProductList from './Components/ProductList/ProductList';
 
 function App() {
   
@@ -23,6 +24,7 @@ function App() {
         <Route path="/artisanSignup" element={<ArtisanSignup />} />
         <Route path="/customerSignup" element={<CustomerSignup />} />
         <Route path="/" element={<LandingPage />} />
+        <Route path="/productList" element={<ProductList />} />
         <Route path="/login" element={<LoginSplit />} />
         <Route path="/adminDashboard" element={<AdminDashboard />} />
         <Route path="/artisanDashboard" element={<ArtisanDashboard />} />

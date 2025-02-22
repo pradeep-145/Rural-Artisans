@@ -68,21 +68,10 @@ const ProductList = () => {
         <h1 className={styles.productsTitle}>Products</h1>
         <div className={styles.productsGrid}>
           {items.map((item) => (
-            <div
-              key={item.id}
-              className={styles.productCard}
-              onClick={() => handleCardClick(item)}
-            >
+            <div key={item.id} className={styles.productCard} onClick={() => handleCardClick(item)} >
               <div className={styles.productImageContainer}>
-                <img
-                  src={item.img}
-                  alt={item.name}
-                  className={styles.productImage}
-                />
-                <button
-                  className={styles.heartButton}
-                  onClick={(event) => handleAddToWishlist(event, item)}
-                >
+                <img src={item.img} alt={item.name} className={styles.productImage} />
+                <button className={styles.heartButton} onClick={(event) => handleAddToWishlist(event, item)} >
                   <FaRegHeart className={styles.heartIcon} />
                 </button>
               </div>
@@ -93,19 +82,12 @@ const ProductList = () => {
                     {item.rating} <FaStar className={styles.starIcon} />
                   </span>
                 </h3>
-                <p className={styles.productPrice}>${item.price}</p>
+                <p className={styles.productPrice}>Rs.{item.price}</p>
                 <div className={styles.productFooter}>
-                  <p
-                    className={styles.stockStatus}
-                    style={{ color: item.quantity > 0 ? "#059669" : "#ef4444" }}
-                  >
+                  <p className={styles.stockStatus} style={{ color: item.quantity > 0 ? "#059669" : "#ef4444" }} >
                     {item.quantity > 0 ? "In stock" : "Out of stock"}
                   </p>
-                  <button
-                    className={styles.cartButton}
-                    onClick={(event) => handleAddToCart(event, item)}
-                    disabled={item.quantity <= 0}
-                  >
+                  <button className={styles.cartButton} onClick={(event) => handleAddToCart(event, item)} disabled={item.quantity <= 0} >
                     <FaCartShopping className={styles.cartIcon} /> Add to cart
                   </button>
                 </div>
