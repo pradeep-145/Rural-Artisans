@@ -6,9 +6,9 @@ import flower from "../../assets/flower.jpg";
 import handicrafts from "../../assets/handicrafts.jpg";
 import mugs from "../../assets/mugs.jpg";
 import pottery from "../../assets/pottery.jpg";
-import knitting from "../../assets/knitting.jpg"
-import "./Home.module.css"
-import "slick-carousel/slick/slick.css"; 
+import knitting from "../../assets/knitting.jpg";
+import "./Home.module.css";
+import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
 const Home = () => {
@@ -26,30 +26,70 @@ const Home = () => {
   return (
     <div className="carousel-container">
       <Slider {...settings}>
-      <div>
-          <img src={pottery} alt="pottery" />
+        <div>
+          <img
+            style={{
+              filter: "brightness(50%)",
+            }}
+            src={pottery}
+            alt="pottery"
+          />
         </div>
         <div>
-          <img src={bamboo} alt="bamboo" />
+          <img
+            src={bamboo}
+            alt="bamboo"
+            style={{
+              filter: "brightness(50%)",
+            }}
+          />
         </div>
         <div>
-          <img src={ceramics} alt="ceramics" />
+          <img
+            src={ceramics}
+            alt="ceramics"
+            style={{
+              filter: "brightness(50%)",
+            }}
+          />
         </div>
         <div>
-          <img src={flower} alt="flower" />
+          <img
+            src={flower}
+            alt="flower"
+            style={{
+              filter: "brightness(50%)",
+            }}
+          />
         </div>
         <div>
-          <img src={handicrafts} alt="handicrafts" />
+          <img
+            src={handicrafts}
+            alt="handicrafts"
+            style={{
+              filter: "brightness(50%)",
+            }}
+          />
         </div>
         <div>
-          <img src={mugs} alt="mugs" />
-        </div>
-       
-        
-        <div>
-            <img src={knitting} alt="knitting" />
+          <img
+            src={mugs}
+            alt="mugs"
+            style={{
+              filter: "brightness(50%)",
+            }}
+          />
         </div>
 
+        <div>
+          <img
+            src={knitting}
+            alt="knitting"
+            style={{
+              filter: "brightness(50%)",
+            }}
+          />
+        </div>
       </Slider>
     </div>
   );

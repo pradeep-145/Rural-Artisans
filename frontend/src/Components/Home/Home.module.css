@@ -2,12 +2,14 @@
 .carousel-container {
   width: 100%;
   max-width: 1200px; 
+  height: 500px;
   margin: auto;
   padding: 20px 0;
 }
 
 /* Ensure images do not push dots down */
-.slick-slide img {
+.carousel-container img {
+  display: none !important;
   width: 100%;
   height: 500px;  /* Ensures all images have the same height */
   object-fit: cover; /* Crops the image while maintaining aspect ratio */
