@@ -44,10 +44,9 @@ export const saveProduct = async (req, res) => {
 
 }
 
-
 export const getUserProducts = async (req, res) => {
     try {
-        const products = await productModel.find({ isVerified: false }).populate('review')
+        const products = await productModel.find({ isVerified: true }).populate('review')
         
         res.status(200).json(products)
     }
@@ -57,6 +56,7 @@ export const getUserProducts = async (req, res) => {
     }
 
 }
+
 export const getArtisanProducts = async (req, res) => {
     const { artisanId } = req.params;
     try {
@@ -118,6 +118,7 @@ export const reviewProduct = async (req, res) => {
         res.status(500).send("Internal Server Error")
     }
 }
+
 export const addToCart=async(req,res)=>{
     const {productId, customerId, quantity}=req.body;
     try {
