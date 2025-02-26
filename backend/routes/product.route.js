@@ -7,7 +7,7 @@ import { adminAuthMiddleware } from '../middlewares/admin.middleware.js';
 const productRouter=express.Router();
 const storage=multer.memoryStorage();
 const upload=multer({storage:storage})
-productRouter.post('/save/:artisanId',upload.single("image"),artisanAuthMiddleware, saveProduct)
+productRouter.post('/save',upload.single("image"),artisanAuthMiddleware, saveProduct)
 productRouter.get('/get', getUserProducts)
 productRouter.get('/artisan/get/:artisanId',artisanAuthMiddleware, getArtisanProducts)
 productRouter.get('/product/:productId', getProduct)
@@ -15,4 +15,5 @@ productRouter.get('/admin/get',adminAuthMiddleware, getUnverifiedProducts)
 productRouter.post('/review/save',customerAuthMiddle, reviewProduct)
 productRouter.post('/cart/add',customerAuthMiddle,addToCart)
 productRouter.get('/cart/get/:customerId',customerAuthMiddle, getCart)
+
 export default productRouter;

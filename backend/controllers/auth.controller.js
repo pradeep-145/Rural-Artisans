@@ -6,7 +6,7 @@ export const artisanSignUp = async (req, res) => {
     const mobileNo = req.body.mobileNo || null
     const email = req.body.email || null
     const brand = req.body.brand
-    console.log(req.body)
+
     try {
         if (email) {
             await artisanModel.create({ email, brand })
@@ -14,7 +14,7 @@ export const artisanSignUp = async (req, res) => {
         if (mobileNo) {
             await artisanModel.create({ mobileNo, brand })
         }
-        console.log("artisan created")
+
         res.status(201).json({ message: "artisan created successfully" })
     } catch (error) {
         console.log("error at usersignUp:", error)
@@ -67,7 +67,6 @@ export const userSignUp = async (req, res) => {
 
     try {
         await customerModel.create({ email, name, password: hashedPassword })
-        console.log("user created")
         res.status(201).json({ message: "User created successfully" })
     } catch (error) {
         console.log("error at usersignUp:", error)
@@ -141,4 +140,20 @@ export const adminSignIn= async(req,res)=>{
         res.status(500).json({message:"internal server error"})    
     }
     
+}
+
+export const artisanVerify=async(req,res)=>{
+    const {mobileNo} = req.body;
+    try {
+        const user= await artisanModel.find({mobileNo:mobileNo});
+        if(!user){
+            throw new Error("user Not Found")
+        }
+        res.status(200).json({message:"user found",success:true})
+        
+
+    } catch (error) {
+        console.log("error at artisanVerify",error);
+        res.status(500).json("Internal server Error")
+    }
 }
