@@ -6,10 +6,10 @@ import { AuthContextProvider } from './context/AuthContext.jsx'
 import { ProductContextProvider } from './context/ProductContext.jsx'
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-      <ProductContextProvider>
-    <AuthContextProvider>
+    <ProductContextProvider>
+      <AuthContextProvider>
         <App />
-    </AuthContextProvider>
-      </ProductContextProvider>
+      </AuthContextProvider>
+    </ProductContextProvider>
   </StrictMode>,
 )

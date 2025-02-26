@@ -1,8 +1,7 @@
 .productScrollContainer {
     width: 100%;
-    max-width: 1340px;
     margin: 0 auto;
-    padding: 2rem 0;
+    padding: 2rem;
     margin-top: 40px;
 }
 
@@ -74,16 +73,23 @@
     flex: 0 0 calc(25% - 1.125rem);
     background: white;
     border-radius: 8px;
-    padding: 1rem;
+    max-width: 350px;
     position: relative;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
     transition: all 0.3s ease;
     opacity: 1;
+    cursor: pointer;
+    margin-right: 2rem;
+    margin-bottom: 1.5rem;
+}
+
+.productCard:last-child {
+    margin-right: 0;
 }
 
 .productCard:hover {
     transform: translateY(-5px) scale(1.001);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
 }
 
 .wishlistButton {
@@ -234,20 +240,33 @@
 }
 
 @media (max-width: 1024px) {
+    .productScrollContainer {
+        padding: 2rem 3rem;
+    }
+
     .productCard {
         flex: 0 0 calc(33.33% - 1rem);
     }
 }
 
 @media (max-width: 768px) {
+    .productScrollContainer {
+        padding: 2rem 2.5rem;
+    }
+
     .productCard {
         flex: 0 0 calc(50% - 0.75rem);
     }
 }
 
 @media (max-width: 480px) {
+    .productScrollContainer {
+        padding: 2rem 2rem;
+    }
+
     .productCard {
         flex: 0 0 100%;
+        max-width: 300px;
     }
 
     .productsContainer {
