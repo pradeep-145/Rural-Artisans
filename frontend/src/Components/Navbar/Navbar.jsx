@@ -20,11 +20,11 @@ const Navbar = () => {
     setIsCartOpen((prev) => !prev);
   };
 
-  const handleAuth = async() => {
+  const handleAuth = async () => {
     if (login) {
-      await axios.post('/api/auth/logout').then(()=>{
-        console.log("done")
-      })
+      await axios.post("/api/auth/logout").then(() => {
+        console.log("done");
+      });
       localStorage.removeItem("type");
       localStorage.removeItem("authUser");
       setLogin(null);
@@ -73,18 +73,13 @@ const Navbar = () => {
           </button>
         ) : login == "customer" ? (
           <div className={styles.auth__cart_container}>
-            <FaRegUser className={styles.__icon}  />
-
-            <div className={styles.__icon} onClick={toggleCart}>
-              <GrCart />
-            </div>
             <FaRegHeart className={styles.__icon} />
-            <FiLogOut className={styles.__icon} onClick={handleAuth} />
+            <GrCart className={styles.__icon} onClick={toggleCart} />
+            <FaRegUser className={styles.__icon} />
           </div>
         ) : (
           <>
-          <FaRegUser className={styles.__icon}  />
-          <FiLogOut className={styles.__icon} onClick={handleAuth} />
+            <FaRegUser className={styles.__icon} />
           </>
         )}
       </div>

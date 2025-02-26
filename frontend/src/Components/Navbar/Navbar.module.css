@@ -1,6 +1,6 @@
-/* General Navbar Styles */
+
 .user__navbar {
-  height: 5rem;
+  height: 6rem;
   display: flex;
   align-items: center;
   width: 100%;
@@ -60,15 +60,14 @@
 }
 
 .search__box {
+  height: 2.75rem;
   display: flex;
   align-items: center;
-  background: #f1f1f1;
-  padding: 0.5rem 1rem;
-  border-radius: 10px;
+  padding: 0.5rem 1.5rem;
+  border-radius: 5px;
+  border: 2px #418e7c double;
   gap: 10px;
 }
-
-
 
 .search__box input {
   border: none;
@@ -79,13 +78,12 @@
 }
 
 .search__box input::placeholder {
-  color: #aaa;
 }
 
 .auth__cart_container {
   display: flex;
   align-items: center;
-  gap: 4rem;
+  gap: 2rem;
 }
 
 .auth__button {

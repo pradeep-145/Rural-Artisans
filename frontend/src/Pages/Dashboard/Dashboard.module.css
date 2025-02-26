@@ -23,7 +23,9 @@
     align-items: center;
     gap: 5px;
 }
-
+a{
+    text-decoration: none;
+}
 .admin__title {
     text-align: center;
     margin-top: 20px;
@@ -40,7 +42,7 @@
 }
 
 .admin__button:hover {
-    background-color: #388b78;
+    background-color: #48a18c;
 }
 
 .admin__materialList {

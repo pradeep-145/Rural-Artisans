@@ -4,15 +4,19 @@ import { FaCartShopping, FaStar } from 'react-icons/fa6';
 import { useNavigate } from 'react-router-dom';
 import styles from './ProductScroll.module.css';
 import { useProducts } from '../../context/ProductContext';
+import CartSidebar from '../CartSidebar/CartSidebar';
+
 const ProductScroll = () => {
     const navigate = useNavigate();
     const [currentIndex, setCurrentIndex] = useState(0);
+    const [isCartOpen, setIsCartOpen] = useState(false);
+    const [cartItems, setCartItems] = useState([]);
 
     const { products } = useProducts();
 
-  if (!products || products.length === 0) {
-    return <div>No products available</div>;
-  }
+    if (!products || products.length === 0) {
+        return <div>No products available</div>;
+    }
 
     const handlePrevious = () => {
         setCurrentIndex(prev =>
@@ -28,7 +32,32 @@ const ProductScroll = () => {
 
     const handleAddToCart = (event, item) => {
         event.stopPropagation();
-        console.log("Added to cart:", item);
+
+        const existingItemIndex = cartItems.findIndex(cartItem => cartItem._id === item._id);
+
+        if (existingItemIndex >= 0) {
+            const updatedCart = [...cartItems];
+            const currentQuantity = updatedCart[existingItemIndex].cartQuantity;
+
+            if (currentQuantity < item.quantity) {
+                updatedCart[existingItemIndex].cartQuantity = currentQuantity + 1;
+                setCartItems(updatedCart);
+            }
+        } else {
+            setCartItems([...cartItems, { ...item, cartQuantity: 1 }]);
+        }
+
+        setIsCartOpen(true);
+    };
+
+    const handleRemoveFromCart = (itemId) => {
+        setCartItems(cartItems.filter(item => item._id !== itemId));
+    };
+
+    const handleUpdateQuantity = (itemId, newQuantity) => {
+        setCartItems(cartItems.map(item =>
+            item._id === itemId ? { ...item, cartQuantity: newQuantity } : item
+        ));
     };
 
     const handleAddToWishlist = (event, item) => {
@@ -37,7 +66,7 @@ const ProductScroll = () => {
     };
 
     const handleCardClick = (item) => {
-        navigate(`/product/${item.id}`, { state: { product: item } });
+        navigate(`/product/${item._id}`, { state: { product: item } });
     };
 
     return (
@@ -59,7 +88,7 @@ const ProductScroll = () => {
                         transform: `translateX(-${currentIndex * (100 / 4 + 1.5)}%)`
                     }}>
                         {products.map((product) => (
-                            <div key={product.id} className={styles.productCard} onClick={() => handleCardClick(product)}>
+                            <div key={product._id} className={styles.productCard} onClick={() => handleCardClick(product)}>
                                 <div className={styles.productImageContainer}>
                                     <button className={styles.heartButton}
                                         onClick={(event) => handleAddToWishlist(event, product)} >
@@ -79,7 +108,8 @@ const ProductScroll = () => {
                                         <p className={styles.stockStatus} style={{ color: product.quantity > 0 ? "#059669" : "#ef4444" }} >
                                             {product.quantity > 0 ? "In stock" : "Out of stock"}
                                         </p>
-                                        <button className={styles.cartButton} onClick={(event) => handleAddToCart(event, product)}
+                                        <button className={styles.cartButton}
+                                            onClick={(event) => handleAddToCart(event, product)}
                                             disabled={product.quantity <= 0} >
                                             <FaCartShopping className={styles.cartIcon} /> Add to cart
                                         </button>
@@ -94,71 +124,12 @@ const ProductScroll = () => {
                     <FaChevronRight />
                 </button>
             </div>
+
+            <CartSidebar isOpen={isCartOpen} onClose={() => setIsCartOpen(false)} cartItems={cartItems}
+                removeFromCart={handleRemoveFromCart} updateQuantity={handleUpdateQuantity}
+            />
         </div>
     );
 };
 
 export default ProductScroll;
-
-// [
-//     {
-//         id: 1,
-//         name: "Apple iPad",
-//         image: "https://www.shutterstock.com/image-photo/gender-neutral-baby-garment-organic-600nw-1987778996.jpg",
-//         rating: 4,
-//         price: 369.00,
-//         quantity: 5
-//     },
-//     {
-//         id: 2,
-//         name: "Sony Headphone",
-//         image: "https://www.shutterstock.com/image-photo/gender-neutral-baby-garment-organic-600nw-1987778996.jpg",
-//         rating: 4,
-//         price: 23.99,
-//         quantity: 0
-//     },
-//     {
-//         id: 3,
-//         name: "Macbook Air",
-//         image: "https://www.shutterstock.com/image-photo/gender-neutral-baby-garment-organic-600nw-1987778996.jpg",
-//         rating: 4.5,
-//         price: 649.00,
-//         quantity: 3
-//     },
-//     {
-//         id: 4,
-//         name: "Nikon DSLR",
-//         image: "https://www.shutterstock.com/image-photo/gender-neutral-baby-garment-organic-600nw-1987778996.jpg",
-//         rating: 3,
-//         price: 250.00,
-//         quantity: 2
-//     }, {
-//         id: 4,
-//         name: "Nikon DSLR",
-//         image: "https://www.shutterstock.com/image-photo/gender-neutral-baby-garment-organic-600nw-1987778996.jpg",
-//         rating: 3,
-//         price: 250.00,
-//         quantity: 2
-//     }, {
-//         id: 4,
-//         name: "Nikon DSLR",
-//         image: "https://www.shutterstock.com/image-photo/gender-neutral-baby-garment-organic-600nw-1987778996.jpg",
-//         rating: 3,
-//         price: 250.00,
-//         quantity: 2
-//     }, {
-//         id: 4,
-//         name: "Nikon DSLR",
-//         image: "https://www.shutterstock.com/image-photo/gender-neutral-baby-garment-organic-600nw-1987778996.jpg",
-//         rating: 3,
-//         price: 250.00,
-//         quantity: 2
-//     }, {
-//         id: 4,
-//         name: "Nikon DSLR",
-//         image: "https://www.shutterstock.com/image-photo/gender-neutral-baby-garment-organic-600nw-1987778996.jpg",
-//         rating: 3,
-//         price: 250.00,
-//         quantity: 2
-//     }
-// ];

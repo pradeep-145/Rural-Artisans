@@ -1,5 +1,5 @@
 .productsContainer {
-    padding: 2rem 0.2rem;
+    padding: 2rem 1rem;
     background-color: #f9fafb;
 }
 
@@ -60,15 +60,16 @@
 
 .productCard {
     background-color: white;
-    border-radius: 0.5rem;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 1rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
     transition: box-shadow 0.3s ease;
     cursor: pointer;
+    padding: 1rem;
     overflow: hidden;
 }
 
 .productCard:hover {
-    box-shadow: 5px 14px 16px rgba(0, 0, 0, 0.1);
+    box-shadow: 5px 14px 16px rgba(0, 0, 0, 0.3);
 }
 
 .productImageContainer {
