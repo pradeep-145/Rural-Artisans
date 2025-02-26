@@ -7,7 +7,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: #007bff;
+    background-color: #4dac96;
     color: white;
     padding: 10px 20px;
     border-radius: 8px;
@@ -23,14 +23,16 @@
     align-items: center;
     gap: 5px;
 }
-
+a{
+    text-decoration: none;
+}
 .admin__title {
     text-align: center;
     margin-top: 20px;
 }
 
 .admin__button {
-    background-color: #007bff;
+    background-color: #4dac96;
     color: white;
     border: none;
     padding: 10px 15px;
@@ -40,7 +42,7 @@
 }
 
 .admin__button:hover {
-    background-color: #0056b3;
+    background-color: #48a18c;
 }
 
 .admin__materialList {

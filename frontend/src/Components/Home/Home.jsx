@@ -21,13 +21,20 @@ const Home = () => {
     autoplaySpeed: 3000,
     arrows: true,
     pauseOnHover: false,
+    fade: true,
   };
 
   return (
     <div className={styles.carouselContainer}>
       <Slider {...settings}>
         <div>
-          <img src={pottery} alt="pottery" />
+          <img
+            src={pottery}
+            alt="pottery"
+            style={{
+              filter: "brightness(50%)",
+            }}
+          />
         </div>
         <div>
           <img
@@ -75,7 +82,13 @@ const Home = () => {
           />
         </div>
         <div>
-          <img src={knitting} alt="knitting" />
+          <img
+            src={knitting}
+            alt="knitting"
+            style={{
+              filter: "brightness(50%)",
+            }}
+          />
         </div>
       </Slider>
     </div>
