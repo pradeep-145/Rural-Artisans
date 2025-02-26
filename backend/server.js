@@ -8,7 +8,7 @@ import productRouter from './routes/product.route.js';
 import paymentRouter from './routes/payment.route.js';
 import listingRouter from './routes/fairprice.route.js';
 dotenv.config()
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 3001;
 const app = express();
 app.use(express.json());
 app.use(cors())
