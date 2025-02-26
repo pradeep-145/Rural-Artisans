@@ -1,5 +1,8 @@
 import axios from 'axios';
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react';
+import styles from './Dashboard.module.css';
+import { FiLogOut } from 'react-icons/fi';
+import { Link } from 'react-router-dom';
 
 const ArtisanDashboard = () => {
     const [products, setProducts] = useState([]);
@@ -7,144 +10,104 @@ const ArtisanDashboard = () => {
     const [price, setPrice] = useState('');
     const [quantity, setQuantity] = useState('');
     const [description, setDescription] = useState('');
-    const [image, setImage] = useState('');
+    const [image, setImage] = useState(null);
     const [addProduct, setAddProduct] = useState(false);
-    const authUser=JSON.parse(localStorage.getItem('authUser'))
+
+    const authUser = JSON.parse(localStorage.getItem('authUser'));
+
+    useEffect(() => {
+        const fetchProducts = async () => {
+            try {
+                const response = await axios.get(`/api/products/${authUser._id}`);
+                setProducts(response.data);
+            } catch (error) {
+                console.log('Error fetching products:', error);
+            }
+        };
+        fetchProducts();
+    }, []);
+
     const handleSubmit = async () => {
         const formData = new FormData();
-        formData.append('artisanId',authUser._id );
+        formData.append('artisanId', authUser._id);
         formData.append('name', name);
         formData.append('price', price);
         formData.append('quantity', quantity);
         formData.append('description', description);
         formData.append('image', image);
+
         try {
-            const response = await axios.post('/api/products', formData);
+            const response = await axios.post('/api/products', formData, {
+                headers: { 'Content-Type': 'multipart/form-data' },
+            });
             console.log(response.data);
+            setAddProduct(false);
+            setProducts((prev) => [...prev, response.data]); 
         } catch (error) {
             console.log(error);
         }
-    }
+    };
 
     return (
-        <div>
-            <div>
+        <div className={styles.admin__container}>
+            <div className={styles.admin__header}>
                 <h1>Artisan Dashboard</h1>
-                <div>
-                    <button onClick={() => setAddProduct(true)}>Add Product</button>
-                    {addProduct && (
-                        <div className="modal-overlay">
-                            <div className="modal">
-                                <h3>Add Product</h3>
-                                <button onClick={() => setAddProduct(false)}>×</button>
-                                <form>
-                                    <label>Name</label><br />
-                                    <input
-                                        type="text"
-                                        placeholder="Enter name"
-                                        value={name}
-                                        onChange={(e) => setName(e.target.value)}
-                                    />
-                                    <br />
-                                    <label>Price</label><br />
-                                    <input
-                                        type="number"
-                                        placeholder="Enter price"
-                                        value={price}
-                                        onChange={(e) => setPrice(e.target.value)}
-                                    />
-                                    <br />
-                                    <label>Quantity</label><br />
-                                    <input
-                                        type="number"
-                                        placeholder="Enter quantity"
-                                        value={quantity}
-                                        onChange={(e) => setQuantity(e.target.value)}
-                                    />
-                                    <br />
-                                    <label>Description</label><br />
-                                    <input
-                                        type="text"
-                                        placeholder="Enter description"
-                                        value={description}
-                                        onChange={(e) => setDescription(e.target.value)}
-                                    />
-                                    <br />
-                                    <label>Image</label><br />
-                                    <input
-                                        type="file"
-                                        accept="image/png, image/jpeg, image/jpg"
-                                        size={50}
-                                        onChange={(e) => setImage(e.target.files[0])}
-                                    />
-                                    <br />
-                                    <button type="button" onClick={handleSubmit}>Add Product</button>
-                                </form>
-                            </div>
-                        </div>
-                    )}
-
-                </div>
-                <div>
-                    <h3>My Orders</h3>
-                    
-                </div>
-                <div>
-                    <h3>My Products</h3>
-                    <div>
-                        {products.map((product) => (
-                            <div key={product.id}>
-                                <h4>{product.name}</h4>
-                                <p>{product.price}</p>
-                                <p>{product.quantity}</p>
-                                <p>{product.description}</p>
-                                <img src={product.image} alt={product.name} />
-                            </div>
-                        ))}
-                        </div>
-
-                </div>
-
+                <Link to="/adminLogin">
+                    <button type="submit" className={styles.admin__logoutBtn}>
+                        Logout <FiLogOut />
+                    </button>
+                </Link>
             </div>
 
-            <style>
-                {`
-                .modal-overlay {
-                    position: fixed;
-                    top: 0;
-                    left: 0;
-                    width: 100%;
-                    height: 100%;
-                    background: rgba(0, 0, 0, 0.5);
-                    display: flex;
-                    justify-content: center;
-                    align-items: center;
-                    z-index: 1000;
-                }
-                
-                .modal {
-                    background: white;
-                    padding: 20px;
-                    border-radius: 8px;
-                    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-                    width: 300px;
-                    position: relative;
-                }
-                
-                .close-btn {
-                    position: absolute;
-                    top: 10px;
-                    right: 10px;
-                    background: none;
-                    border: none;
-                    font-size: 20px;
-                    cursor: pointer;
-                }
-                `}
-            </style>
+            <div>
+                <button className={styles.admin__button} onClick={() => setAddProduct(true)}>Add Product</button>
+                {addProduct && (
+                    <div className={styles.admin__modalOverlay}>
+                        <div className={styles.admin__modal}>
+                            <h3>Add Product</h3>
+                            <button className={styles.admin__closeBtn} onClick={() => setAddProduct(false)}>×</button>
+                            <form>
+                                <label className={styles.label}>Name</label><br />
+                                <input type="text" className={styles.input} placeholder="Enter name" value={name} onChange={(e) => setName(e.target.value)} /><br />
+                                <label className={styles.label}>Price</label><br />
+                                <input type="number" className={styles.input}  placeholder="Enter price" value={price} onChange={(e) => setPrice(e.target.value)} /><br />
+                                <label className={styles.label}>Quantity</label><br />
+                                <input type="number" className={styles.input}  placeholder="Enter quantity" value={quantity} onChange={(e) => setQuantity(e.target.value)} /><br />
+                                <label className={styles.label}>Description</label><br />
+                                <input type="text" className={styles.input}  placeholder="Enter description" value={description} onChange={(e) => setDescription(e.target.value)} /><br />
+                                <label className={styles.label}>Image</label><br />
+                                <input type="file" accept="image/png, image/jpeg, image/jpg" onChange={(e) => setImage(e.target.files[0])} /><br />
+                                <button type="button" className={styles.admin__button} onClick={handleSubmit}>Add Product</button>
+                            </form>
+                        </div>
+                    </div>
+                )}
+            </div>
 
+            <div>
+                <h3>My Orders</h3>
+            </div>
+
+            <div>
+                <h3>My Products</h3>
+                <div>
+                    {products.length > 0 ? (
+                        products.map((product) => (
+                            <div key={product._id}>
+                                <h4>{product.name}</h4>
+                                <p>Price: {product.price}</p>
+                                <p>Quantity: {product.quantity}</p>
+                                <p>{product.description}</p>
+                                <img src={product.image} alt={product.name} width="100" />
+                            </div>
+                        ))
+                    ) : (
+                        <p>No products added yet.</p>
+                    )}
+                </div>
+            </div>
         </div>
-    )
-}
+    );
+};
 
-export default ArtisanDashboard
+export default ArtisanDashboard;

@@ -91,17 +91,17 @@ const AdminDashboard = () => {
                 ×
               </button>
               <form>
-                <label>Material</label>
+                <label className={styles.label}>Material</label>
                 <br />
-                <input
+                <input className={styles.input} 
                   type="text"
                   value={material}
                   onChange={(e) => setMaterial(e.target.value)}
                 />
                 <br />
-                <label>Price</label>
+                <label className={styles.label}>Price</label>
                 <br />
-                <input
+                <input className={styles.input} 
                   type="number"
                   value={price}
                   onChange={(e) => setPrice(e.target.value)}
@@ -138,7 +138,7 @@ const AdminDashboard = () => {
                 ×
               </button>
               <form>
-                <label>Select Material</label>
+                <label className={styles.label}>Select Material</label>
                 <br />
                 <select
                   onChange={(e) =>
@@ -153,15 +153,15 @@ const AdminDashboard = () => {
                   ))}
                 </select>
                 <br />
-                <label>New Price</label>
+                <label className={styles.label}>New Price</label>
                 <br />
-                <input
+                <input className={styles.input} 
                   type="number"
                   value={price}
                   onChange={(e) => setPrice(e.target.value)}
                 />
                 <br />
-                <button
+                <button 
                   type="button"
                   className={styles.admin__button}
                   onClick={handleUpdateMaterial}

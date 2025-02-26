@@ -7,7 +7,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: #007bff;
+    background-color: #4dac96;
     color: white;
     padding: 10px 20px;
     border-radius: 8px;
@@ -30,7 +30,7 @@
 }
 
 .admin__button {
-    background-color: #007bff;
+    background-color: #4dac96;
     color: white;
     border: none;
     padding: 10px 15px;
@@ -40,7 +40,7 @@
 }
 
 .admin__button:hover {
-    background-color: #0056b3;
+    background-color: #388b78;
 }
 
 .admin__materialList {
@@ -85,4 +85,36 @@
     border: none;
     font-size: 20px;
     cursor: pointer;
+}
+
+.input {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    border: 1.9px solid #e2e8f0;
+    border-radius: 10px;
+    font-size: 1rem;
+    transition: all 0.2s;
+}
+
+.input:focus {
+    outline: none;
+    border-color: #4dac96;
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+}
+
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.formGroup {
+    margin-bottom: 1.5rem;
+}
+
+.label {
+    display: block;
+    font-size: 0.875rem;
+    color: #64748b;
+    margin-bottom: 10px;
 }
