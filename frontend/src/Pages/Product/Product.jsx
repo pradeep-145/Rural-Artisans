@@ -27,7 +27,7 @@ const Product = () => {
 
     const rating = 4.5;
     const totalReviews = 128;
-    console.log(product.review[0].customerId)
+    
 
     const renderStars = (rating) => {
         const stars = [];

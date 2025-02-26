@@ -17,6 +17,7 @@ const ProductList = () => {
   };
 
   const handleCardClick = (item) => {
+    console.log(item)
     navigate(`/product/${item._id}`, { state: { product: item } });
   };
 
@@ -46,7 +47,7 @@ const ProductList = () => {
         <h1 className={styles.productsTitle}>Products</h1>
         <div className={styles.productsGrid}>
           {products.map((item) => (
-            <div key={item.id} className={styles.productCard} onClick={() => handleCardClick(item)} >
+            <div key={item._id} className={styles.productCard} onClick={() => handleCardClick(item)} >
               <div className={styles.productImageContainer}>
                 <img src={item.image} alt={item.name} className={styles.productImage} />
                 <button className={styles.heartButton} onClick={(event) => handleAddToWishlist(event, item)} >

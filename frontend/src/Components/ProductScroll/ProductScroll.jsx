@@ -37,7 +37,7 @@ const ProductScroll = () => {
     };
 
     const handleCardClick = (item) => {
-        navigate(`/product/${item.id}`, { state: { product: item } });
+        navigate(`/product/${item._id}`, { state: { product: item } });
     };
 
     return (
@@ -59,7 +59,7 @@ const ProductScroll = () => {
                         transform: `translateX(-${currentIndex * (100 / 4 + 1.5)}%)`
                     }}>
                         {products.map((product) => (
-                            <div key={product.id} className={styles.productCard} onClick={() => handleCardClick(product)}>
+                            <div key={product._id} className={styles.productCard} onClick={() => handleCardClick(product)}>
                                 <div className={styles.productImageContainer}>
                                     <button className={styles.heartButton}
                                         onClick={(event) => handleAddToWishlist(event, product)} >
