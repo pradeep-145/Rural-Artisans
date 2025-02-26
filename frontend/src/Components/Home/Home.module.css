@@ -24,7 +24,6 @@
 .carouselContainer :global(.slick-next) {
   width: 40px;
   height: 40px;
-  background: rgba(255, 255, 255, 0.9) !important;
   border-radius: 50%;
   z-index: 1;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
@@ -41,7 +40,6 @@
 
 .carouselContainer :global(.slick-prev:hover),
 .carouselContainer :global(.slick-next:hover) {
-  /* background: rgba(255, 255, 255, 1) !important; */
   box-shadow: 0 3px 8px rgba(0, 0, 0, 0.3);
 }
 
@@ -49,7 +47,7 @@
 .carouselContainer :global(.slick-next:before) {
   font-size: 36px;
   opacity: 0.8;
-  color: #4dac96;
+  color: #a3aba9;
 }
 
 .carouselContainer :global(.slick-dots) {
