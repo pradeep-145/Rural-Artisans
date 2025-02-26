@@ -13,7 +13,7 @@ const artisanAuthMiddleware = async (req, res, next) => {
         if (!decoded) {
             return res.status(401).json({ error: "Unauthorized" });
         }
-        console.log(decoded)
+   
         const user = await artisanModel.findById(decoded.artisanId);
         if (!user) {
             return res.status(404).json({ error: "User Not Found" });

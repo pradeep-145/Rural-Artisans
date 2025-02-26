@@ -11,7 +11,7 @@ const ArtisanLogin = () => {
   const [countdown, setCountdown] = useState(0);
   const [sentOtp, setSentOtp] = useState(null);
   const [login, setlogin] = useState(true);
-  const navigate =useNavigate()
+  const navigate = useNavigate()
 
   useEffect(() => {
     if (otp == sentOtp) {
@@ -24,31 +24,40 @@ const ArtisanLogin = () => {
     const generatedOtp = Math.floor(100000 + Math.random() * 900000);
     setSentOtp(generatedOtp);
     console.log(generatedOtp)
- 
 
-    
-    // await axios.get(`https://www.fast2sms.com/dev/bulkV2?authorization=YOUR_API_KEY&route=otp&variables_values=${generatedOtp}&flash=0&numbers=${mobileNo}`)
-    //   .then(() => {
+    try {
+      const res = await axios.post('/api/auth/artisan/verify', { mobileNo })
+      if (res) {
+
+        // await axios.get(`https://www.fast2sms.com/dev/bulkV2?authorization=YOUR_API_KEY&route=otp&variables_values=${generatedOtp}&flash=0&numbers=${mobileNo}`)
+        //   .then(() => {
         setShowOtpField(true);
         setIsButtonDisabled(true);
         setCountdown(60);
-    //   })
-    //   .catch((error) => {
-    //     console.log(error);
-    //   });
+        //   })
+        //   .catch((error) => {
+        //     console.log(error);
+        //   });
 
-    setTimeout(() => {
-      console.log('OTP Sent Successfully');
-    }, 1000);
+        setTimeout(() => {
+          console.log('OTP Sent Successfully');
+        }, 1000);
+
+      }
+
+    } catch (error) {
+      console.log(error)
+    }
+
+
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const resposne=await axios.post('/api/auth/artisan/sign-in', { mobileNo });
-      if(resposne)
-      {
-        localStorage.setItem('authUser',JSON.stringify(resposne.data.message))
-        localStorage.setItem('type',resposne.data.user)
+      const resposne = await axios.post('/api/auth/artisan/sign-in', { mobileNo });
+      if (resposne) {
+        localStorage.setItem('authUser', JSON.stringify(resposne.data.message))
+        localStorage.setItem('type', resposne.data.user)
         navigate('/artisanDashboard')
 
       }
@@ -95,8 +104,8 @@ const ArtisanLogin = () => {
               </div>
             )}
             <button type="submit" disabled={login} onClick={handleSubmit} className={`${styles.button} ${login ? styles.disabledButton : ''}`}>
-                          login
-                        </button>
+              login
+            </button>
             <p className={styles.link}>
               Don't have an account?
               <Link to="/artisanSignup" className={styles.linkText}>Sign up</Link>

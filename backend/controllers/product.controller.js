@@ -20,7 +20,7 @@ const getImageLink = async (image) => {
 
 export const saveProduct = async (req, res) => {
     const file = req.file;
-    const artisanId = req.params.artisanId;
+    const artisanId = req.body.artisanId;
     if (!file) {
         return res.status(400).send("Please upload a file")
     }
@@ -100,7 +100,7 @@ export const reviewProduct = async (req, res) => {
     try {
         const review = await customerReviewModel.create({
             productId,
-            customerId,
+            customerName,
             comment,
             rating
         })
@@ -109,7 +109,6 @@ export const reviewProduct = async (req, res) => {
             const response = await productModel.findById(productId);
             response.review.push(review._id);
             await response.save();
-            console.log(response)
 
         }
         res.status(200).json({ message: "Review added successfully" });
