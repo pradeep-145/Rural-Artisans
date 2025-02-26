@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { FiLogOut } from "react-icons/fi";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import styles from "./Dashboard.module.css";
 
 const AdminDashboard = () => {
   const [material, setMaterial] = useState("");
@@ -59,28 +60,32 @@ const AdminDashboard = () => {
   };
 
   return (
-    <div>
-      <div>
+    <div className={styles.admin__container}>
+      <div className={styles.admin__header}>
         <h1>Welcome Admin!</h1>
         <Link to="/adminLogin">
-          <button type="submit">
+          <button type="submit" className={styles.admin__logoutBtn}>
             Logout <FiLogOut />
           </button>
         </Link>
       </div>
 
-      <div>
+      <div className={styles.admin__title}>
         <h1>Material Price Management</h1>
-        <button type="button" onClick={() => setAddMaterial(true)}>
+        <button
+          type="button"
+          className={styles.admin__button}
+          onClick={() => setAddMaterial(true)}
+        >
           Add Material
         </button>
 
         {addMaterial && (
-          <div className="modal-overlay">
-            <div className="modal">
+          <div className={styles.admin__modalOverlay}>
+            <div className={styles.admin__modal}>
               <h3>Add Material</h3>
               <button
-                className="close-btn"
+                className={styles.admin__closeBtn}
                 onClick={() => setAddMaterial(false)}
               >
                 ×
@@ -102,7 +107,11 @@ const AdminDashboard = () => {
                   onChange={(e) => setPrice(e.target.value)}
                 />
                 <br />
-                <button type="button" onClick={handleAddMaterial}>
+                <button
+                  type="button"
+                  className={styles.admin__button}
+                  onClick={handleAddMaterial}
+                >
                   Add Material
                 </button>
               </form>
@@ -110,16 +119,20 @@ const AdminDashboard = () => {
           </div>
         )}
 
-        <button type="button" onClick={() => setUpdateMaterial(true)}>
+        <button
+          type="button"
+          className={styles.admin__button}
+          onClick={() => setUpdateMaterial(true)}
+        >
           Update Material
         </button>
 
         {updateMaterial && (
-          <div className="modal-overlay">
-            <div className="modal">
+          <div className={styles.admin__modalOverlay}>
+            <div className={styles.admin__modal}>
               <h3>Update Material</h3>
               <button
-                className="close-btn"
+                className={styles.admin__closeBtn}
                 onClick={() => setUpdateMaterial(false)}
               >
                 ×
@@ -148,7 +161,11 @@ const AdminDashboard = () => {
                   onChange={(e) => setPrice(e.target.value)}
                 />
                 <br />
-                <button type="button" onClick={handleUpdateMaterial}>
+                <button
+                  type="button"
+                  className={styles.admin__button}
+                  onClick={handleUpdateMaterial}
+                >
                   Update Material
                 </button>
               </form>
@@ -157,11 +174,11 @@ const AdminDashboard = () => {
         )}
       </div>
 
-      <div>
+      <div className={styles.admin__materialList}>
         <h1>Materials List</h1>
         {materials.length > 0 ? (
           materials.map((mat) => (
-            <div key={mat._id}>
+            <div key={mat._id} className={styles.admin__materialItem}>
               <h3>{mat.name}</h3>
               <h3>{mat.price}</h3>
             </div>
@@ -170,42 +187,6 @@ const AdminDashboard = () => {
           <p>No materials added yet.</p>
         )}
       </div>
-
-      <style>
-        {`
-                .modal-overlay {
-                    position: fixed;
-                    top: 0;
-                    left: 0;
-                    width: 100%;
-                    height: 100%;
-                    background: rgba(0, 0, 0, 0.5);
-                    display: flex;
-                    justify-content: center;
-                    align-items: center;
-                    z-index: 1000;
-                }
-                
-                .modal {
-                    background: white;
-                    padding: 20px;
-                    border-radius: 8px;
-                    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-                    width: 300px;
-                    position: relative;
-                }
-                
-                .close-btn {
-                    position: absolute;
-                    top: 10px;
-                    right: 10px;
-                    background: none;
-                    border: none;
-                    font-size: 20px;
-                    cursor: pointer;
-                }
-                `}
-      </style>
     </div>
   );
 };
