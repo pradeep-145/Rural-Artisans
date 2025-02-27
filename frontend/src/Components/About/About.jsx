@@ -5,8 +5,9 @@ const About = () => {
   return (
     <div id="about" className={styles.aboutContainer}>
       <div className={styles.header}>
-      <h2 className={styles.aboutTitle}>About Us</h2>
+      <h2 className={styles.aboutTitle}>ABOUT US</h2>
       </div>
+      <div className={styles.aboutText}>
       <p>
         Welcome to our Rural Artisan E-Commerce Platform! We are dedicated to 
         empowering skilled artisans from rural areas by providing them with a 
@@ -22,6 +23,7 @@ const About = () => {
         shopping, we bridge the gap between artisans and buyers, promoting 
         sustainable livelihoods and cultural heritage.
       </p>
+      </div>
     </div>
   );
 };

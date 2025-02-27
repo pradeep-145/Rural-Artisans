@@ -1,0 +1,117 @@
+.testimonialsContainer {
+    width: 80%;
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 3rem 2rem;
+    margin-top: 40px;
+    border-radius: 15px;
+    
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+}
+
+.testimonialsTitle {
+    font-size: 24px;
+    font-weight: 600;
+    color: #333;
+    position: relative;
+}
+
+.testimonialsTitle::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 0;
+    width: 60px;
+    height: 3px;
+    background-color: #4dac96;
+    transition: width 0.3s ease;
+}
+
+.testimonialsTitle:hover::after {
+    width: 100%;
+}
+
+.testimonial {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    position: relative;
+    
+}
+
+.testimonialText {
+    font-size: 20px;
+    color: #444;
+    line-height: 1.6;
+    font-style: italic;
+    max-width: 80%;
+    position: relative;
+    padding: 1.5rem;
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.8);
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.08);
+    display: inline-block;
+}
+
+.testimonialText::before {
+    content: "“";
+    font-size: 50px;
+    color: #4dac96;
+    position: absolute;
+    left: -10px;
+    top: -10px;
+    opacity: 0.7;
+}
+
+.testimonialText::after {
+    content: "”";
+    font-size: 50px;
+    color: #4dac96;
+    position: absolute;
+    right: -10px;
+    bottom: -10px;
+    opacity: 0.7;
+}
+
+.testimonialAuthor {
+    font-size: 18px;
+    font-weight: 600;
+    color: #333;
+    margin-top: 1rem;
+    position: relative;
+    padding: 0.5rem 1rem;
+    display: inline-block;
+}
+
+.testimonialAuthor::before {
+    content: '— ';
+    font-size: 22px;
+    color: #4dac96;
+    font-weight: bold;
+    
+}
+
+
+@media (max-width: 768px) {
+    .testimonialsContainer {
+        width: 90%;
+        padding: 2rem;
+    }
+
+    .testimonialText {
+        font-size: 18px;
+        max-width: 90%;
+    }
+
+    .testimonialAuthor {
+        font-size: 16px;
+    }
+}
