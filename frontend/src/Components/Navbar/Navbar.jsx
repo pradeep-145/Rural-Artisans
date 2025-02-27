@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from "react";
-// import { IoCartOutline } from "react-icons/io5";
+import { MdClose } from "react-icons/md";
 import { GiThreeLeaves } from "react-icons/gi";
 import { GrCart } from "react-icons/gr";
 import { FaRegUser, FaSearch, FaRegHeart } from "react-icons/fa";
 import styles from "./Navbar.module.css";
-import { FiLogOut } from "react-icons/fi";
 import axios from "axios";
 
 const Navbar = () => {
   const [login, setLogin] = useState(null);
+  const [searchModal, setSearchModal] = useState(false);
   // const [isCartOpen, setIsCartOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
 
@@ -56,16 +56,31 @@ const Navbar = () => {
             </>
           )}
         </div>
+        {searchModal && (
+          <div
+            className={`${styles.search__box} ${
+              searchModal ? styles.active : ""
+            }`}
+          >
+            <FaSearch className={styles.search__icon} />
+            <input
+              type="text"
+              placeholder="Search..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+            />
+            <MdClose
+              className={styles.closeBtn}
+              onClick={() => setSearchModal(false)}
+            />
+          </div>
+        )}
 
-        <div className={styles.search__box}>
-          <FaSearch className={styles.search__icon} />
-          <input
-            type="text"
-            placeholder="Search..."
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-          />
-        </div>
+        {!searchModal && (
+          <div className={styles.search__icon}>
+            <FaSearch onClick={() => setSearchModal(true)} />
+          </div>
+        )}
 
         {!login ? (
           <button className={styles.auth__button} onClick={handleAuth}>
