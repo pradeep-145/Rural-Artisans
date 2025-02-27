@@ -32,7 +32,7 @@ const Home = () => {
             src={pottery}
             alt="pottery"
             style={{
-              filter: "brightness(50%)",
+              filter: "brightness(80%)",
             }}
           />
         </div>
@@ -41,7 +41,7 @@ const Home = () => {
             src={bamboo}
             alt="bamboo"
             style={{
-              filter: "brightness(50%)",
+              filter: "brightness(80%)",
             }}
           />
         </div>
@@ -50,7 +50,7 @@ const Home = () => {
             src={ceramics}
             alt="ceramics"
             style={{
-              filter: "brightness(50%)",
+              filter: "brightness(80%)",
             }}
           />
         </div>
@@ -59,7 +59,7 @@ const Home = () => {
             src={flower}
             alt="flower"
             style={{
-              filter: "brightness(50%)",
+              filter: "brightness(80%)",
             }}
           />
         </div>
@@ -68,7 +68,7 @@ const Home = () => {
             src={handicrafts}
             alt="handicrafts"
             style={{
-              filter: "brightness(50%)",
+              filter: "brightness(80%)",
             }}
           />
         </div>
@@ -77,7 +77,7 @@ const Home = () => {
             src={mugs}
             alt="mugs"
             style={{
-              filter: "brightness(50%)",
+              filter: "brightness(80%)",
             }}
           />
         </div>
@@ -86,7 +86,7 @@ const Home = () => {
             src={knitting}
             alt="knitting"
             style={{
-              filter: "brightness(50%)",
+              filter: "brightness(80%)",
             }}
           />
         </div>
