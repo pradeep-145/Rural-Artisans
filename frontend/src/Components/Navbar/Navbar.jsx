@@ -65,7 +65,6 @@ const Navbar = () => {
           </div>
         )}
 
-        {/* Navigation Links */}
         <div
           className={`${styles.usernav__contents} ${
             mobileMenuOpen ? styles.mobile_menu_open : ""
