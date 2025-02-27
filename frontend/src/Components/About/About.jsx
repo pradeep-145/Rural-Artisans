@@ -1,9 +1,12 @@
 import React from "react";
+import styles from './About.module.css';
 
 const About = () => {
   return (
-    <div id="about">
-      <h2>About Us</h2>
+    <div id="about" className={styles.aboutContainer}>
+      <div className={styles.header}>
+      <h2 className={styles.aboutTitle}>About Us</h2>
+      </div>
       <p>
         Welcome to our Rural Artisan E-Commerce Platform! We are dedicated to 
         empowering skilled artisans from rural areas by providing them with a 
