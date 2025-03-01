@@ -10,10 +10,6 @@ export default  mongoose.model('Whishlist',
     productId:{
         type:mongoose.Schema.Types.ObjectId,
         ref:"Product",
-    },
-    quantity:{
-        type:Number,
-        required:true
     }
     })
 )

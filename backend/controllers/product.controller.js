@@ -2,6 +2,7 @@ import { v2 as cloudinary } from 'cloudinary';
 import customerReviewModel from '../models/customerReview.model.js';
 import productModel from '../models/product.model.js';
 import cartModel from '../models/cart.model.js';
+import wishlistModel from '../models/wishlist.model.js';
 cloudinary.config({
     cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
     api_key: process.env.CLOUDINARY_API_KEY,
@@ -148,4 +149,30 @@ export const getCart=async(req,res)=>{
     }
     
 
+}
+
+export const addToWishlist=async()=>{
+    try {
+        const response=await wishlistModel.create(req.body);
+        res.status(200).json({message:"Product added to wishlist successfully"})
+        
+    } catch (error) {
+        console.log("error at addToWishlist:", error)
+        res.status(500).send("Internal Server Error")
+    }
+}
+
+export const getWishlist=async(req,res)=>{
+    const {customerId}=req.params;
+    try {
+        const wishlist=await wishlistModel.find({customerId:customerId}).populate({
+            path:'productId',
+            select:'name price image'
+        })
+        res.status(200).json(wishlist)
+    }
+    catch (error) {
+        console.log("error at getWishlist:", error)
+        res.status(500).send("Internal Server Error")
+    }
 }
