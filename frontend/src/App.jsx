@@ -13,24 +13,25 @@ import { useEffect } from 'react';
 import ProductList from './Components/ProductList/ProductList';
 import { useProducts } from './context/ProductContext';
 import axios from 'axios';
+import Cart from './Pages/Cart/Cart';
 
 function App() {
-  const {setProducts}=useProducts()
-  useEffect(()=>{
-    const fetchProducts=async()=>{
-      try{
-        const response=await axios.get('/api/products/get')
-        const data=await response.data
+  const { setProducts } = useProducts()
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        const response = await axios.get('/api/products/get')
+        const data = await response.data
         console.log(data)
         setProducts(data)
       }
-      catch(error){
+      catch (error) {
         console.log(error)
       }
     }
     fetchProducts()
-  },[setProducts])
-  
+  }, [setProducts])
+
 
   return (
     <BrowserRouter>
@@ -45,7 +46,8 @@ function App() {
         <Route path="/login" element={<LoginSplit />} />
         <Route path="/adminDashboard" element={<AdminDashboard />} />
         <Route path="/artisanDashboard" element={<ArtisanDashboard />} />
-        <Route path="/product/:id" element={<Product/>} />
+        <Route path="/product/:id" element={<Product />} />
+        <Route path="/cart" element={<Cart />} />
       </Routes>
     </BrowserRouter>
   )

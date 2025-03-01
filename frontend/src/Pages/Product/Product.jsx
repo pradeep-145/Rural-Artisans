@@ -1,18 +1,21 @@
 import { useLocation, useNavigate } from 'react-router-dom';
-import { FaArrowLeft, FaRegHeart, FaStar, FaRegStar } from "react-icons/fa";
+import { FaArrowLeft, FaHeart, FaRegHeart, FaStar, FaRegStar } from "react-icons/fa";
 import { GoPlus } from "react-icons/go";
 import { HiMinus } from "react-icons/hi";
 import { useState } from 'react';
+import { useCart } from '../../context/CartContext'; // Import cart context
 import styles from './Product.module.css';
-import CartSidebar from '../../Components/CartSidebar/CartSidebar';
+import WishlistSidebar from '../../Components/WishlistSidebar/WishlistSidebar';
 
 const Product = () => {
     const location = useLocation();
     const navigate = useNavigate();
     const product = location.state?.product;
     const [count, setCount] = useState(1);
-    const [isCartOpen, setIsCartOpen] = useState(false);
-    const [cartItems, setCartItems] = useState([]);
+    const [isWishlistOpen, setIsWishlistOpen] = useState(false);
+    const [wishlistItems, setWishlistItems] = useState([]);
+    const [isInWishlist, setIsInWishlist] = useState(false);
+    const { addToCart } = useCart(); // Use cart context
 
     const handleBack = () => {
         navigate(-1);
@@ -31,31 +34,31 @@ const Product = () => {
     }
 
     const handleAddToCart = () => {
-        const existingItemIndex = cartItems.findIndex(cartItem => cartItem._id === product._id);
+        addToCart(product, count);
+        // You could add a notification here
+    };
 
-        if (existingItemIndex >= 0) {
-            const updatedCart = [...cartItems];
-            const newQuantity = Math.min(
-                updatedCart[existingItemIndex].cartQuantity + count,
-                product.quantity
-            );
-            updatedCart[existingItemIndex].cartQuantity = newQuantity;
-            setCartItems(updatedCart);
+    const handleAddToWishlist = () => {
+        if (isInWishlist) {
+            setWishlistItems(wishlistItems.filter(item => item._id !== product._id));
+            setIsInWishlist(false);
         } else {
-            setCartItems([...cartItems, { ...product, cartQuantity: count }]);
+            setWishlistItems([...wishlistItems, product]);
+            setIsInWishlist(true);
         }
 
-        setIsCartOpen(true);
+        setIsWishlistOpen(true);
     };
 
-    const handleRemoveFromCart = (itemId) => {
-        setCartItems(cartItems.filter(item => item._id !== itemId));
+    const handleRemoveFromWishlist = (itemId) => {
+        setWishlistItems(wishlistItems.filter(item => item._id !== itemId));
+        if (itemId === product._id) {
+            setIsInWishlist(false);
+        }
     };
 
-    const handleUpdateQuantity = (itemId, newQuantity) => {
-        setCartItems(cartItems.map(item =>
-            item._id === itemId ? { ...item, cartQuantity: newQuantity } : item
-        ));
+    const addToCartFromWishlist = (item) => {
+        addToCart(item, 1);
     };
 
     const rating = 4.5;
@@ -97,8 +100,8 @@ const Product = () => {
                 <div className={styles.productDetails}>
                     <div className={styles.productHeaderDetails}>
                         <h1 className={styles.productTitle}>{product.name}</h1>
-                        <button className={styles.heartButton}>
-                            <FaRegHeart />
+                        <button className={styles.heartButton} onClick={handleAddToWishlist}>
+                            {isInWishlist ? <FaHeart className={styles.checked} /> : <FaRegHeart className={styles.unchecked} />}
                         </button>
                     </div>
 
@@ -172,12 +175,12 @@ const Product = () => {
                 }
             </div>
 
-            <CartSidebar
-                isOpen={isCartOpen}
-                onClose={() => setIsCartOpen(false)}
-                cartItems={cartItems}
-                removeFromCart={handleRemoveFromCart}
-                updateQuantity={handleUpdateQuantity}
+            <WishlistSidebar
+                isOpen={isWishlistOpen}
+                onClose={() => setIsWishlistOpen(false)}
+                wishlistItems={wishlistItems}
+                removeFromWishlist={handleRemoveFromWishlist}
+                addToCart={addToCartFromWishlist}
             />
         </div>
     );

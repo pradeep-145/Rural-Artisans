@@ -73,7 +73,7 @@
     flex: 0 0 calc(25% - 1.125rem);
     background: white;
     border-radius: 8px;
-    max-width: 350px;
+    max-width: 300px;
     position: relative;
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
     transition: all 0.3s ease;
@@ -110,8 +110,7 @@
 }
 
 .wishlistButton:hover {
-    color: #ff4081;
-    transform: scale(1.1);
+    transform: scale(1.2);
 }
 
 .productImage {
@@ -266,7 +265,7 @@
 
     .productCard {
         flex: 0 0 100%;
-        max-width: 300px;
+        max-width: 280px;
     }
 
     .productsContainer {

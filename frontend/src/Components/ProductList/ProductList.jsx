@@ -1,16 +1,20 @@
 import { useState } from "react";
-import { FaArrowLeft, FaRegHeart } from "react-icons/fa";
+import { FaArrowLeft } from "react-icons/fa";
+import { IoIosHeart } from "react-icons/io";
 import { FaCartShopping, FaStar } from "react-icons/fa6";
 import { useNavigate } from "react-router-dom";
 import { useProducts } from "../../context/ProductContext";
+import { useCart } from "../../context/CartContext"; // Import cart context
 import styles from "./ProductList.module.css";
-import CartSidebar from '../CartSidebar/CartSidebar';
+import WishlistSidebar from "../WishlistSidebar/WishlistSidebar";
 
 const ProductList = () => {
   const navigate = useNavigate();
   const { products } = useProducts();
-  const [isCartOpen, setIsCartOpen] = useState(false);
-  const [cartItems, setCartItems] = useState([]);
+  const { addToCart } = useCart(); // Use cart context
+  const [isWishlistOpen, setIsWishlistOpen] = useState(false);
+  const [wishlistItems, setWishlistItems] = useState([]);
+  const [wishlistProductIds, setWishlistProductIds] = useState(new Set()); // Track wishlist items
 
   if (!products || products.length === 0) {
     return <div>No products available</div>;
@@ -21,43 +25,46 @@ const ProductList = () => {
   };
 
   const handleCardClick = (item) => {
-    console.log(item);
     navigate(`/product/${item._id}`, { state: { product: item } });
-  };
-
-  const handleAddToCart = (event, item) => {
-    event.stopPropagation();
-
-    const existingItemIndex = cartItems.findIndex(cartItem => cartItem._id === item._id);
-
-    if (existingItemIndex >= 0) {
-      const updatedCart = [...cartItems];
-      const currentQuantity = updatedCart[existingItemIndex].cartQuantity;
-
-      if (currentQuantity < item.quantity) {
-        updatedCart[existingItemIndex].cartQuantity = currentQuantity + 1;
-        setCartItems(updatedCart);
-      }
-    } else {
-      setCartItems([...cartItems, { ...item, cartQuantity: 1 }]);
-    }
-
-    setIsCartOpen(true);
-  };
-
-  const handleRemoveFromCart = (itemId) => {
-    setCartItems(cartItems.filter(item => item._id !== itemId));
-  };
-
-  const handleUpdateQuantity = (itemId, newQuantity) => {
-    setCartItems(cartItems.map(item =>
-      item._id === itemId ? { ...item, cartQuantity: newQuantity } : item
-    ));
   };
 
   const handleAddToWishlist = (event, item) => {
     event.stopPropagation();
-    console.log("Added to wishlist:", item);
+
+    setWishlistProductIds((prevIds) => {
+      const newIds = new Set(prevIds);
+
+      if (newIds.has(item._id)) {
+        newIds.delete(item._id);
+        setWishlistItems(wishlistItems.filter((wishlistItem) => wishlistItem._id !== item._id));
+      } else {
+        newIds.add(item._id);
+        setWishlistItems([...wishlistItems, item]);
+        setIsWishlistOpen(true);
+      }
+
+      return newIds;
+    });
+  };
+
+  const handleRemoveFromWishlist = (itemId) => {
+    setWishlistProductIds((prevIds) => {
+      const newIds = new Set(prevIds);
+      newIds.delete(itemId);
+      return newIds;
+    });
+
+    setWishlistItems(wishlistItems.filter((item) => item._id !== itemId));
+  };
+
+  const handleAddToCart = (event, item) => {
+    event.stopPropagation();
+    addToCart(item, 1);
+    // Show a feedback toast or notification here if you want
+  };
+
+  const addToCartFromWishlist = (item) => {
+    addToCart(item, 1);
   };
 
   const calculateAverageRating = (reviews) => {
@@ -91,15 +98,17 @@ const ProductList = () => {
                   className={styles.heartButton}
                   onClick={(event) => handleAddToWishlist(event, item)}
                 >
-                  <FaRegHeart className={styles.heartIcon} />
+                  <IoIosHeart
+                    className={styles.heartIcon}
+                    style={{ color: wishlistProductIds.has(item._id) ? "red" : "rgb(184, 182, 182)" }}
+                  />
                 </button>
               </div>
               <div className={styles.productInfo}>
                 <h3 className={styles.productName}>
                   {item.name}
                   <span className={styles.productRating}>
-                    {calculateAverageRating(item.review)}{" "}
-                    <FaStar className={styles.starIcon} />
+                    {calculateAverageRating(item.review)} <FaStar className={styles.starIcon} />
                   </span>
                 </h3>
                 <p className={styles.productPrice}>Rs.{item.price}</p>
@@ -126,12 +135,12 @@ const ProductList = () => {
         </div>
       </div>
 
-      <CartSidebar
-        isOpen={isCartOpen}
-        onClose={() => setIsCartOpen(false)}
-        cartItems={cartItems}
-        removeFromCart={handleRemoveFromCart}
-        updateQuantity={handleUpdateQuantity}
+      <WishlistSidebar
+        isOpen={isWishlistOpen}
+        onClose={() => setIsWishlistOpen(false)}
+        wishlistItems={wishlistItems}
+        removeFromWishlist={handleRemoveFromWishlist}
+        addToCart={addToCartFromWishlist}
       />
     </div>
   );

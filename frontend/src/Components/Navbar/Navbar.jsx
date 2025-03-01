@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { MdClose, MdMenu } from "react-icons/md";
 import { GiThreeLeaves } from "react-icons/gi";
 import { GrCart } from "react-icons/gr";
 import { FaRegUser, FaRegHeart } from "react-icons/fa";
 import { IoSearch } from "react-icons/io5";
+import { useNavigate } from "react-router-dom";
 
 import styles from "./Navbar.module.css";
 import axios from "axios";
@@ -13,13 +14,14 @@ const Navbar = () => {
   const [searchModal, setSearchModal] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
+  const navigate = useNavigate();
 
   useEffect(() => {
     setLogin(localStorage.getItem("type"));
   }, []);
 
   const toggleCart = () => {
-    setIsCartOpen((prev) => !prev);
+    navigate("/cart");
   };
 
   const handleAuth = async () => {
@@ -58,7 +60,6 @@ const Navbar = () => {
           <GiThreeLeaves />
         </div>
 
-        {/* Mobile Menu Button - only visible on small screens when search is not active */}
         {!searchModal && (
           <div className={styles.mobile_menu_button} onClick={toggleMobileMenu}>
             {mobileMenuOpen ? <MdClose /> : <MdMenu />}

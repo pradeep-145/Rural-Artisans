@@ -69,6 +69,14 @@
     align-items: center;
     justify-content: center;
     cursor: pointer;
+
+    .unchecked {
+        color: black;
+    }
+
+    .checked {
+        color: red;
+    }
 }
 
 .priceContainer {
