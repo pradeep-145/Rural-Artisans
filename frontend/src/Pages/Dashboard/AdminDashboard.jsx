@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { FiLogOut } from "react-icons/fi";
+import { FiLogOut, FiEdit, FiCheck, FiX } from "react-icons/fi";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import styles from "./Dashboard.module.css";
@@ -9,8 +9,8 @@ const AdminDashboard = () => {
   const [price, setPrice] = useState("");
   const [materials, setMaterials] = useState([]);
   const [addMaterial, setAddMaterial] = useState(false);
-  const [updateMaterial, setUpdateMaterial] = useState(false);
-  const [selectedMaterial, setSelectedMaterial] = useState(null);
+  const [editingMaterialId, setEditingMaterialId] = useState(null);
+  const [editPrice, setEditPrice] = useState("");
 
   useEffect(() => {
     fetchMaterials();
@@ -18,7 +18,9 @@ const AdminDashboard = () => {
 
   const fetchMaterials = async () => {
     try {
-      const res = await axios.get("http://localhost:3000/api/materials");
+      const res = await axios.get(
+        "http://localhost:3001/api/admin/get-material"
+      );
       setMaterials(res.data);
     } catch (error) {
       console.error("Error fetching materials", error);
@@ -29,7 +31,7 @@ const AdminDashboard = () => {
     if (!material || price <= 0) return alert("Invalid material details");
 
     try {
-      await axios.post("http://localhost:3000/api/materials", {
+      await axios.post("http://localhost:3001/api/admin/add-material", {
         name: material,
         price: price,
       });
@@ -42,18 +44,27 @@ const AdminDashboard = () => {
     }
   };
 
-  const handleUpdateMaterial = async () => {
-    if (!selectedMaterial || price <= 0) return alert("Invalid update details");
+  const startEditing = (material) => {
+    setEditingMaterialId(material._id);
+    setEditPrice(material.price);
+  };
+
+  const cancelEditing = () => {
+    setEditingMaterialId(null);
+    setEditPrice("");
+  };
+
+  const handleUpdateMaterial = async (materialName) => {
+    if (editPrice <= 0) return alert("Invalid price");
 
     try {
-      await axios.put(`http://localhost:3000/api/materials/`, {
-        name: selectedMaterial,
-        price: price,
+      await axios.post(`http://localhost:3001/api/admin/add-material`, {
+        name: materialName,
+        price: editPrice,
       });
       fetchMaterials();
-      setUpdateMaterial(false);
-      setSelectedMaterial(null);
-      setPrice("");
+      setEditingMaterialId(null);
+      setEditPrice("");
     } catch (error) {
       console.error("Error updating material", error);
     }
@@ -93,7 +104,8 @@ const AdminDashboard = () => {
               <form>
                 <label className={styles.label}>Material</label>
                 <br />
-                <input className={styles.input} 
+                <input
+                  className={styles.input}
                   type="text"
                   value={material}
                   onChange={(e) => setMaterial(e.target.value)}
@@ -101,7 +113,8 @@ const AdminDashboard = () => {
                 <br />
                 <label className={styles.label}>Price</label>
                 <br />
-                <input className={styles.input} 
+                <input
+                  className={styles.input}
                   type="number"
                   value={price}
                   onChange={(e) => setPrice(e.target.value)}
@@ -118,60 +131,6 @@ const AdminDashboard = () => {
             </div>
           </div>
         )}
-
-        <button
-          type="button"
-          className={styles.admin__button}
-          onClick={() => setUpdateMaterial(true)}
-        >
-          Update Material
-        </button>
-
-        {updateMaterial && (
-          <div className={styles.admin__modalOverlay}>
-            <div className={styles.admin__modal}>
-              <h3>Update Material</h3>
-              <button
-                className={styles.admin__closeBtn}
-                onClick={() => setUpdateMaterial(false)}
-              >
-                ×
-              </button>
-              <form>
-                <label className={styles.label}>Select Material</label>
-                <br />
-                <select
-                  onChange={(e) =>
-                    setSelectedMaterial(JSON.parse(e.target.value))
-                  }
-                >
-                  <option value="">Select</option>
-                  {materials.map((mat) => (
-                    <option key={mat._id} value={JSON.stringify(mat)}>
-                      {mat.name}
-                    </option>
-                  ))}
-                </select>
-                <br />
-                <label className={styles.label}>New Price</label>
-                <br />
-                <input className={styles.input} 
-                  type="number"
-                  value={price}
-                  onChange={(e) => setPrice(e.target.value)}
-                />
-                <br />
-                <button 
-                  type="button"
-                  className={styles.admin__button}
-                  onClick={handleUpdateMaterial}
-                >
-                  Update Material
-                </button>
-              </form>
-            </div>
-          </div>
-        )}
       </div>
 
       <div className={styles.admin__materialList}>
@@ -180,7 +139,39 @@ const AdminDashboard = () => {
           materials.map((mat) => (
             <div key={mat._id} className={styles.admin__materialItem}>
               <h3>{mat.name}</h3>
-              <h3>{mat.price}</h3>
+
+              {editingMaterialId === mat._id ? (
+                <div className={styles.admin__editActions}>
+                  <input
+                    type="number"
+                    className={styles.admin__inlineEdit}
+                    value={editPrice}
+                    onChange={(e) => setEditPrice(e.target.value)}
+                  />
+                  <button
+                    className={styles.admin__iconButton}
+                    onClick={() => handleUpdateMaterial(mat.name)}
+                  >
+                    <FiCheck className={styles.admin__iconSave} />
+                  </button>
+                  <button
+                    className={styles.admin__iconButton}
+                    onClick={cancelEditing}
+                  >
+                    <FiX className={styles.admin__iconCancel} />
+                  </button>
+                </div>
+              ) : (
+                <div className={styles.admin__priceDisplay}>
+                  <h3>{mat.price}</h3>
+                  <button
+                    className={styles.admin__iconButton}
+                    onClick={() => startEditing(mat)}
+                  >
+                    <FiEdit className={styles.admin__iconEdit} />
+                  </button>
+                </div>
+              )}
             </div>
           ))
         ) : (
