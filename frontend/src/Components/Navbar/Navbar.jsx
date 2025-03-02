@@ -74,12 +74,14 @@ const Navbar = () => {
           {login === "artisan" ? (
             <>
               <div
+                href="#home"
                 className={styles.usernav__items}
                 onClick={() => setMobileMenuOpen(false)}
               >
                 HOME
               </div>
               <div
+                href="#orders"
                 className={styles.usernav__items}
                 onClick={() => setMobileMenuOpen(false)}
               >
@@ -88,36 +90,46 @@ const Navbar = () => {
             </>
           ) : (
             <>
-              <div
-                className={styles.usernav__items}
-                onClick={() => setMobileMenuOpen(false)}
-              >
-                HOME
-              </div>
-              <div
-                className={styles.usernav__items}
-                onClick={() => setMobileMenuOpen(false)}
-              >
-                PRODUCT
-              </div>
-              <div
-                className={styles.usernav__items}
-                onClick={() => setMobileMenuOpen(false)}
-              >
-                ABOUT
-              </div>
-              <div
-                className={styles.usernav__items}
-                onClick={() => setMobileMenuOpen(false)}
-              >
-                TESTIMONIALS
-              </div>
-              <div
-                className={styles.usernav__items}
-                onClick={() => setMobileMenuOpen(false)}
-              >
-                CONTACT
-              </div>
+              <a href="#home">
+                <div
+                  className={styles.usernav__items}
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  HOME
+                </div>
+              </a>
+              <a href="#products">
+                <div
+                  className={styles.usernav__items}
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  PRODUCT
+                </div>
+              </a>
+              <a href="#about">
+                <div
+                  className={styles.usernav__items}
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  ABOUT
+                </div>
+              </a>
+              <a href="#testimonials">
+                <div
+                  className={styles.usernav__items}
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  TESTIMONIALS
+                </div>
+              </a>
+              <a href="#contact">
+                <div
+                  className={styles.usernav__items}
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  CONTACT
+                </div>
+              </a>
             </>
           )}
         </div>
