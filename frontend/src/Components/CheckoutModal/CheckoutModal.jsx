@@ -1,6 +1,7 @@
-import { useState } from 'react';
+import axios from 'axios';
+import { useEffect, useState } from 'react';
+import { useCart } from '../../context/CartContext';
 import styles from './CheckoutModal.module.css';
-
 const CheckoutModal = ({ isOpen, onClose, finalTotal, onSubmit }) => {
   const [formData, setFormData] = useState({
     name: '',
@@ -14,6 +15,18 @@ const CheckoutModal = ({ isOpen, onClose, finalTotal, onSubmit }) => {
 
   const [errors, setErrors] = useState({});
   const [currentStep, setCurrentStep] = useState(1);
+  const { cartTotal, cartItems } = useCart();
+
+  useEffect(() => {
+    const script = document.createElement('script');
+    script.src = 'https://checkout.razorpay.com/v1/checkout.js';
+    script.async = true;
+    document.body.appendChild(script);
+
+    return () => {
+      document.body.removeChild(script);
+    };
+  }, []);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -61,13 +74,88 @@ const CheckoutModal = ({ isOpen, onClose, finalTotal, onSubmit }) => {
       if (currentStep === 1) {
         setCurrentStep(2);
       } else {
-        handleRazorpayPayment();
+        handlePayment();
       }
     }
   };
 
-  const handleRazorpayPayment = () => {
+  const handlePayment = async () => {
+    try {
+      
+      
+      const response = await axios.post(
+        "/api/payments/create-order",
+        { amount: finalTotal },
+      );
+      
+      const { id, amount, currency } = response.data.order;
+      console.log(response.data);
+      const options = {
+        key: import.meta.env.VITE_RAZORPAY_KEY_ID,
+        amount: amount,
+        currency: currency,
+        name: "Ethnix",
+        description: "Test Transaction",
+        order_id:id,
+        handler: async (response) => {
+          const verifyResponse = await axios.post(
+            "/api/payments/verify-order",
+            {
+              razorpay_order_id: response.razorpay_order_id,
+              razorpay_payment_id: response.razorpay_payment_id,
+              razorpay_signature: response.razorpay_signature,
+            },
+            
+          );
 
+          console.log(verifyResponse.data);
+
+          // if (verifyResponse.data.status === "success") {
+          //   alert("Payment successful!");
+          //   navigate("/token");
+          //   const order = await axios.post(
+          //     "/api/payments/orderlist",
+          //     {
+          //       orders: cartItems,
+          //     },
+          //     {
+          //       headers: {
+          //         Authorization: `Bearer ${token}`,
+          //       },
+          //     }
+          //   );
+          //   console.log(order);
+          //   if (order.data.success) {
+          //     console.log("Order placed successfully");
+          //     await axios.delete(
+          //       `/api/payments/cart-remove/${username}`,
+          //       {
+          //         headers: {
+          //           Authorization: `Bearer ${token}`,
+          //         },
+          //       }
+          //     );
+              
+          //     setCartItems([]);
+          //   }
+          // } else {
+          //   alert("Payment verification failed.");
+          // }
+        },
+        prefill: {
+          name: formData.name,
+          email: formData.email,
+          contact: formData.phone,
+        },
+        theme: {
+          color: "#3399cc",
+        },
+      };
+      const razorpay = new window.Razorpay(options);
+      razorpay.open();
+    } catch (error) {
+      console.error("Error in payment process:", error);
+    }
   };
 
   const goBack = () => {
@@ -188,7 +276,11 @@ const CheckoutModal = ({ isOpen, onClose, finalTotal, onSubmit }) => {
             <button type="button" className={styles.backButton} onClick={goBack} >
               {currentStep === 1 ? 'Cancel' : 'Back'}
             </button>
-            <button type="submit" className={styles.continueButton} >
+            <button type="submit" className={styles.continueButton}  onClick={()=>{
+              if(currentStep!=1){
+                handlePayment()
+              }
+            }}>
               {currentStep === 1 ? 'Continue to Payment' : 'Pay Now'}
             </button>
           </div>
