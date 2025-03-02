@@ -1,4 +1,4 @@
-
+import productModel from "../models/product.model.js";
 import RawMaterial from "../models/rawmaterial.model.js";
 const isPriceReasonable = (sellerPrice, adminPrice) => {
     const tolerance = 0.3;
@@ -42,19 +42,32 @@ export const getMaterials = async (req, res) => {
     }
 };
 
+export const verifyProduct = async (req, res) => {
+    console.log("adkn")
+    try {
+        const productToBeVerified = await productModel.findOneAndUpdate({ _id: req.params.productId }, { isVerified: true })
+        console.log(productToBeVerified);
+        res.status(200).json();
+    }
+    catch (error) {
+        console.log(error);
+    }
+}
 
 export const evaluatePrice = async (req, res) => {
+    console.log(req.body);
     try {
-        const { rawMaterials, packagingOverhead, labourCost, totalCost } = req.body;
+        const { product } = req.body;
 
-        if (!rawMaterials || !packagingOverhead || !labourCost || !totalCost) {
-            return res.status(400).json({ error: "Missing required fields" });
+        if (!product || !product.rawMaterials || !product.packagingCost || !product.price || !product.quantity) {
+
+            return res.status(400).json({ error: "Missing required fields in product data" });
         }
 
         let adminTotalRawCost = 0;
         let sellerTotalRawCost = 0;
 
-        for (const item of rawMaterials) {
+        for (const item of product.rawMaterials) {
             const adminRaw = await RawMaterial.findOne({ name: item.name });
             if (!adminRaw) {
                 return res.status(400).json({ error: `Raw material ${item.name} not found in database` });
@@ -70,8 +83,8 @@ export const evaluatePrice = async (req, res) => {
             }
         }
 
-        const costWithoutProfit = adminTotalRawCost + packagingOverhead + labourCost;
-        const profitMargin = ((totalCost - costWithoutProfit) / costWithoutProfit) * 100;
+        const costWithoutProfit = adminTotalRawCost + product.packagingCost;
+        const profitMargin = ((product.price - costWithoutProfit) / costWithoutProfit) * 100;
 
         if (profitMargin < 10 || profitMargin > 50) {
             return res.status(400).json({
@@ -88,4 +101,4 @@ export const evaluatePrice = async (req, res) => {
         console.error(error);
         res.status(500).json({ error: "Internal server error" });
     }
-}
+};

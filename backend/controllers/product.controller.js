@@ -34,7 +34,9 @@ export const saveProduct = async (req, res) => {
             price: req.body.price,
             quantity: req.body.quantity,
             description: req.body.description,
-            tag: req.body.tag
+            tag: req.body.tag,
+            packagingCost: req.body.packagingCost,
+            rawMaterials: JSON.parse(req.body.rawMaterials)
         })
         res.status(201).json(product)
     }
@@ -48,7 +50,7 @@ export const saveProduct = async (req, res) => {
 export const getUserProducts = async (req, res) => {
     try {
         const products = await productModel.find({ isVerified: true }).populate('review')
-        
+
         res.status(200).json(products)
     }
     catch (error) {
@@ -72,7 +74,7 @@ export const getArtisanProducts = async (req, res) => {
 
 export const getUnverifiedProducts = async (req, res) => {
     try {
-        const products = await productModel.find({ isVerified: false }, { artisanId: 1, image: 1, name: 1, price: 1, quantity: 1, tag: 1 })
+        const products = await productModel.find({ isVerified: false })
         res.status(200).json(products)
     }
     catch (error) {
@@ -119,25 +121,25 @@ export const reviewProduct = async (req, res) => {
     }
 }
 
-export const addToCart=async(req,res)=>{
-    const {productId, customerId, quantity}=req.body;
+export const addToCart = async (req, res) => {
+    const { productId, customerId, quantity } = req.body;
     try {
         await cartModel.create({
             productId,
             customerId,
             quantity
         })
-        res.status(200).json({message:"Product added to cart successfully"})
+        res.status(200).json({ message: "Product added to cart successfully" })
     } catch (error) {
         console.log("error at addToCart:", error)
         res.status(500).send("Internal Server Error")
     }
 }
 
-export const getCart=async(req,res)=>{
-    const {customerId}=req.params;
+export const getCart = async (req, res) => {
+    const { customerId } = req.params;
     try {
-        const cart=await cartModel.find({customerId:customerId}).populate({
+        const cart = await cartModel.find({ customerId: customerId }).populate({
             path: 'productId',
             select: 'name price image quantity'
         })
@@ -147,27 +149,27 @@ export const getCart=async(req,res)=>{
         console.log("error at getCart:", error)
         res.status(500).send("Internal Server Error")
     }
-    
+
 
 }
 
-export const addToWishlist=async()=>{
+export const addToWishlist = async () => {
     try {
-        const response=await wishlistModel.create(req.body);
-        res.status(200).json({message:"Product added to wishlist successfully"})
-        
+        const response = await wishlistModel.create(req.body);
+        res.status(200).json({ message: "Product added to wishlist successfully" })
+
     } catch (error) {
         console.log("error at addToWishlist:", error)
         res.status(500).send("Internal Server Error")
     }
 }
 
-export const getWishlist=async(req,res)=>{
-    const {customerId}=req.params;
+export const getWishlist = async (req, res) => {
+    const { customerId } = req.params;
     try {
-        const wishlist=await wishlistModel.find({customerId:customerId}).populate({
-            path:'productId',
-            select:'name price image'
+        const wishlist = await wishlistModel.find({ customerId: customerId }).populate({
+            path: 'productId',
+            select: 'name price image'
         })
         res.status(200).json(wishlist)
     }
@@ -178,7 +180,7 @@ export const getWishlist=async(req,res)=>{
 }
 
 export const updateCart = async (req, res) => {
-    const { id,quantity } = req.body;
+    const { id, quantity } = req.body;
     console.log(req.body)
     try {
         let response = await cartModel.findOneAndUpdate({ _id: id }, { quantity: quantity });

@@ -1,40 +1,60 @@
-import mongoose, { mongo } from "mongoose";
+import mongoose from "mongoose";
 
-export default mongoose.model("Product",new mongoose.Schema({
-    artisanId:{
-        type:mongoose.Schema.Types.ObjectId,
-        ref:"Artisan",
+const ProductSchema = new mongoose.Schema({
+    artisanId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Artisan",
     },
-    image:{
-        type:String,
-        required:true
+    image: {
+        type: String,
+        required: true
     },
-    name:{
-        type:String,
-        required:true
+    name: {
+        type: String,
+        required: true
     },
-    price :{
-        type:Number,
-        required:true
+    price: {
+        type: Number,
+        required: true
     },
-    quantity:{
-        type:Number,
-        required:true
-    } ,
-    description:{
-        type:String,
-        required:true
+    quantity: {
+        type: Number,
+        required: true
     },
-    isVerified:{
-        type:Boolean,
-        default:false
+    description: {
+        type: String,
+        required: true
     },
-    tag :[{
-        type:String,
-        required:true
+    isVerified: {
+        type: Boolean,
+        default: false
+    },
+    tag: [{
+        type: String,
+        required: true
     }],
-    review:[{
-        type:mongoose.Schema.Types.ObjectId,
-        ref:"CustomerReview"
-    }] 
-}))
+    review: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "CustomerReview"
+    }],
+    rawMaterials: [{
+        name: {
+            type: String,
+            required: true
+        },
+        cost: {
+            type: Number,
+            required: true
+        },
+        quantity: {
+            type: Number,
+            required: true
+        }
+    }],
+    packagingCost: {
+        type: Number,
+        required: true
+    }
+});
+
+export default mongoose.model("Product", ProductSchema);
