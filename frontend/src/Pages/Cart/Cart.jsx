@@ -7,38 +7,40 @@ import { useCart } from '../../context/CartContext';
 import styles from './Cart.module.css';
 import axios from 'axios';
 import { useAuthContext } from '../../context/AuthContext';
+import CheckoutModal from '../../Components/CheckoutModal/CheckoutModal';
+
 const Cart = () => {
     const navigate = useNavigate();
-    const { cartItems, removeFromCart, updateQuantity,cartTotal, clearCart } = useCart();
+    const { cartItems, removeFromCart, updateQuantity, cartTotal, clearCart } = useCart();
     const [couponCode, setCouponCode] = useState('');
     const [couponApplied, setCouponApplied] = useState(false);
     const [discount, setDiscount] = useState(0);
+    const [isCheckoutModalOpen, setIsCheckoutModalOpen] = useState(false);
 
     const shippingCost = cartTotal > 1000 ? 0 : 100;
     const tax = cartTotal * 0.05;
     const finalTotal = cartTotal + shippingCost + tax - discount;
-const {authUser}=useAuthContext()
+    const { authUser } = useAuthContext();
+
     const handleBack = () => {
         navigate(-1);
     };
-    
-    
-    const handleQuantityChange = async(item, newQuantity) => {
+
+    const handleQuantityChange = async (item, newQuantity) => {
         if (newQuantity < 1) return;
         if (newQuantity > item.productId.quantity) return;
         updateQuantity(item._id, newQuantity);
         const cartItem = cartItems.find(cartItem => cartItem._id === item._id);
         if (cartItem) {
             await axios.post('/api/products/cart/update', {
-                id:cartItem._id,
-                quantity:newQuantity
+                id: cartItem._id,
+                quantity: newQuantity
             }).then(response => {
-            console.log(response.data);
+                console.log(response.data);
             }).catch(error => {
-            console.log(error);
+                console.log(error);
             });
         }
-        
     };
 
     const handleRemoveItem = async (itemId) => {
@@ -47,8 +49,7 @@ const {authUser}=useAuthContext()
             console.log(response.data);
         }).catch(error => {
             console.log(error);
-        }
-        );
+        });
     };
 
     const handleApplyCoupon = () => {
@@ -63,7 +64,33 @@ const {authUser}=useAuthContext()
     };
 
     const handleCheckout = () => {
-        alert('Proceeding to checkout...');
+        if (!authUser) {
+            alert('Please login to proceed with checkout');
+            navigate('/login');
+            return;
+        }
+        setIsCheckoutModalOpen(true);
+    };
+
+    const handleCheckoutSubmit = async (shippingData) => {
+        try {
+            console.log('Order placed with shipping details:', shippingData);
+            console.log('Order details:', {
+                items: cartItems,
+                total: finalTotal,
+                discount,
+                shipping: shippingCost,
+                tax
+            });
+
+            setIsCheckoutModalOpen(false);
+            alert('Order placed successfully! Your order ID is ' + Math.floor(Math.random() * 10000));
+
+            clearCart();
+        } catch (error) {
+            console.error('Error placing order:', error);
+            alert('There was an error processing your order. Please try again.');
+        }
     };
 
     return (
@@ -105,29 +132,20 @@ const {authUser}=useAuthContext()
                                     </p>
                                 </div>
                                 <div className={styles.itemQuantity}>
-                                    <button
-                                        className={styles.quantityButton}
-                                        onClick={() => handleQuantityChange(item, item.quantity - 1)}
-                                        disabled={item.quantity <= 1}
-                                    >
+                                    <button className={styles.quantityButton} onClick={() => handleQuantityChange(item, item.quantity - 1)}
+                                        disabled={item.quantity <= 1} >
                                         <HiMinus />
                                     </button>
                                     <span className={styles.quantityValue}>{item.quantity}</span>
-                                    <button
-                                        className={styles.quantityButton}
-                                        onClick={() => handleQuantityChange(item, item.quantity + 1)}
-                                        disabled={item.quantity >= item.productId.quantity}
-                                    >
+                                    <button className={styles.quantityButton} onClick={() => handleQuantityChange(item, item.quantity + 1)}
+                                        disabled={item.quantity >= item.productId.quantity} >
                                         <GoPlus />
                                     </button>
                                 </div>
                                 <div className={styles.itemTotal}>
                                     <p>Rs.{(item.productId.price * item.quantity).toFixed(2)}</p>
                                 </div>
-                                <button
-                                    className={styles.removeItemButton}
-                                    onClick={() => handleRemoveItem(item._id)}
-                                >
+                                <button className={styles.removeItemButton} onClick={() => handleRemoveItem(item._id)} >
                                     <FaTrash />
                                 </button>
                             </div>
@@ -160,18 +178,9 @@ const {authUser}=useAuthContext()
                         )}
 
                         <div className={styles.couponSection}>
-                            <input
-                                type="text"
-                                placeholder="Enter coupon code"
-                                value={couponCode}
-                                onChange={(e) => setCouponCode(e.target.value)}
-                                className={styles.couponInput}
-                            />
-                            <button
-                                className={styles.applyCouponButton}
-                                onClick={handleApplyCoupon}
-                                disabled={couponApplied}
-                            >
+                            <input type="text" placeholder="Enter coupon code" value={couponCode}
+                                onChange={(e) => setCouponCode(e.target.value)} className={styles.couponInput} />
+                            <button className={styles.applyCouponButton} onClick={handleApplyCoupon} disabled={couponApplied} >
                                 {couponApplied ? 'Applied' : 'Apply'}
                             </button>
                         </div>
@@ -198,6 +207,13 @@ const {authUser}=useAuthContext()
                     </div>
                 </div>
             )}
+
+            <CheckoutModal
+                isOpen={isCheckoutModalOpen}
+                onClose={() => setIsCheckoutModalOpen(false)}
+                finalTotal={finalTotal}
+                onSubmit={handleCheckoutSubmit}
+            />
         </div>
     );
 };
