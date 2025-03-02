@@ -9,9 +9,9 @@ const Footer = () => {
     <div className={styles.footer}>
       <p>© {new Date().getFullYear()} Rural Artisan E-Commerce. All rights reserved.</p>
       <div className={styles.socials}>
-        <a  className={styles.social} href="#"> <FaFacebookSquare /></a> 
-        <a  className={styles.social} href="#"> <AiFillInstagram /></a> 
-        <a  className={styles.social} href="#"> <RiTwitterXFill /></a>
+        <a  className={styles.social} href="#"> <FaFacebookSquare className={styles.icons} /></a> 
+        <a  className={styles.social} href="#"> <AiFillInstagram className={styles.icons} /></a> 
+        <a  className={styles.social} href="#"> <RiTwitterXFill className={styles.icons} /></a>
         </div>
     </div>
   );
