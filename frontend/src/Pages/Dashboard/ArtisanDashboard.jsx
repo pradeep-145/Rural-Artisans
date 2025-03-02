@@ -72,7 +72,7 @@ const ArtisanDashboard = () => {
     formData.append("rawMaterials", JSON.stringify(rawMaterials)); // Send raw materials as JSON
 
     try {
-      const response = await axios.post("/api/products", formData, {
+      const response = await axios.post("/api/products/save", formData, {
         headers: { "Content-Type": "multipart/form-data" },
       });
       console.log(response.data);
