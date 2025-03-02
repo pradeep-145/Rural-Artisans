@@ -16,4 +16,9 @@
 
 .social{
     color:white;
+    text-decoration: none;
+}
+
+.social:hover {
+    color: #4dac96; 
 }
