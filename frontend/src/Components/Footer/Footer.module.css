@@ -14,6 +14,12 @@
     flex-direction: column;
 }
 
+.socials{
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
 .social{
     color:white;
     text-decoration: none;

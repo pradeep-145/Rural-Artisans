@@ -8,11 +8,11 @@ const Footer = () => {
   return (
     <div className={styles.footer}>
       <p>© {new Date().getFullYear()} Rural Artisan E-Commerce. All rights reserved.</p>
-      <p>
-        <a  className={styles.social} href="#"> <FaFacebookSquare /></a> | 
-        <a  className={styles.social} href="#"> <AiFillInstagram /></a> | 
+      <div className={styles.socials}>
+        <a  className={styles.social} href="#"> <FaFacebookSquare /></a> 
+        <a  className={styles.social} href="#"> <AiFillInstagram /></a> 
         <a  className={styles.social} href="#"> <RiTwitterXFill /></a>
-      </p>
+        </div>
     </div>
   );
 };
