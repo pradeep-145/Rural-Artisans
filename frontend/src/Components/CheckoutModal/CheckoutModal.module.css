@@ -1,0 +1,268 @@
+.modalOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.6);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    backdrop-filter: blur(3px);
+}
+
+.modalContainer {
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    width: 90%;
+    max-width: 600px;
+    max-height: 90vh;
+    overflow-y: auto;
+    padding: 10px;
+    animation: slideIn 0.3s ease-out;
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateY(20px);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.modalHeader {
+    padding: 15px 20px;
+    border-bottom: 1px solid #eaeaea;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #f8f8f8;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+}
+
+.modalHeader h2 {
+    margin: 0;
+    font-size: 1.5rem;
+    color: #333;
+}
+
+.closeButton {
+    background: none;
+    border: none;
+    font-size: 1.7rem;
+    cursor: pointer;
+    color: #888;
+    transition: color 0.2s;
+}
+
+.closeButton:hover {
+    color: #333;
+}
+
+.stepIndicator {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    background-color: #f8f8f8;
+}
+
+.step {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: #888;
+}
+
+.stepNumber {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background-color: #ddd;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: white;
+}
+
+.activeStep {
+    color: #48bb78;
+}
+
+.activeStep .stepNumber {
+    background-color: #38a169;
+}
+
+.stepDivider {
+    height: 2px;
+    width: 60px;
+    background-color: #ddd;
+    margin: 0 10px;
+}
+
+.checkoutForm {
+    padding: 20px;
+}
+
+.shippingDetails,
+.paymentDetails {
+    margin-bottom: 20px;
+}
+
+.formGroup {
+    margin-bottom: 15px;
+    width: 100%;
+}
+
+.formRow {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 15px;
+}
+
+.formGroup label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: 500;
+    color: #444;
+}
+
+.formGroup input,
+.formGroup textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 16px;
+    transition: border-color 0.2s;
+}
+
+.formGroup input:focus,
+.formGroup textarea:focus {
+    border-color: #48bb78;
+    outline: none;
+}
+
+.inputError {
+    border-color: #e74c3c !important;
+}
+
+.errorMessage {
+    color: #e74c3c;
+    font-size: 0.8rem;
+    margin-top: 4px;
+    display: block;
+}
+
+.formActions {
+    display: flex;
+    justify-content: space-between;
+    border-top: 1px solid #eaeaea;
+    padding-top: 10px;
+}
+
+.backButton,
+.continueButton {
+    padding: 12px 25px;
+    border-radius: 4px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.backButton {
+    background-color: white;
+    border: 1px solid #ddd;
+    color: #666;
+}
+
+.backButton:hover {
+    background-color: #f1f1f1;
+}
+
+.continueButton {
+    background-color: #48bb78;
+    border: none;
+    color: white;
+}
+
+.continueButton:hover {
+    background-color: #38a169;
+}
+
+.orderSummary,
+.paymentMethod {
+    background-color: #f9f9f9;
+    padding: 15px;
+    border-radius: 6px;
+}
+
+.paymentMethod {
+    padding-top: 0;
+    padding-bottom: 0;
+}
+
+.orderSummary h3,
+.paymentMethod h3 {
+    margin-top: 0;
+    margin-bottom: 15px;
+    font-size: 1.1rem;
+    color: #333;
+}
+
+.summaryItem {
+    margin-bottom: 15px;
+}
+
+.summaryItem span {
+    font-weight: 600;
+    display: block;
+}
+
+.summaryItem p {
+    margin: 4px 0;
+    color: #555;
+}
+
+.amount {
+    font-size: 1.2rem;
+    color: #333;
+    font-weight: 700;
+}
+
+.razorpayInfo {
+    display: flex;
+    align-items: center;
+    margin-top: 15px;
+    background-color: white;
+    padding: 10px;
+    border-radius: 4px;
+    border: 1px solid #e0e0e0;
+}
+
+.razorpayLogo {
+    width: 24px;
+    height: 24px;
+    margin-right: 10px;
+}
+
+@media (max-width: 600px) {
+    .formRow {
+        flex-direction: column;
+        gap: 0;
+    }
+
+    .modalContainer {
+        width: 95%;
+        max-height: 95vh;
+    }
+}

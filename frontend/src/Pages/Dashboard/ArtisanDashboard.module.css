@@ -1,0 +1,251 @@
+.artisan__container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+    font-family: 'Arial', sans-serif;
+    color: #333;
+  }
+  
+  .artisan__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid #eaeaea;
+  }
+  
+  .artisan__header h1 {
+    color: #4dac96;
+    margin: 0;
+    font-size: 1.8rem;
+  }
+  
+  .artisan__logoutBtn {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    background-color: white;
+    color: #4dac96;
+    border: 1px solid #4dac96;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: all 0.2s ease;
+  }
+  
+  .artisan__logoutBtn:hover {
+    background-color: #4dac96;
+    color: white;
+  }
+  
+  /* Section Styling */
+  .artisan__section {
+    margin-bottom: 3rem;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    padding: 1.5rem;
+  }
+  
+  .artisan__sectionTitle {
+    color: #4dac96;
+    font-size: 1.5rem;
+    margin-top: 0;
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid #eaeaea;
+  }
+  
+  /* Product Styling */
+  .artisan__productGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 1.5rem;
+  }
+  
+  .artisan__productCard {
+    background-color: #fff;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  .artisan__productCard:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  }
+  
+  .artisan__productImageContainer {
+    height: 180px;
+    overflow: hidden;
+    margin-bottom: 1rem;
+  }
+  
+  .artisan__productImage {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  
+  .artisan__productDetails {
+    padding: 0.5rem 0;
+  }
+  
+  .artisan__productDetails h4 {
+    margin: 0 0 0.5rem 0;
+    font-size: 1.2rem;
+    color: #4dac96;
+  }
+  
+  .artisan__productDetails p {
+    margin: 0.25rem 0;
+    color: #666;
+    font-size: 0.9rem;
+  }
+  
+  /* Material List Styling */
+  .artisan__materialsTable {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 1rem;
+  }
+  
+  .artisan__materialsTable th, 
+  .artisan__materialsTable td {
+    padding: 0.75rem;
+    text-align: left;
+    border-bottom: 1px solid #eaeaea;
+  }
+  
+  .artisan__materialsTable th {
+    background-color: #f9f9f9;
+    font-weight: 500;
+    color: #4dac96;
+  }
+  
+  /* Button Styling */
+  .artisan__button {
+    background-color: #4dac96;
+    color: white;
+    border: none;
+    padding: 0.75rem 1.25rem;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: 500;
+    margin-bottom: 1.5rem;
+    transition: background-color 0.2s ease;
+  }
+  
+  .artisan__button:hover {
+    background-color: #3d8a78;
+  }
+  
+  /* Modal Styling */
+  .artisan__modalOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+  }
+  
+  .artisan__modal {
+    background-color: white;
+    padding: 2rem;
+    border-radius: 8px;
+    width: 500px;
+    max-width: 90vw;
+    max-height: 90vh;
+    overflow-y: auto;
+    position: relative;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  }
+  
+  .artisan__modal h3 {
+    color: #4dac96;
+    margin-top: 0;
+    margin-bottom: 1.5rem;
+  }
+  
+  .artisan__closeBtn {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: #999;
+  }
+  
+  .artisan__closeBtn:hover {
+    color: #333;
+  }
+  
+  /* Form Styling */
+  .label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+    color: #555;
+  }
+  
+  .input {
+    width: 100%;
+    padding: 0.75rem;
+    margin-bottom: 1rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 1rem;
+  }
+  
+  .input:focus {
+    outline: none;
+    border-color: #4dac96;
+    box-shadow: 0 0 0 2px rgba(77, 172, 150, 0.2);
+  }
+  
+  /* Raw Material Row Styling */
+  .rawMaterialRow {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+  }
+  
+  /* Responsive Styles */
+  @media (max-width: 768px) {
+    .artisan__container {
+      padding: 1rem;
+    }
+    
+    .artisan__header {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 1rem;
+    }
+    
+    .artisan__modal {
+      width: 90%;
+      padding: 1.5rem;
+    }
+    
+    .rawMaterialRow {
+      grid-template-columns: 1fr;
+      gap: 0.75rem;
+    }
+    
+    .artisan__button {
+      width: 100%;
+    }
+  }
