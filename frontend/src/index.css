@@ -13,3 +13,7 @@ body{
   --secondary-color: #56CCF2;
   --tertiary-color: #E0E0E0;
 }
+a{
+  text-decoration: none;
+  color: black;
+}

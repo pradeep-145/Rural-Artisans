@@ -1,0 +1,60 @@
+.footer {
+    padding: 20px 0;
+    text-align: center;
+    position: relative;
+    bottom: 0;
+    width: 100%;
+    margin-top: 20px;
+    color: white;
+    background-color: #030303;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+}
+
+.socials {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+}
+
+.social {
+    color: white;
+    text-decoration: none;
+    transition: all 0.3s ease-in-out;
+}
+
+.social:hover {
+    color: #4dac96;
+    transform: scale(1.1);
+}
+
+.icons {
+    font-size: 1.5rem;
+}
+
+@media (max-width: 768px) {
+    .footer {
+        padding: 15px;
+        gap: 10px;
+    }
+    
+    .socials {
+        gap: 10px;
+    }
+    
+    .icons {
+        font-size: 1.3rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .footer {
+        font-size: 14px;
+    }
+
+    .icons {
+        font-size: 1.2rem;
+    }
+}
