@@ -1,19 +1,21 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import axios from 'axios';
+import { useEffect } from 'react';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import ProductList from './Components/ProductList/ProductList';
+import Cart from './Pages/Cart/Cart';
+import AdminDashboard from './Pages/Dashboard/AdminDashboard';
+import ArtisanDashboard from './Pages/Dashboard/ArtisanDashboard';
+import LandingPage from './Pages/LandingPage';
 import AdminLogin from './Pages/Login/AdminLogin';
 import ArtisanLogin from './Pages/Login/ArtisanLogin';
 import CustomerLogin from './Pages/Login/CustomerLogin';
+import LoginSplit from './Pages/Login/LoginSplit';
+import Product from './Pages/Product/Product';
 import ArtisanSignup from './Pages/Signup/ArtisanSignup';
 import CustomerSignup from './Pages/Signup/CustomerSignup';
-import LoginSplit from './Pages/Login/LoginSplit';
-import LandingPage from './Pages/LandingPage';
-import ArtisanDashboard from './Pages/Dashboard/ArtisanDashboard';
-import AdminDashboard from './Pages/Dashboard/AdminDashboard';
-import Product from './Pages/Product/Product';
-import { useEffect } from 'react';
-import ProductList from './Components/ProductList/ProductList';
+import { useAuthContext } from './context/AuthContext';
+import { useCart } from './context/CartContext';
 import { useProducts } from './context/ProductContext';
-import axios from 'axios';
-import Cart from './Pages/Cart/Cart';
 
 function App() {
   const { setProducts } = useProducts()
@@ -22,7 +24,6 @@ function App() {
       try {
         const response = await axios.get('/api/products/get')
         const data = await response.data
-        console.log(data)
         setProducts(data)
       }
       catch (error) {
@@ -31,6 +32,34 @@ function App() {
     }
     fetchProducts()
   }, [setProducts])
+
+  const {authUser, setAuthUser} = useAuthContext()
+
+  
+const {setCartItems,cartItems}=useCart()
+  useEffect(() => {
+    if(localStorage.getItem('authUser')){
+      const fetchCart = async () => {
+        try {
+          const response = await axios.get(`/api/products/cart/get/${JSON.parse(localStorage.getItem('authUser'))._id}`)
+          const data = await response.data
+          localStorage.setItem('cart',JSON.stringify(data
+          ))
+          setCartItems(data)
+        }
+        catch (error) {
+          console.log(error)
+        }
+      }
+      fetchCart()
+
+    }
+    setAuthUser({user:JSON.parse(localStorage.getItem('authUser')),
+      type:localStorage.getItem('type')
+    })
+
+  }
+  , [setAuthUser,setCartItems])
 
 
   return (

@@ -1,5 +1,6 @@
 import { createContext, useContext, useState, useEffect } from "react";
-
+import { useAuthContext } from "./AuthContext";
+import axios from "axios";
 const CartContext = createContext();
 
 export const useCart = () => {
@@ -10,6 +11,7 @@ export const CartProvider = ({ children }) => {
   const [cartItems, setCartItems] = useState([]);
   const [cartCount, setCartCount] = useState(0);
   const [cartTotal, setCartTotal] = useState(0);
+  const {authUser}=useAuthContext()
 
   useEffect(() => {
     const savedCart = localStorage.getItem("cart");
@@ -23,7 +25,7 @@ export const CartProvider = ({ children }) => {
     localStorage.setItem("cart", JSON.stringify(cartItems));
     
     const itemCount = cartItems.reduce((total, item) => total + item.quantity, 0);
-    const totalPrice = cartItems.reduce((total, item) => total + (item.price * item.quantity), 0);
+    const totalPrice = cartItems.reduce((total, item) => total + (item.productId.price * item.quantity), 0);
     
     setCartCount(itemCount);
     setCartTotal(totalPrice);
@@ -52,13 +54,17 @@ export const CartProvider = ({ children }) => {
     setCartItems(prevItems => prevItems.filter(item => item._id !== productId));
   };
 
-  const updateQuantity = (productId, quantity) => {
+  const updateQuantity = async (productId, quantity) => {
     setCartItems(prevItems => prevItems.map(item => {
       if (item._id === productId) {
         return { ...item, quantity: quantity };
       }
       return item;
     }));
+    
+
+
+
   };
 
   const clearCart = () => {
@@ -67,6 +73,9 @@ export const CartProvider = ({ children }) => {
 
   const value = {
     cartItems,
+    setCartItems,
+    setCartCount,
+    setCartTotal,
     cartCount,
     cartTotal,
     addToCart,

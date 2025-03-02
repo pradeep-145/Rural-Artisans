@@ -1,7 +1,7 @@
 import { v2 as cloudinary } from 'cloudinary';
+import cartModel from '../models/cart.model.js';
 import customerReviewModel from '../models/customerReview.model.js';
 import productModel from '../models/product.model.js';
-import cartModel from '../models/cart.model.js';
 import wishlistModel from '../models/wishlist.model.js';
 cloudinary.config({
     cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
@@ -139,7 +139,7 @@ export const getCart=async(req,res)=>{
     try {
         const cart=await cartModel.find({customerId:customerId}).populate({
             path: 'productId',
-            select: 'name price image'
+            select: 'name price image quantity'
         })
         res.status(200).json(cart)
     }
@@ -174,5 +174,37 @@ export const getWishlist=async(req,res)=>{
     catch (error) {
         console.log("error at getWishlist:", error)
         res.status(500).send("Internal Server Error")
+    }
+}
+
+export const updateCart = async (req, res) => {
+    const { id,quantity } = req.body;
+    console.log(req.body)
+    try {
+        let response = await cartModel.findOneAndUpdate({ _id: id }, { quantity: quantity });
+        if (response) {
+            res.status(200).json({ message: "Cart updated successfully" });
+        } else {
+            res.status(404).json({ message: "Cart response not found" });
+        }
+        console.log(response)
+    } catch (error) {
+        console.log("error at updateCart:", error);
+        res.status(500).send("Internal Server Error");
+    }
+}
+
+export const deleteCart = async (req, res) => {
+    const { id } = req.params;
+    try {
+        let response = await cartModel.findByIdAndDelete(id);
+        if (response) {
+            res.status(200).json({ message: "Cart deleted successfully" });
+        } else {
+            res.status(404).json({ message: "Cart response not found" });
+        }
+    } catch (error) {
+        console.log("error at deleteCart:", error);
+        res.status(500).send("Internal Server Error");
     }
 }

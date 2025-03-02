@@ -7,15 +7,16 @@ import { useProducts } from "../../context/ProductContext";
 import { useCart } from "../../context/CartContext"; // Import cart context
 import styles from "./ProductList.module.css";
 import WishlistSidebar from "../WishlistSidebar/WishlistSidebar";
-
+import { useAuthContext } from "../../context/AuthContext";
+import axios from "axios";
 const ProductList = () => {
   const navigate = useNavigate();
   const { products } = useProducts();
-  const { addToCart } = useCart(); // Use cart context
+  const { addToCart, setCartItems } = useCart(); // Use cart context
   const [isWishlistOpen, setIsWishlistOpen] = useState(false);
   const [wishlistItems, setWishlistItems] = useState([]);
   const [wishlistProductIds, setWishlistProductIds] = useState(new Set()); // Track wishlist items
-
+const {authUser}=useAuthContext()
   if (!products || products.length === 0) {
     return <div>No products available</div>;
   }
@@ -57,10 +58,21 @@ const ProductList = () => {
     setWishlistItems(wishlistItems.filter((item) => item._id !== itemId));
   };
 
-  const handleAddToCart = (event, item) => {
+  const handleAddToCart = async(event, item) => {
     event.stopPropagation();
     addToCart(item, 1);
-    // Show a feedback toast or notification here if you want
+    try{
+
+      await axios.post('/api/products/cart/add', {
+          customerId: JSON.parse(localStorage.getItem('authUser'))._id,
+          productId: item._id,
+          quantity: 1
+      })
+  }
+  catch(error){
+      console.log(error)
+  }
+
   };
 
   const addToCartFromWishlist = (item) => {

@@ -1,14 +1,15 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { FaArrowLeft, FaTrash } from 'react-icons/fa';
-import { HiMinus } from 'react-icons/hi';
 import { GoPlus } from 'react-icons/go';
+import { HiMinus } from 'react-icons/hi';
+import { useNavigate } from 'react-router-dom';
 import { useCart } from '../../context/CartContext';
 import styles from './Cart.module.css';
-
+import axios from 'axios';
+import { useAuthContext } from '../../context/AuthContext';
 const Cart = () => {
     const navigate = useNavigate();
-    const { cartItems, removeFromCart, updateQuantity, cartTotal, clearCart } = useCart();
+    const { cartItems, removeFromCart, updateQuantity,cartTotal, clearCart } = useCart();
     const [couponCode, setCouponCode] = useState('');
     const [couponApplied, setCouponApplied] = useState(false);
     const [discount, setDiscount] = useState(0);
@@ -16,19 +17,38 @@ const Cart = () => {
     const shippingCost = cartTotal > 1000 ? 0 : 100;
     const tax = cartTotal * 0.05;
     const finalTotal = cartTotal + shippingCost + tax - discount;
-
+const {authUser}=useAuthContext()
     const handleBack = () => {
         navigate(-1);
     };
-
-    const handleQuantityChange = (item, newQuantity) => {
+    
+    
+    const handleQuantityChange = async(item, newQuantity) => {
         if (newQuantity < 1) return;
-        if (newQuantity > item.quantity) return;
+        if (newQuantity > item.productId.quantity) return;
         updateQuantity(item._id, newQuantity);
+        const cartItem = cartItems.find(cartItem => cartItem._id === item._id);
+        if (cartItem) {
+            await axios.post('/api/products/cart/update', {
+                id:cartItem._id,
+                quantity:newQuantity
+            }).then(response => {
+            console.log(response.data);
+            }).catch(error => {
+            console.log(error);
+            });
+        }
+        
     };
 
-    const handleRemoveItem = (itemId) => {
+    const handleRemoveItem = async (itemId) => {
         removeFromCart(itemId);
+        await axios.delete(`/api/products/cart/delete/${itemId}`).then(response => {
+            console.log(response.data);
+        }).catch(error => {
+            console.log(error);
+        }
+        );
     };
 
     const handleApplyCoupon = () => {
@@ -73,15 +93,15 @@ const Cart = () => {
                 <div className={styles.cartContent}>
                     <div className={styles.cartItems}>
                         {cartItems.map((item) => (
-                            <div key={item._id} className={styles.cartItem}>
+                            <div key={item.productId._id} className={styles.cartItem}>
                                 <div className={styles.itemImage}>
-                                    <img src={item.image} alt={item.name} />
+                                    <img src={item.productId.image} alt={item.productId.name} />
                                 </div>
                                 <div className={styles.itemDetails}>
-                                    <h3 className={styles.itemName}>{item.name}</h3>
-                                    <p className={styles.itemPrice}>Rs.{item.price}</p>
+                                    <h3 className={styles.itemName}>{item.productId.name}</h3>
+                                    <p className={styles.itemPrice}>Rs.{item.productId.price}</p>
                                     <p className={styles.stockInfo}>
-                                        {item.quantity > 5 ? 'In Stock' : `Only ${item.quantity} left!`}
+                                        {item.productId.quantity > 5 ? 'In Stock' : `Only ${item.productId.quantity} left!`}
                                     </p>
                                 </div>
                                 <div className={styles.itemQuantity}>
@@ -96,13 +116,13 @@ const Cart = () => {
                                     <button
                                         className={styles.quantityButton}
                                         onClick={() => handleQuantityChange(item, item.quantity + 1)}
-                                        disabled={item.quantity >= item.quantity}
+                                        disabled={item.quantity >= item.productId.quantity}
                                     >
                                         <GoPlus />
                                     </button>
                                 </div>
                                 <div className={styles.itemTotal}>
-                                    <p>Rs.{(item.price * item.quantity).toFixed(2)}</p>
+                                    <p>Rs.{(item.productId.price * item.quantity).toFixed(2)}</p>
                                 </div>
                                 <button
                                     className={styles.removeItemButton}

@@ -2,19 +2,16 @@ import { useState } from 'react';
 import { FaChevronLeft, FaChevronRight, FaHeart } from 'react-icons/fa';
 import { FaCartShopping, FaStar } from 'react-icons/fa6';
 import { useNavigate } from 'react-router-dom';
-import { useCart } from '../../context/CartContext'; // Import cart context
 import styles from './ProductScroll.module.css';
 import { useProducts } from '../../context/ProductContext';
-import WishlistSidebar from '../WishlistSidebar/WishlistSidebar';
-
+import { useAuthContext } from '../../context/AuthContext';
+import axios from 'axios';
 const ProductScroll = () => {
     const navigate = useNavigate();
     const [currentIndex, setCurrentIndex] = useState(0);
-    const [isWishlistOpen, setIsWishlistOpen] = useState(false);
-    const [wishlistItems, setWishlistItems] = useState([]);
-    const [wishlistProductIds, setWishlistProductIds] = useState(new Set());
-    const { addToCart } = useCart(); // Use cart context
-
+    const [isCartOpen, setIsCartOpen] = useState(false);
+    const [cartItems, setCartItems] = useState([]);
+    const { authUser } = useAuthContext();
     const { products } = useProducts();
 
     if (!products || products.length === 0) {
@@ -33,42 +30,50 @@ const ProductScroll = () => {
         );
     };
 
-    const handleAddToCart = (event, item) => {
+    const handleAddToCart = async(event, item) => {
         event.stopPropagation();
-        addToCart(item, 1);
-        // Add notification feedback here if needed
+        try{
+
+            const response=await axios.post('/api/products/cart/add', {
+                customerId: JSON.parse(localStorage.getItem('authUser'))._id,
+                productId: item._id,
+                quantity: 1
+            })
+            console.log(response.data)
+        }
+        catch(error){
+            console.log(error)
+        }
+        const existingItemIndex = cartItems.findIndex(cartItem => cartItem._id === item._id);
+
+        if (existingItemIndex >= 0) {
+            const updatedCart = [...cartItems];
+            const currentQuantity = updatedCart[existingItemIndex].cartQuantity;
+
+            if (currentQuantity < item.quantity) {
+                updatedCart[existingItemIndex].cartQuantity = currentQuantity + 1;
+                setCartItems(updatedCart);
+            }
+        } else {
+            setCartItems([...cartItems, { ...item, cartQuantity: 1 }]);
+        }
+
+        setIsCartOpen(true);
+    };
+
+    const handleRemoveFromCart = (itemId) => {
+        setCartItems(cartItems.filter(item => item._id !== itemId));
+    };
+
+    const handleUpdateQuantity = (itemId, newQuantity) => {
+        setCartItems(cartItems.map(item =>
+            item._id === itemId ? { ...item, cartQuantity: newQuantity } : item
+        ));
     };
 
     const handleAddToWishlist = (event, item) => {
         event.stopPropagation();
-
-        setWishlistProductIds(prevIds => {
-            const newIds = new Set(prevIds);
-
-            if (newIds.has(item._id)) {
-                newIds.delete(item._id);
-                setWishlistItems(wishlistItems.filter(wishlistItem => wishlistItem._id !== item._id));
-            } else {
-                newIds.add(item._id);
-                setWishlistItems([...wishlistItems, item]);
-                setIsWishlistOpen(true);
-            }
-
-            return newIds;
-        });
-    };
-
-    const handleRemoveFromWishlist = (itemId) => {
-        setWishlistProductIds(prevIds => {
-            const newIds = new Set(prevIds);
-            newIds.delete(itemId);
-            return newIds;
-        });
-        setWishlistItems(wishlistItems.filter(item => item._id !== itemId));
-    };
-
-    const addToCartFromWishlist = (item) => {
-        addToCart(item, 1);
+        console.log("Added to wishlist:", item);
     };
 
     const handleCardClick = (item) => {
@@ -85,7 +90,7 @@ const ProductScroll = () => {
             </div>
 
             <div className={styles.productSlider}>
-                <button className={`${styles.navButton} ${styles.prevButton}`} onClick={handlePrevious}>
+                <button className={`${styles.navButton} ${styles.prevButton}`} onClick={handlePrevious} >
                     <FaChevronLeft />
                 </button>
 
@@ -97,9 +102,8 @@ const ProductScroll = () => {
                             <div key={product._id} className={styles.productCard} onClick={() => handleCardClick(product)}>
                                 <div className={styles.productImageContainer}>
                                     <button className={styles.heartButton}
-                                        onClick={(event) => handleAddToWishlist(event, product)}>
-                                        <FaHeart className={styles.wishlistButton}
-                                            style={{ color: wishlistProductIds.has(product._id) ? "red" : "rgb(184, 182, 182)" }} />
+                                        onClick={(event) => handleAddToWishlist(event, product)} >
+                                        <FaHeart className={styles.wishlistButton} />
                                     </button>
                                     <img src={product.image} alt={product.name} className={styles.productImage} />
                                 </div>
@@ -112,12 +116,12 @@ const ProductScroll = () => {
                                     </h3>
                                     <p className={styles.productPrice}>Rs.{product.price}</p>
                                     <div className={styles.productFooter}>
-                                        <p className={styles.stockStatus} style={{ color: product.quantity > 0 ? "#059669" : "#ef4444" }}>
+                                        <p className={styles.stockStatus} style={{ color: product.quantity > 0 ? "#059669" : "#ef4444" }} >
                                             {product.quantity > 0 ? "In stock" : "Out of stock"}
                                         </p>
                                         <button className={styles.cartButton}
                                             onClick={(event) => handleAddToCart(event, product)}
-                                            disabled={product.quantity <= 0}>
+                                            disabled={product.quantity <= 0} >
                                             <FaCartShopping className={styles.cartIcon} /> Add to cart
                                         </button>
                                     </div>
@@ -127,18 +131,12 @@ const ProductScroll = () => {
                     </div>
                 </div>
 
-                <button className={`${styles.navButton} ${styles.nextButton}`} onClick={handleNext}>
+                <button className={`${styles.navButton} ${styles.nextButton}`} onClick={handleNext} >
                     <FaChevronRight />
                 </button>
             </div>
 
-            <WishlistSidebar
-                isOpen={isWishlistOpen}
-                onClose={() => setIsWishlistOpen(false)}
-                wishlistItems={wishlistItems}
-                removeFromWishlist={handleRemoveFromWishlist}
-                addToCart={addToCartFromWishlist}
-            />
+            
         </div>
     );
 };

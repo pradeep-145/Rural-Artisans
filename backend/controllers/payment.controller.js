@@ -11,7 +11,7 @@ export const createOrder= async (req, res) => {
         };
 
         const order = await razorpay.orders.create(options);
-        res.json({ success: true, order });
+        res.json({ success: true, order:order });
     } catch (error) {
         res.status(500).json({ success: false, message: error.message });
     }

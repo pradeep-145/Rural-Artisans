@@ -6,6 +6,7 @@ import { useState } from 'react';
 import { useCart } from '../../context/CartContext'; // Import cart context
 import styles from './Product.module.css';
 import WishlistSidebar from '../../Components/WishlistSidebar/WishlistSidebar';
+import axios from 'axios';
 
 const Product = () => {
     const location = useLocation();
@@ -33,9 +34,20 @@ const Product = () => {
         }
     }
 
-    const handleAddToCart = () => {
+    const handleAddToCart = async() => {
         addToCart(product, count);
-        // You could add a notification here
+        try{
+
+            await axios.post('/api/products/cart/add', {
+                customerId: authUser._id,
+                productId: product._id,
+                quantity: count
+            })
+        }
+        catch(error){
+            console.log(error)
+        }
+
     };
 
     const handleAddToWishlist = () => {
