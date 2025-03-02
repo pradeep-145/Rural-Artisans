@@ -12,7 +12,7 @@ import axios from "axios";
 const ProductList = () => {
   const navigate = useNavigate();
   const { products } = useProducts();
-  const { addToCart, setCartItems } = useCart(); // Use cart context
+  const { addToCart, setCartItems,cartItems } = useCart(); // Use cart context
   const [isWishlistOpen, setIsWishlistOpen] = useState(false);
   const [wishlistItems, setWishlistItems] = useState([]);
   const [wishlistProductIds, setWishlistProductIds] = useState(new Set()); // Track wishlist items
@@ -61,10 +61,19 @@ const {authUser}=useAuthContext()
   const handleAddToCart = async(event, item) => {
     event.stopPropagation();
     addToCart(item, 1);
-    try{
 
+    try{
+          if(cartItems.find(cartItem=>cartItem._id===item._id)){
+                await axios.post('/api/products/cart/update', {
+                    id: item._id,
+                    quantity: cartItems.find(cartItem=>cartItem._id===item._id).quantity+1
+                })
+                console.log("Item updated in cart")
+
+                return
+            }
       await axios.post('/api/products/cart/add', {
-          customerId: JSON.parse(localStorage.getItem('authUser'))._id,
+          customerId: authUser.user._id,
           productId: item._id,
           quantity: 1
       })

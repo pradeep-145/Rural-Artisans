@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import styles from "./ArtisanDashboard.module.css";
 import { FiLogOut } from "react-icons/fi";
 import { Link } from "react-router-dom";
+import { useAuthContext } from "../../context/AuthContext";
 
 const ArtisanDashboard = () => {
   const [products, setProducts] = useState([]);
@@ -18,13 +19,15 @@ const ArtisanDashboard = () => {
   ]);
   const [addProduct, setAddProduct] = useState(false);
 
-  const authUser = JSON.parse(localStorage.getItem("authUser"));
+  const {authUser}=useAuthContext()
 
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await axios.get(`/api/products/${authUser._id}`);
+        if(authUser.type==='artisan'){
+        const response = await axios.get(`/api/products/artisan/get/${authUser.user._id}`);
         setProducts(response.data);
+        }
       } catch (error) {
         console.log("Error fetching products:", error);
       }
@@ -58,7 +61,7 @@ const ArtisanDashboard = () => {
     }
 
     const formData = new FormData();
-    formData.append("artisanId", authUser._id);
+    formData.append("artisanId", authUser.user._id);
     formData.append("name", name);
     formData.append("price", price);
     formData.append("quantity", quantity);
