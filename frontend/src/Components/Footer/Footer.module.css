@@ -1,5 +1,5 @@
 .footer{
-    padding: 3rem 2rem;
+    padding: 20px 0;
     text-align: center;
     position: relative;
     bottom: 0;
@@ -10,7 +10,7 @@
     justify-items: center;
     align-items: center;
     display: flex;
-    gap: 10px;
+    gap: 20px;
     flex-direction: column;
 }
 
@@ -30,5 +30,5 @@
     transform: translateY(-1px) scale(1.001);
 }
 .icons{
-    font-size: 1.5rem;
+    font-size: 1.4rem;
 }
