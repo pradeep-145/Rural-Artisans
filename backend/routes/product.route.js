@@ -1,9 +1,7 @@
-import express from 'express'
-import { saveProduct, getUserProducts, getArtisanProducts, updateCart, addToWishlist, deleteCart, getWishlist, getUnverifiedProducts, getProduct, reviewProduct, addToCart, getCart } from '../controllers/product.controller.js'
-import multer from 'multer'
-import { artisanAuthMiddleware } from '../middlewares/artisan.middleware.js';
+import express from 'express';
+import multer from 'multer';
+import { addToCart, addToWishlist, deleteCart, getArtisanProducts, getCart, getUnverifiedProducts, getUserProducts, getWishlist, reviewProduct, saveProduct, updateCart } from '../controllers/product.controller.js';
 import { customerAuthMiddle } from '../middlewares/customer.middleware.js';
-import { adminAuthMiddleware } from '../middlewares/admin.middleware.js';
 const productRouter = express.Router();
 const storage = multer.memoryStorage();
 const upload = multer({ storage: storage })

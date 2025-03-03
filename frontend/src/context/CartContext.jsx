@@ -25,7 +25,7 @@ export const CartProvider = ({ children }) => {
     localStorage.setItem("cart", JSON.stringify(cartItems));
     
     const itemCount = cartItems.reduce((total, item) => total + item.quantity, 0);
-    const totalPrice = cartItems.reduce((total, item) => total + (item.price * item.quantity), 0);
+    const totalPrice = cartItems.reduce((total, item) => total + (item.productId.price * item.quantity), 0);
     
     setCartCount(itemCount);
     setCartTotal(totalPrice);

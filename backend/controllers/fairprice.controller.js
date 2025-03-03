@@ -55,27 +55,29 @@ export const verifyProduct = async (req, res) => {
 }
 
 export const evaluatePrice = async (req, res) => {
-    console.log(req.body);
     try {
         const { product } = req.body;
-
+        
         if (!product || !product.rawMaterials || !product.packagingCost || !product.price || !product.quantity) {
-
+            
             return res.status(400).json({ error: "Missing required fields in product data" });
         }
-
+        
         let adminTotalRawCost = 0;
         let sellerTotalRawCost = 0;
-
+        
         for (const item of product.rawMaterials) {
-            const adminRaw = await RawMaterial.findOne({ name: item.name });
+            const adminRaw = await RawMaterial.findOne({ name: item.name })
             if (!adminRaw) {
+                console.log(item.name);
+                
                 return res.status(400).json({ error: `Raw material ${item.name} not found in database` });
             }
-
+            
             adminTotalRawCost += adminRaw.price * item.quantity;
             sellerTotalRawCost += item.cost * item.quantity;
-
+                console.log(adminTotalRawCost);
+                
             if (!isPriceReasonable(item.cost, adminRaw.price)) {
                 return res.status(400).json({
                     message: `Product listing not possible. Seller's price for ${item.name} is too high.`,

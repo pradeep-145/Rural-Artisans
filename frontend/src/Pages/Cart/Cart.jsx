@@ -21,6 +21,7 @@ const Cart = () => {
     const tax = cartTotal * 0.05;
     const finalTotal = cartTotal + shippingCost + tax - discount;
     const { authUser } = useAuthContext();
+    console.log(cartItems   )
 
     const handleBack = () => {
         navigate(-1);
