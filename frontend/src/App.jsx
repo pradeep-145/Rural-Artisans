@@ -38,10 +38,11 @@ function App() {
   
 const {setCartItems,cartItems}=useCart()
   useEffect(() => {
-    if(localStorage.getItem('authUser')){
+    if(authUser){
+      
       const fetchCart = async () => {
         try {
-          const response = await axios.get(`/api/products/cart/get/${JSON.parse(localStorage.getItem('authUser'))._id}`)
+          const response = await axios.get(`/api/products/cart/get/${authUser.user._id}`)
           const data = await response.data
           localStorage.setItem('cart',JSON.stringify(data
           ))
@@ -54,9 +55,7 @@ const {setCartItems,cartItems}=useCart()
       fetchCart()
 
     }
-    setAuthUser({user:JSON.parse(localStorage.getItem('authUser')),
-      type:localStorage.getItem('type')
-    })
+    
 
   }
   , [setAuthUser,setCartItems])

@@ -42,7 +42,7 @@ export const artisanSignIn = async (req, res) => {
             }
             const token = generateToken(payload);
             res.cookie('jwt', token, {
-                maxAge:  24 * 60 * 60 * 1000,
+                maxAge:  15*24 * 60 * 60 * 1000,
                 httpOnly: true,
                 sameSite: "strict",
             });
@@ -87,7 +87,7 @@ export const userSignIn = async (req, res) => {
                 };
                 const token = generateToken(payload);
                 res.cookie('jwt', token, {
-                    maxAge: 15 * 24 * 60 * 60 * 1000,
+                    maxAge: 30 * 24 * 60 * 60 * 1000,
                     httpOnly: true,
                     sameSite: "strict",
                     

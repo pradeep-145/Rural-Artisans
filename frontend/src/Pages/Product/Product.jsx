@@ -7,6 +7,7 @@ import { useCart } from '../../context/CartContext'; // Import cart context
 import styles from './Product.module.css';
 import WishlistSidebar from '../../Components/WishlistSidebar/WishlistSidebar';
 import axios from 'axios';
+import { useAuthContext } from '../../context/AuthContext';
 
 const Product = () => {
     const location = useLocation();
@@ -16,8 +17,9 @@ const Product = () => {
     const [isWishlistOpen, setIsWishlistOpen] = useState(false);
     const [wishlistItems, setWishlistItems] = useState([]);
     const [isInWishlist, setIsInWishlist] = useState(false);
-    const { addToCart } = useCart(); // Use cart context
+    const { addToCart,cartItems } = useCart();
 
+    const { authUser } = useAuthContext();
     const handleBack = () => {
         navigate(-1);
     };
@@ -35,11 +37,20 @@ const Product = () => {
     }
 
     const handleAddToCart = async() => {
-        addToCart(product, count);
+       
         try{
+            if(cartItems.find(cartItem=>cartItem._id===product._id)){
+                console.log(cartItems.find(cartItem=>cartItem._id===product._id))
+                await axios.post('/api/products/cart/update', {
+                    id: item._id,
+                    quantity: cartItems.find(cartItem=>cartItem._id===product._id).quantity+count
+                })
+                console.log("Item updated in cart")
 
+                return
+            }
             await axios.post('/api/products/cart/add', {
-                customerId: authUser._id,
+                customerId: authUser.user._id,
                 productId: product._id,
                 quantity: count
             })
