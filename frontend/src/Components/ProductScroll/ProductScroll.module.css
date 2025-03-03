@@ -238,6 +238,36 @@
     transition: all 0.5s ease-in-out;
 }
 
+.loader {
+    width: 16px;
+    height: 16px;
+    border: 2px solid #FFF;
+    border-bottom-color: transparent;
+    border-radius: 50%;
+    display: inline-block;
+    box-sizing: border-box;
+    animation: rotation 1s linear infinite;
+}
+
+@keyframes rotation {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.removeButton {
+    background-color: #ef4444;
+    box-shadow: 0 4px 6px rgba(239, 68, 68, 0.2);
+}
+
+.removeButton:hover {
+    background-color: #dc2626;
+}
+
 @media (max-width: 1024px) {
     .productScrollContainer {
         padding: 2rem 3rem;
