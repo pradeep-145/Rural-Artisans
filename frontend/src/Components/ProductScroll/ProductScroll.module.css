@@ -51,7 +51,7 @@
 
 .productSlider {
     position: relative;
-    display: flex;
+    /* display: flex; */
     align-items: center;
     gap: 1rem;
 }
